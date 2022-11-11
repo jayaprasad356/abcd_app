@@ -1,4 +1,4 @@
-package com.greymatter.abcdapp;
+package com.app.abcdapp;
 
 import org.junit.Test;
 
