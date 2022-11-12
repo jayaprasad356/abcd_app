@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WalletActivity"
+    android:background="#EAE9E9"
 
     >
 
@@ -14,17 +15,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:src="@drawable/ic_baseline_arrow_back_24"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wallet"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/black"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                />
+
+        </LinearLayout>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Wallet"
-        android:textSize="@dimen/_16sdp"
-        android:textColor="@color/black"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginVertical="@dimen/_10sdp"
-        />
+
 
 
 
@@ -34,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            app:cardCornerRadius="@dimen/_10sdp"
+
             >
 
 
@@ -81,11 +97,12 @@
             android:layout_height="40dp"
             android:background="@drawable/tab_layout"
             android:elevation="6dp"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
             app:tabBackground="@drawable/tab_color_selector"
             app:tabTextColor="@color/white"
             app:tabSelectedTextColor="@color/primaryColor"
             app:tabIndicatorColor="@color/white"
-            app:tabIndicatorFullWidth="false"
+
             />
 
 

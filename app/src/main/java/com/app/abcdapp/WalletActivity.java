@@ -3,7 +3,10 @@ package com.app.abcdapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -12,6 +15,7 @@ public class WalletActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +25,10 @@ public class WalletActivity extends AppCompatActivity {
 
 
         tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("TRANSACTION"));
-        tabLayout.addTab(tabLayout.newTab().setText("WITHDRAWAL"));
-        tabLayout.addTab(tabLayout.newTab().setText("REEDEMED"));
+        back = findViewById(R.id.back);
+        tabLayout.addTab(tabLayout.newTab().setText("Transaction"));
+        tabLayout.addTab(tabLayout.newTab().setText("Withdrawal"));
+        tabLayout.addTab(tabLayout.newTab().setText("Reedemed"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
@@ -31,7 +36,6 @@ public class WalletActivity extends AppCompatActivity {
         TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(tabsAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        viewPager.setOffscreenPageLimit(0);
 
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -46,6 +50,12 @@ public class WalletActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }

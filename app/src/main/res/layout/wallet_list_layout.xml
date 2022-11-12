@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
 
@@ -22,14 +22,13 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:backgroundTint="@color/primaryLightColor"
-            app:cardCornerRadius="@dimen/_100sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             >
 
 
             <ImageView
                 android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/ic_rupee_symbol_black"
                 android:backgroundTint="@color/white"
                 android:layout_gravity="center"
@@ -54,7 +53,7 @@
                 android:text="Amount Credited For Qr Code"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 />
 
             <TextView
@@ -62,9 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="12-11-2022 | 11:34:50 AM"
-                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_8sdp"
 
                 />
 
@@ -79,7 +77,9 @@
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:text="+ 0.17₹"
-            android:textColor="@color/secondaryColor"
+            android:background="@drawable/amt_bg"
+            android:padding="@dimen/_3sdp"
+            android:textColor="#388E3C"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
 
