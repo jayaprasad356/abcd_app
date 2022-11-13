@@ -1,9 +1,11 @@
-package com.app.abcdapp;
+package com.app.abcdapp.java;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+
+import com.app.abcdapp.R;
 
 public class GenericTextWatcher implements TextWatcher {
     private final EditText[] editText;

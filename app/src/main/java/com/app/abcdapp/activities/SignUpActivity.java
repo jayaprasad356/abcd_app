@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,8 +12,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.app.abcdapp.R;
 
 import java.util.Calendar;
 
@@ -68,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }

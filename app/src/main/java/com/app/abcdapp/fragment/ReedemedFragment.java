@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.fragment;
 
 import android.os.Bundle;
 
@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.app.abcdapp.R;
+import com.app.abcdapp.Model.Redeem;
+import com.app.abcdapp.Adapter.RedeemedAdapter;
 
 import java.util.ArrayList;
 

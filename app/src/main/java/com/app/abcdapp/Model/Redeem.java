@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.Model;
 
 public class Redeem {
     String id,mode,mobile,amount,time,date,status;

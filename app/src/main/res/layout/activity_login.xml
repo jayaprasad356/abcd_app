@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/_20sdp"
     android:gravity="center"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
 
 
     <androidx.cardview.widget.CardView

@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.app.abcdapp.R;
+import com.app.abcdapp.activities.ReferEarnActivity;
 
 
 public class ProfileFragment extends Fragment {
@@ -34,7 +37,7 @@ public class ProfileFragment extends Fragment {
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),ReferEarnActivity.class);
+                Intent intent = new Intent(getActivity(), ReferEarnActivity.class);
                 startActivity(intent);
             }
         });

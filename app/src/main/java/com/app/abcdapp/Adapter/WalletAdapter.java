@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.Adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.app.abcdapp.R;
+import com.app.abcdapp.Model.Wallet;
 
 import java.util.ArrayList;
 

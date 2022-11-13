@@ -1,9 +1,12 @@
-package com.app.abcdapp;
+package com.app.abcdapp.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.app.abcdapp.fragment.ReedemedFragment;
+import com.app.abcdapp.fragment.TransactionFragment;
+import com.app.abcdapp.fragment.WithdrawalFragment;
 
 
 public class TabsAdapter extends FragmentStatePagerAdapter {

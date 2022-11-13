@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.Adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.app.abcdapp.Model.Redeem;
+import com.app.abcdapp.R;
 
 import java.util.ArrayList;
 
@@ -34,7 +37,7 @@ public class RedeemedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         holder.tvPaymentmode.setText(redeem.getMode());
         holder.tvMobileno.setText(redeem.getMobile());
-        holder.tvAmount.setText(redeem.getAmount()+"\n\n"+redeem.status+"\n\n"+redeem.getDate()+" | "+redeem.getTime());
+        holder.tvAmount.setText(redeem.getAmount()+"\n\n"+redeem.getStatus()+"\n\n"+redeem.getDate()+" | "+redeem.getTime());
 
     }
 

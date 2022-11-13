@@ -1,8 +1,10 @@
-package com.app.abcdapp;
+package com.app.abcdapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.app.abcdapp.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

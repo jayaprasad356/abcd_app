@@ -1,13 +1,14 @@
-package com.app.abcdapp;
+package com.app.abcdapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.app.abcdapp.Adapter.TabsAdapter;
+import com.app.abcdapp.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class WalletActivity extends AppCompatActivity {

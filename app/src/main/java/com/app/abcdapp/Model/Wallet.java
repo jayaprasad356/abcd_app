@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.Model;
 
 public class Wallet {
     String id,title,amount,date,time;

@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.fragment;
 
 import android.os.Bundle;
 
@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+
+import com.app.abcdapp.java.GenericTextWatcher;
+import com.app.abcdapp.R;
 
 
 public class HomeFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.app.abcdapp;
+package com.app.abcdapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.app.abcdapp.R;
+import com.app.abcdapp.fragment.HomeFragment;
+import com.app.abcdapp.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                         fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
                         break;
                     case R.id.Wallet:
-                        Intent intent = new Intent(activity,WalletActivity.class);
+                        Intent intent = new Intent(activity, WalletActivity.class);
                         startActivity(intent);
                         break;
                 }
