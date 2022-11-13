@@ -69,6 +69,20 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Bank  Branch name"
+            android:layout_marginTop="@dimen/_15sdp"
+
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
+
 
         <TextView
             android:layout_width="match_parent"
