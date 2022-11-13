@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        EditText[] edit = {otp_textbox_one, otp_textbox_two, otp_textbox_three, otp_textbox_four};
+        EditText[] edit = {otp_textbox_one, otp_textbox_two, otp_textbox_three, otp_textbox_four,otp_textbox_five,otp_textbox_six,otp_textbox_seven,otp_textbox_eight,otp_textbox_nine,otp_textbox_ten};
 
         otp_textbox_one.addTextChangedListener(new GenericTextWatcher(otp_textbox_one, edit));
         otp_textbox_two.addTextChangedListener(new GenericTextWatcher(otp_textbox_two, edit));
