@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:layout_marginHorizontal="@dimen/_20sdp"
     android:gravity="center"
+    android:background="@drawable/bg"
     tools:context=".activities.LoginActivity">
 
 
@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_100sdp"
         android:layout_marginBottom="@dimen/_20sdp"
+
         >
 
 
@@ -35,10 +36,20 @@
 
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:orientation="vertical"
+        >
+
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Phone No"
+        android:textColor="@color/white"
         />
 
     <EditText
@@ -51,6 +62,8 @@
         android:textColorHint="@color/black"
         android:inputType="number"
         android:maxLength="10"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/ed_bg"
         >
 
 
@@ -62,6 +75,7 @@
         android:layout_height="wrap_content"
         android:text="Password"
         android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/white"
         />
 
     <EditText
@@ -73,7 +87,11 @@
         android:textSize="@dimen/_12sdp"
         android:textColorHint="@color/black"
         android:inputType="textPassword"
+        android:background="@drawable/ed_bg"
+        android:padding="@dimen/_10sdp"
         />
+
+    </LinearLayout>
 
 
 
@@ -83,15 +101,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
         android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/CheckBox"
             android:layout_width="wrap_content"
-            android:checked="false"
+            android:checked="true"
             android:text="By signing you agree to our terms Of service and privacy and policy "
             android:layout_height="wrap_content"
-            android:buttonTint="@color/primaryColor"
+            android:buttonTint="@color/white"
+            android:textColor="@color/white"
             android:padding="@dimen/_10sdp"
             />
 
@@ -151,7 +171,7 @@
         android:layout_marginHorizontal="@dimen/_30sdp"
         android:text="Sign in"
         android:padding="@dimen/_10sdp"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="@color/primaryLightColor"
         />
 
     <LinearLayout
@@ -167,7 +187,7 @@
             android:gravity="center"
             android:layout_gravity="end"
             android:textSize="@dimen/_10sdp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/tvSignup"
@@ -177,7 +197,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textSize="@dimen/_10sdp"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryLightColor"
             android:textStyle="bold"/>
     </LinearLayout>
 

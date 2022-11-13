@@ -1,9 +1,10 @@
 package com.app.abcdapp.helper;
 
 public class Constant {
-    public static final String MainBaseUrl = "https://moiapp.greymatterworks.in/";
+    public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
+    public static final String REGISTER_URL = BaseUrl + "register.php";
     public static final String ADDMOI = BaseUrl + "add-moi.php";
     public static final String MOI_LIST_BY_FIDS = BaseUrl + "moi-list-by-fids.php";
     public static final String FUNCTIONLIST = BaseUrl + "functions-list.php";
@@ -42,7 +43,13 @@ public class Constant {
     public static final String FUNCTIONAME = "function_name";
     public static final String FUNCTIONID = "function_id";
     public static final String DATE = "date";
+    public static final String DOB = "dob";
 
     public static final String AMOUNT = "amount";
     public static final String ORGANIZER_ID = "organizer_id";
+    public static final String CITY = "city";
+    public static final String PINCCODE = "pincode";
+    public static final String PASSWORD = "password";
+    public static final String CODE = "code";
+    public static final String REFERRED_BY = "referred_by";
 }

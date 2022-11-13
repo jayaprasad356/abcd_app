@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.abcdapp.R;
+import com.app.abcdapp.helper.ApiConfig;
+import com.app.abcdapp.helper.Constant;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,18 +46,64 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(EtPhoneNumber.length()==0 ){
+                if(EtPhoneNumber.getText().toString().trim().equals("") ){
                     Toast.makeText(LoginActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
                 }
-                else if (EtPassword.length()==0){
+                else if (EtPassword.getText().toString().trim().equals("")){
                     Toast.makeText(LoginActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+
+                    Login();
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
                 }
             }
         });
+    }
+
+    private void Login() {
+
+        Map<String, String> params = new HashMap<>();
+
+        params.put(Constant.MOBILE,EtPhoneNumber.getText().toString().trim());
+        params.put(Constant.PASSWORD,EtPassword.getText().toString().trim());
+
+
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.d("SIGNUP_RES",response);
+
+
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
+                        Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    }
+                    else {
+                        Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+
+
+            }
+            else {
+                Toast.makeText(this, String.valueOf(response) +String.valueOf(result), Toast.LENGTH_SHORT).show();
+
+            }
+            //pass url
+        }, LoginActivity.this, Constant.LOGIN_URL, params,true);
+
+
+
     }
 
 }
