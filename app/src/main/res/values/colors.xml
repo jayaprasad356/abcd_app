@@ -9,11 +9,11 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="primaryColor">#0369ce</color>
+    <color name="primaryColor">#4d4a75</color>
 
-    <color name="primaryLightColor">#5d96ff</color>
+    <color name="primaryLightColor">#0288D1</color>
 
-    <color name="primaryDarkColor">#00409c</color>
+    <color name="primaryDarkColor">#353250</color>
 
     <color name="secondaryColor">#ff6d00</color>
 

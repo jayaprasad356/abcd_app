@@ -11,19 +11,19 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.abcdapp.R;
-
 import java.util.Calendar;
-
+import com.app.abcdapp.R;
 
 public class SignUpActivity extends AppCompatActivity {
 
     EditText EtName,EtPhoneNo,edDOB,EtEmail,EtCity,EtCode,EtPassword;
     LinearLayout llDob;
-    ImageButton backbtn;
+    ImageView backbtn;
     Button btnSignup;
 
     @SuppressLint("MissingInflatedId")
@@ -69,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                     startActivity(intent);
                 }
             }
@@ -95,7 +95,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         // on below line we are setting date to our text view.
-                        edDOB.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        edDOB.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
                     }
                 },
@@ -151,4 +151,4 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     }
-    }
+}
