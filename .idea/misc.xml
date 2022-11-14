@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/abcd_app/app/src/main/res/drawable-v24/custom_progress_dialog.xml" value="0.1" />
+        <entry key="..\:/abcd_app/app/src/main/res/drawable/bg_bluecardcurve.xml" value="0.126" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable/ed_bg.xml" value="0.126" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable/edittext_curve_bg.xml" value="0.126" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable/on_select.xml" value="0.126" />
@@ -12,15 +13,19 @@
         <entry key="..\:/abcd_app/app/src/main/res/drawable/wallet_list_bg.xml" value="0.126" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_main.xml" value="0.10729166666666666" />
+        <entry key="..\:/abcd_app/app/src/main/res/layout/activity_refer_earn.xml" value="0.25" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_sign_up.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
+        <entry key="..\:/abcd_app/app/src/main/res/layout/activity_update_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_wallet.xml" value="0.22" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_reedemed.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_transaction.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_withdrawal.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/redeem_list_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/wallet_list_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/abcd_app/app/src/main/res/menu/popup_menu.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

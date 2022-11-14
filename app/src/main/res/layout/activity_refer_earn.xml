@@ -16,6 +16,8 @@
         android:padding="@dimen/_14sdp">
 
         <ImageView
+            android:id="@+id/backbtn"
+            android:layout_marginRight="@dimen/_20sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"/>
@@ -23,7 +25,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Refer  Earn"
+            android:text="Refer &amp; Earn"
             android:textSize="@dimen/_14sdp"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -32,15 +34,17 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_220sdp"
-        app:cardCornerRadius="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_10sdp"
         android:layout_margin="@dimen/_10sdp"
+        android:backgroundTint="@color/primaryColor"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_bluecardcurve"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,17 +52,19 @@
                 android:text="Refer Code"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:textSize="@dimen/_15sdp"/>
+                android:textSize="@dimen/_14sdp"/>
 
             <TextView
+                android:id="@+id/tvRefercode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="DEMO"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"/>
+                android:textSize="@dimen/_16sdp"/>
 
             <Button
+                android:id="@+id/btncopy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="COPY TO SHARE"
@@ -68,62 +74,21 @@
                 android:paddingHorizontal="@dimen/_40sdp"
                 android:paddingVertical="@dimen/_10sdp"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
-                    android:text="Refer your friend and"
+                    android:text="Refer your friend and family members and earn ? 300 Bonus + ? 250 Refund + 1000 codes ( ? 170) Totally ? 720/- instantly in"
                     android:textColor="@color/white"
                     android:layout_gravity="center"
+                    android:textAlignment="center"
                     android:textSize="@dimen/_12sdp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="family members and earn ?"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="300 Bonus + ? 250 Refund"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/_12sdp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+ 1000 codes ( ? 170)"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/_12sdp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Totally ? 720/- instantly in"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/_12sdp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="your wallet.&amp;nbsp;"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/_12sdp"/>
 
-            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -182,10 +147,28 @@
 
     </LinearLayout>
 
-    <ImageView
+
+
+
+    <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_140sdp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_10sdp"
         android:layout_margin="@dimen/_10sdp"
-        android:background="@drawable/bg_bluecardcurve"/>
+        android:backgroundTint="@color/primaryColor">
+
+
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/ic_refer_a_friend_pana"
+        />
+
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
