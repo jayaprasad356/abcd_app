@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.app.abcdapp.java.GenericTextWatcher;
 import com.app.abcdapp.R;
@@ -61,5 +62,11 @@ public class HomeFragment extends Fragment {
 
 
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
     }
 }

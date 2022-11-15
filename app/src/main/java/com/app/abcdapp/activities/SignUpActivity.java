@@ -113,9 +113,6 @@ public class SignUpActivity extends AppCompatActivity {
                 else if (EtCity.getText().toString().trim().equals("")){
                     Toast.makeText(SignUpActivity.this, "City is empty", Toast.LENGTH_SHORT).show();
                 }
-                else if (EtCode.getText().toString().trim().equals("")){
-                    Toast.makeText(SignUpActivity.this, "Code is empty", Toast.LENGTH_SHORT).show();
-                }
                 else if (EtPassword.getText().toString().trim().equals("")){
                     Toast.makeText(SignUpActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
                 }
@@ -142,8 +139,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void Register() {
-
-
         Map<String, String> params = new HashMap<>();
         params.put(Constant.NAME,EtName.getText().toString().trim());
         params.put(Constant.MOBILE,EtPhoneNo.getText().toString().trim());
@@ -152,16 +147,11 @@ public class SignUpActivity extends AppCompatActivity {
         params.put(Constant.CITY,EtCity.getText().toString().trim());
         params.put(Constant.REFERRED_BY,EtCode.getText().toString().trim());
         params.put(Constant.PASSWORD,EtPassword.getText().toString().trim());
-
-
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    Log.d("SIGNUP_RES",response);
-
-
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
