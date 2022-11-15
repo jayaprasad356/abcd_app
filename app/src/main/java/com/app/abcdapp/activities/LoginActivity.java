@@ -2,6 +2,7 @@ package com.app.abcdapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.app.abcdapp.R;
 import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
+import com.app.abcdapp.helper.Session;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,11 +29,17 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvSignup;
     EditText EtPhoneNumber,EtPassword;
     Button btnLogin;
+    Session session;
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+         activity = LoginActivity.this;
+        session = new Session(activity);
+
         btnLogin = findViewById(R.id.btnLogin);
         EtPhoneNumber = findViewById(R.id.EtPhoneNumber);
         EtPassword = findViewById(R.id.EtPassword);
@@ -81,6 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                        session.setBoolean("is_logged_in", true);
+                        session.setData(Constant.ID,jsonArray.getJSONObject(0).getString(Constant.ID));
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();

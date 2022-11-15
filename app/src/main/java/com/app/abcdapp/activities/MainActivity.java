@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.app.abcdapp.R;
 import com.app.abcdapp.fragment.HomeFragment;
 import com.app.abcdapp.fragment.ProfileFragment;
+import com.app.abcdapp.fragment.WalletFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -40,8 +41,12 @@ public class MainActivity extends AppCompatActivity {
                         fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
                         break;
                     case R.id.Wallet:
-                        Intent intent = new Intent(activity, WalletActivity.class);
-                        startActivity(intent);
+
+                        fm.beginTransaction().replace(R.id.Container, new WalletFragment()).commit();
+
+
+
+
                         break;
                 }
                 return true;

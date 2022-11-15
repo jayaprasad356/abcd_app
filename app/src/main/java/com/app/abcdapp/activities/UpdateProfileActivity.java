@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -53,9 +55,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         EtPhoneNo = findViewById(R.id.EtPhoneNo);
         EtEmail = findViewById(R.id.EtEmail);
         EtCity = findViewById(R.id.EtCity);
-        EtCode = findViewById(R.id.EtCode);
         EtPassword = findViewById(R.id.EtPassword);
-       // userDetails();
+        userDetails();
 
 
 
@@ -113,20 +114,19 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 else if (EtCity.getText().toString().trim().equals("")){
                     Toast.makeText(activity, "City is empty", Toast.LENGTH_SHORT).show();
                 }
-                else if (EtCode.getText().toString().trim().equals("")){
-                    Toast.makeText(activity, "Code is empty", Toast.LENGTH_SHORT).show();
-                }
+
                 else if (EtPassword.getText().toString().trim().equals("")){
                     Toast.makeText(activity, "Password is empty", Toast.LENGTH_SHORT).show();
                 }
                 else{
 
 
-                  //  updateUser();
+                    updateUser();
 
 
 //                    Intent intent = new Intent(activity,LoginActivity.class);
 //                    startActivity(intent);
+
                 }
             }
         });
@@ -145,35 +145,76 @@ public class UpdateProfileActivity extends AppCompatActivity {
         
         
 
-//
-//    private void userDetails()
-//    {
-//        Map<String, String> params = new HashMap<>();
-//        params.put(Constant.USER_ID,session.getData(Constant.ID));
-//        ApiConfig.RequestToVolley((result, response) -> {
-//            if (result) {
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-//                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-//                        spinOccupation.setSelection(getIndex(spinOccupation, jsonArray.getJSONObject(0).getString(Constant.OCCUPATION)));
-//                        spinGender.setSelection(getIndex(spinGender, jsonArray.getJSONObject(0).getString(Constant.GENDER)));
-//                        etName.setText(jsonArray.getJSONObject(0).getString(Constant.NAME));
-//                        etEmail.setText(jsonArray.getJSONObject(0).getString(Constant.EMAIL));
-//                        etMobile.setText(jsonArray.getJSONObject(0).getString(Constant.MOBILE));
-//                        etAddress.setText(jsonArray.getJSONObject(0).getString(Constant.ADDRESS));
-//                        etVillageName.setText(jsonArray.getJSONObject(0).getString(Constant.VILLAGE));
-//                        etPincode.setText(jsonArray.getJSONObject(0).getString(Constant.PINCODE));
-//                        etDistrict.setText(jsonArray.getJSONObject(0).getString(Constant.DISTRICT));
-//                    }
-//
-//                } catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, activity, Constant.USER_DETAILS_URL, params,true);
-//
-//
-//
-//    }
+
+    private void userDetails()
+
+
+    {
+
+
+        Map<String, String> params = new HashMap<>();
+        params.put(Constant.USER_ID,session.getData(Constant.ID));
+        ApiConfig.RequestToVolley((result, response) -> {
+
+            Log.d("res",response);
+
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
+                        EtName.setText(jsonArray.getJSONObject(0).getString(Constant.NAME));
+                        EtEmail.setText(jsonArray.getJSONObject(0).getString(Constant.EMAIL));
+                        EtPhoneNo.setText(jsonArray.getJSONObject(0).getString(Constant.MOBILE));
+                        edDOB.setText(jsonArray.getJSONObject(0).getString(Constant.DOB));
+                        EtCity.setText(jsonArray.getJSONObject(0).getString(Constant.CITY));
+                        EtPassword.setText(jsonArray.getJSONObject(0).getString(Constant.PASSWORD));
+                 }
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }, activity, Constant.USER_DETAILS_URL, params,true);
+
+
+
+    }
+
+
+    private void updateUser() {
+        Map<String, String> params = new HashMap<>();
+        params.put(Constant.USER_ID, session.getData(Constant.ID));
+        params.put(Constant.NAME, EtName.getText().toString().trim());
+        params.put(Constant.EMAIL, EtEmail.getText().toString().trim());
+        params.put(Constant.CITY, EtCity.getText().toString().trim());
+        params.put(Constant.MOBILE,EtPhoneNo .getText().toString().trim());
+        params.put(Constant.PASSWORD, EtPassword.getText().toString().trim());
+        params.put(Constant.DOB, edDOB.getText().toString().trim());
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
+                        session.setData(Constant.ID, jsonArray.getJSONObject(0).getString(Constant.ID));
+                        session.setData(Constant.NAME, jsonArray.getJSONObject(0).getString(Constant.NAME));
+                        session.setData(Constant.MOBILE, jsonArray.getJSONObject(0).getString(Constant.MOBILE));
+                        session.setData(Constant.CITY, jsonArray.getJSONObject(0).getString(Constant.CITY));
+                        session.setData(Constant.PASSWORD, jsonArray.getJSONObject(0).getString(Constant.PASSWORD));
+                        startActivity(new Intent(activity, MainActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, activity, Constant.UPDATE_USER_URL, params, true);
+
+
+    }
+
 }

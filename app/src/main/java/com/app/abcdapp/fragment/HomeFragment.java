@@ -1,5 +1,6 @@
 package com.app.abcdapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.abcdapp.activities.GenrateQRActivity;
 import com.app.abcdapp.java.GenericTextWatcher;
 import com.app.abcdapp.R;
 
@@ -86,6 +88,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
+
+
                 if (!tvName.getText().toString().trim().equals(edName.getText().toString().trim())){
 
                     Toast.makeText(getActivity(), "Name not match", Toast.LENGTH_SHORT).show();
@@ -104,7 +109,8 @@ public class HomeFragment extends Fragment {
 
                 else {
 
-                    Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), GenrateQRActivity.class);
+                    startActivity(intent);
 
                 }
 

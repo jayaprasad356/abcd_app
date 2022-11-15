@@ -11,6 +11,7 @@
         <entry key="..\:/abcd_app/app/src/main/res/drawable/tab_color_selector.xml" value="0.126" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable/tab_layout.xml" value="0.126" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable/wallet_list_bg.xml" value="0.126" />
+        <entry key="..\:/abcd_app/app/src/main/res/layout/activity_genrate_qractivity.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_main.xml" value="0.10729166666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/activity_refer_earn.xml" value="0.25" />
@@ -22,6 +23,7 @@
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_reedemed.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_transaction.xml" value="0.20416666666666666" />
+        <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_wallet.xml" value="0.19010416666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/fragment_withdrawal.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/redeem_list_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/wallet_list_layout.xml" value="0.20416666666666666" />

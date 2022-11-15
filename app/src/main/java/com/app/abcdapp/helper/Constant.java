@@ -1,16 +1,13 @@
 package com.app.abcdapp.helper;
 
 public class Constant {
-    public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
+    public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String REGISTER_URL = BaseUrl + "register.php";
-    public static final String ADDMOI = BaseUrl + "add-moi.php";
-    public static final String MOI_LIST_BY_FIDS = BaseUrl + "moi-list-by-fids.php";
-    public static final String FUNCTIONLIST = BaseUrl + "functions-list.php";
-    public static final String MOILIST = BaseUrl + "moi-list.php";
     public static final String DASHBOARD = BaseUrl + "dashboard.php";
-    public static final String UPDATEUSER_URL = BaseUrl + "updateuser.php";
+    public static final String UPDATE_USER_URL = BaseUrl + "updateuser.php";
+    public static final String USER_DETAILS_URL = BaseUrl + "userdetails.php";
 
 
 

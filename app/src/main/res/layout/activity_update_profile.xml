@@ -172,25 +172,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:text="Refer Code"
-                android:textColor="@color/white"
 
-                />
-
-
-            <EditText
-                android:id="@+id/EtCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ed_bg"
-                android:hint="Code"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -218,7 +200,7 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/primaryLightColor"
-                android:text="Sign Up" />
+                android:text="Update" />
 
 
         </LinearLayout>
