@@ -7,14 +7,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.abcdapp.java.GenericTextWatcher;
 import com.app.abcdapp.R;
 
+import java.util.Random;
+
 
 public class HomeFragment extends Fragment {
+
+    private static final String ALLOWED_CHARACTERS ="QWERTYUIOPASDFGHJKLZXCVBNM";
+    private static final String ALLOWED_NUMBER ="0123456789";
+    TextView tvName,tvPincode,tvCity,tvOtp;
+    EditText edName,edPincode,edCity,edOtp;
+    Button btnGenerate;
 
 
     EditText otp_textbox_one, otp_textbox_two, otp_textbox_three, otp_textbox_four,otp_textbox_five,otp_textbox_six,otp_textbox_seven,otp_textbox_eight,otp_textbox_nine,otp_textbox_ten;
@@ -32,6 +42,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        tvName = root.findViewById(R.id.tvName);
+        tvPincode = root.findViewById(R.id.tvPincode);
+        tvCity = root.findViewById(R.id.tvCity);
+        tvOtp = root.findViewById(R.id.tvOtp);
+        edName = root.findViewById(R.id.edName);
+        edPincode = root.findViewById(R.id.edPincode);
+        edCity = root.findViewById(R.id.edCity);
+        btnGenerate = root.findViewById(R.id.btnGenerate);
 
 
         otp_textbox_one = root.findViewById(R.id.otp_edit_box1);
@@ -61,12 +81,68 @@ public class HomeFragment extends Fragment {
         otp_textbox_ten.addTextChangedListener(new GenericTextWatcher(otp_textbox_ten, edit));
 
 
+
+        btnGenerate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!tvName.getText().toString().trim().equals(edName.getText().toString().trim())){
+
+                    Toast.makeText(getActivity(), "Name not match", Toast.LENGTH_SHORT).show();
+                }else if (!tvCity.getText().toString().trim().equals(edCity.getText().toString().trim())){
+
+                    Toast.makeText(getActivity(), "City not match", Toast.LENGTH_SHORT).show();
+                }
+                else if (!tvPincode.getText().toString().trim().equals(edPincode.getText().toString().trim())){
+
+                    Toast.makeText(getActivity(), "Pin code not match", Toast.LENGTH_SHORT).show();
+                }
+                else if (!tvOtp.getText().toString().trim().equals(edit.toString().trim())){
+
+                    Toast.makeText(getActivity(), "OTP not match", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+
+                    Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        });
+
+
         return root;
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
-        Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
+        tvName.setText(getRandomString(10));
+        tvPincode.setText(getRandomNumber(6));
+        tvCity.setText(getRandomString(5));
+        tvOtp.setText(getRandomString(2)+getRandomNumber(8));
+    }
+
+
+
+    private static String getRandomString(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
+    }
+
+
+    private static String getRandomNumber(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_NUMBER.charAt(random.nextInt(ALLOWED_NUMBER.length())));
+        return sb.toString();
     }
 }

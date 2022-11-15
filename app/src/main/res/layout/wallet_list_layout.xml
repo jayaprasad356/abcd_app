@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/wallet_list_bg"
-        android:layout_marginTop="@dimen/_10sdp"
         android:paddingVertical="@dimen/_14sdp"
         >
 
