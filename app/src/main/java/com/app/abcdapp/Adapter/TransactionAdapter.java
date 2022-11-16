@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.app.abcdapp.R;
-import com.app.abcdapp.Model.Wallet;
+import com.app.abcdapp.model.Transanction;
 
 import java.util.ArrayList;
 
-public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     final Activity activity;
-    final ArrayList<Wallet> wallets;
+    final ArrayList<Transanction> wallets;
 
-    public WalletAdapter(Activity activity, ArrayList<Wallet> wallets) {
+    public TransactionAdapter(Activity activity, ArrayList<Transanction> wallets) {
         this.activity = activity;
         this.wallets = wallets;
     }
@@ -34,11 +34,10 @@ public class WalletAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderParent, int position) {
         final ItemHolder holder = (ItemHolder) holderParent;
-        final Wallet wallet = wallets.get(position);
+        final Transanction wallet = wallets.get(position);
 
-        holder.tvTitle.setText(wallet.getTitle());
-        holder.tvDateTime.setText(wallet.getDate()+" | "+wallet.getTime());
-        holder.tvAmount.setText(wallet.getAmount());
+        holder.tvDateTime.setText(wallet.getDatetime());
+        holder.tvAmount.setText("+ ₹"+wallet.getAmount());
 
     }
 

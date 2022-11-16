@@ -36,9 +36,6 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 
                 Session session = new Session(SplashActivity.this);
-
-
-
                 if (session.getBoolean("is_logged_in")){
                     Intent intent=new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);

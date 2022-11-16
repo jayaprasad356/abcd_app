@@ -75,9 +75,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:text="+ 0.17₹"
             android:background="@drawable/amt_bg"
             android:padding="@dimen/_3sdp"
+            android:text="+ 0.17₹"
             android:textColor="#388E3C"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />

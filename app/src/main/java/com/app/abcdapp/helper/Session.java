@@ -44,6 +44,13 @@ public class Session {
     public String getData(String id) {
         return pref.getString(id, "");
     }
+    public int getInt(String id) {
+        return pref.getInt(id,0);
+    }
+    public void setInt(String id, Integer val) {
+        editor.putInt(id, val);
+        editor.commit();
+    }
 
 
     public void logoutUser(Activity activity) {

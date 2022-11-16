@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.abcdapp.Model.Redeem;
+import com.app.abcdapp.model.Redeem;
 import com.app.abcdapp.R;
 
 import java.util.ArrayList;
@@ -35,9 +35,9 @@ public class RedeemedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         final ItemHolder holder = (ItemHolder) holderParent;
         final Redeem redeem = redeems.get(position);
 
-        holder.tvPaymentmode.setText(redeem.getMode());
-        holder.tvMobileno.setText(redeem.getMobile());
-        holder.tvAmount.setText(redeem.getAmount()+"\n\n"+redeem.getStatus()+"\n\n"+redeem.getDate()+" | "+redeem.getTime());
+        holder.tvAmount.setText("₹ "+redeem.getAmount());
+        holder.tvStatus.setText(redeem.getStatus());
+        holder.tvDateTime.setText(redeem.getDatetime());
 
     }
 
@@ -49,12 +49,12 @@ public class RedeemedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     static class ItemHolder extends RecyclerView.ViewHolder {
 
-        final TextView tvPaymentmode,tvMobileno,tvAmount;
+        final TextView tvAmount,tvStatus,tvDateTime;
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-            tvPaymentmode = itemView.findViewById(R.id.tvPaymentmode);
-            tvMobileno = itemView.findViewById(R.id.tvMobileno);
             tvAmount = itemView.findViewById(R.id.tvAmount);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvDateTime = itemView.findViewById(R.id.tvDateTime);
 
 
 

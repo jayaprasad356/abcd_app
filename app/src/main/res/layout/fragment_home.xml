@@ -90,6 +90,7 @@
                                     android:textColor="@color/primaryDarkColor"
                                     android:textSize="@dimen/_8sdp"/>
                                 <TextView
+                                    android:id="@+id/tvTodayCodes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="23000"
@@ -128,6 +129,7 @@
                                     android:textColor="@color/primaryDarkColor"
                                     android:textSize="@dimen/_8sdp"/>
                                 <TextView
+                                    android:id="@+id/tvTotalCodes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="23000"
@@ -264,7 +266,7 @@
 
 
                         <TextView
-                            android:id="@+id/tvOtp"
+                            android:id="@+id/tvId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="hojai"
@@ -464,6 +466,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/ed_bg"
                             android:hint="Enter Above Pin Code"
+                            android:inputType="number"
+                            android:maxLength="6"
                             android:padding="@dimen/_10sdp" />
 
 

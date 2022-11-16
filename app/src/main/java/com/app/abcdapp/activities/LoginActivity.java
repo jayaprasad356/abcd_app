@@ -73,27 +73,30 @@ public class LoginActivity extends AppCompatActivity {
     private void Login() {
 
         Map<String, String> params = new HashMap<>();
-
         params.put(Constant.MOBILE,EtPhoneNumber.getText().toString().trim());
         params.put(Constant.PASSWORD,EtPassword.getText().toString().trim());
-
-
+        params.put(Constant.DEVICE_ID,Constant.getDeviceId(activity));
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    Log.d("SIGNUP_RES",response);
-
-
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
-                        session.setBoolean("is_logged_in", true);
                         session.setData(Constant.ID,jsonArray.getJSONObject(0).getString(Constant.ID));
 
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
+                        if (session.getBoolean(Constant.IMPORT_DATA)){
+                            session.setBoolean("is_logged_in", true);
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+
+                        }else {
+                            startActivity(new Intent(LoginActivity.this, ImportDataActivity.class));
+                            finish();
+                        }
+
+
                     }
                     else {
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();

@@ -147,15 +147,13 @@ public class SignUpActivity extends AppCompatActivity {
         params.put(Constant.CITY,EtCity.getText().toString().trim());
         params.put(Constant.REFERRED_BY,EtCode.getText().toString().trim());
         params.put(Constant.PASSWORD,EtPassword.getText().toString().trim());
+        params.put(Constant.DEVICE_ID,Constant.getDeviceId(activity));
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
-
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
-
                         startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                         finish();
                     }
@@ -165,9 +163,6 @@ public class SignUpActivity extends AppCompatActivity {
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
-
-
-
             }
             else {
                 Toast.makeText(this, String.valueOf(response) +String.valueOf(result), Toast.LENGTH_SHORT).show();
