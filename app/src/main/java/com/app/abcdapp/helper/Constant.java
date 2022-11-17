@@ -20,6 +20,7 @@ public class Constant {
     public static final String USER_DETAILS_URL = BaseUrl + "userdetails.php";
     public static final String UPDATE_BANK_URL = BaseUrl + "updatebank.php";
     public static final String WITHDRAWAL_URL = BaseUrl + "withdrawal.php";
+    public static final String WITHDRAWAL_LIST_URL = BaseUrl + "withdrawal_lists.php";
 
 
 

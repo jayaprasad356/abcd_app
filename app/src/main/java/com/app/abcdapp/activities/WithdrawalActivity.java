@@ -1,5 +1,7 @@
 package com.app.abcdapp.activities;
 
+import static com.app.abcdapp.helper.Constant.SUCCESS;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
 import com.app.abcdapp.model.Redeem;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,7 +108,7 @@ public class WithdrawalActivity extends AppCompatActivity {
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                    if (jsonObject.getBoolean(SUCCESS)) {
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
                         session.setData(Constant.ACCOUNT_NUM,jsonObject.getString(Constant.BALANCE));
                         startActivity(new Intent(activity, MainActivity.class));
@@ -121,16 +124,43 @@ public class WithdrawalActivity extends AppCompatActivity {
     }
 
     private void redeemlist() {
-        ArrayList<Redeem> redeems = new ArrayList<>();
 
 
-        Redeem wallet1 = new Redeem("1","250","12-11-2022 11:34:50 AM","Paid");
-        redeems.add(wallet1);
-        redeems.add(wallet1);
-        redeems.add(wallet1);
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put(Constant.USER_ID,session.getData(Constant.ID));
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(SUCCESS)) {
+                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
+                        Gson g = new Gson();
+                        ArrayList<Redeem> redeems = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            if (jsonObject1 != null) {
+                                Redeem group = g.fromJson(jsonObject1.toString(), Redeem.class);
+                                redeems.add(group);
+                            } else {
+                                break;
+                            }
+                        }
+
+                        redeemedAdapter = new RedeemedAdapter(activity,redeems);
+                        recycler.setAdapter(redeemedAdapter);
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, activity, Constant.WITHDRAWAL_LIST_URL, params, true);
 
 
-        redeemedAdapter = new RedeemedAdapter(activity,redeems);
-        recycler.setAdapter(redeemedAdapter);
+
+
+
     }
 }

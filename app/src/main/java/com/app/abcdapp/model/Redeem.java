@@ -1,13 +1,14 @@
 package com.app.abcdapp.model;
 
 public class Redeem {
-    String id,amount,datetime,status;
+    String id,user_id,amount,datetime,status;
     public Redeem(){
 
     }
 
-    public Redeem(String id, String amount, String datetime, String status) {
+    public Redeem(String id, String user_id, String amount, String datetime, String status) {
         this.id = id;
+        this.user_id = user_id;
         this.amount = amount;
         this.datetime = datetime;
         this.status = status;
@@ -19,6 +20,14 @@ public class Redeem {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getAmount() {
