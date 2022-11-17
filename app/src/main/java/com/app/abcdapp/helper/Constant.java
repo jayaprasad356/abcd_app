@@ -9,8 +9,8 @@ import android.telephony.TelephonyManager;
 import java.util.UUID;
 
 public class Constant {
-    //public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
-    public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
+    public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
+    //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String IMPORT_DATA_URL = BaseUrl + "import_data.php";

@@ -160,6 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
         params.put(Constant.PASSWORD,EtPassword.getText().toString().trim());
         params.put(Constant.DEVICE_ID,Constant.getDeviceId(activity));
         ApiConfig.RequestToVolley((result, response) -> {
+            Log.d("SIGNUP_RES",response);
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
