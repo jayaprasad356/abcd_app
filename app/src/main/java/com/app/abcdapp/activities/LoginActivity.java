@@ -3,6 +3,8 @@ package com.app.abcdapp.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,28 +84,34 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-                        Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
-                        session.setData(Constant.ID,jsonArray.getJSONObject(0).getString(Constant.ID));
-                        session.setData(Constant.NAME,jsonArray.getJSONObject(0).getString(Constant.NAME));
-                        session.setData(Constant.MOBILE,jsonArray.getJSONObject(0).getString(Constant.MOBILE));
-                        session.setData(Constant.EARN,jsonArray.getJSONObject(0).getString(Constant.EARN));
-                        session.setData(Constant.WITHDRAWAL,jsonArray.getJSONObject(0).getString(Constant.WITHDRAWAL));
-                        session.setInt(Constant.TOTAL_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TOTAL_CODES)));
-                        session.setInt(Constant.TODAY_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TODAY_CODES)));
-                        session.setData(Constant.BALANCE,jsonArray.getJSONObject(0).getString(Constant.BALANCE));
-                        session.setData(Constant.REFER_CODE,jsonArray.getJSONObject(0).getString(Constant.REFER_CODE));
+                        if (jsonObject.getBoolean(Constant.DEVICE_VERIFY)){
+                            JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
+                            Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                            session.setData(Constant.ID,jsonArray.getJSONObject(0).getString(Constant.ID));
+                            session.setData(Constant.NAME,jsonArray.getJSONObject(0).getString(Constant.NAME));
+                            session.setData(Constant.MOBILE,jsonArray.getJSONObject(0).getString(Constant.MOBILE));
+                            session.setData(Constant.EARN,jsonArray.getJSONObject(0).getString(Constant.EARN));
+                            session.setData(Constant.WITHDRAWAL,jsonArray.getJSONObject(0).getString(Constant.WITHDRAWAL));
+                            session.setInt(Constant.TOTAL_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TOTAL_CODES)));
+                            session.setInt(Constant.TODAY_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TODAY_CODES)));
+                            session.setData(Constant.BALANCE,jsonArray.getJSONObject(0).getString(Constant.BALANCE));
+                            session.setData(Constant.REFER_CODE,jsonArray.getJSONObject(0).getString(Constant.REFER_CODE));
 
-                        if (session.getBoolean(Constant.IMPORT_DATA)){
-                            session.setBoolean("is_logged_in", true);
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                            if (session.getBoolean(Constant.IMPORT_DATA)){
+                                session.setBoolean("is_logged_in", true);
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
 
-                        }else {
-                            startActivity(new Intent(LoginActivity.this, ImportDataActivity.class));
-                            finish();
+                            }else {
+                                startActivity(new Intent(LoginActivity.this, ImportDataActivity.class));
+                                finish();
+                            }
+
                         }
+                       else {
 
+                           showAlertdialog();
+                        }
 
                     }
                     else {
@@ -122,6 +130,29 @@ public class LoginActivity extends AppCompatActivity {
             }
             //pass url
         }, LoginActivity.this, Constant.LOGIN_URL, params,true);
+
+
+
+    }
+
+    private void showAlertdialog() {
+
+
+        // Create the object of AlertDialog Builder class
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("Would you request to change device ?");
+        builder.setTitle("Device verification failed !");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Send request to admin", (DialogInterface.OnClickListener) (dialog, which) -> {
+            Toast.makeText(activity, "Request sent Successfully, Wait for conformation", Toast.LENGTH_SHORT).show();
+            dialog.cancel();
+        });
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            // If user click no then dialog box is canceled.
+            dialog.cancel();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
 
 

@@ -15,14 +15,13 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        app:menu="@menu/homescreenmenu"
-        app:itemIconSize="@dimen/_25sdp"
-        app:itemTextColor="@color/primaryColor"
-        app:itemRippleColor="@color/primaryColor"
+        android:layout_alignParentBottom="true"
         app:elevation="@dimen/_7sdp"
+        app:itemIconSize="@dimen/_25sdp"
+        app:itemRippleColor="@color/primaryColor"
+        app:itemTextColor="@color/primaryColor"
         app:labelVisibilityMode="selected"
-        android:layout_alignParentBottom="true">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/homescreenmenu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 

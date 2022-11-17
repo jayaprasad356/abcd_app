@@ -101,6 +101,10 @@ public class SignUpActivity extends AppCompatActivity {
                 if(EtName.getText().toString().trim().equals("") ){
                     Toast.makeText(SignUpActivity.this, "Name is empty", Toast.LENGTH_SHORT).show();
                 }
+               else if(EtName.getText().length() < 4 ){
+                    Toast.makeText(SignUpActivity.this, "Name atleast 4 Letter", Toast.LENGTH_SHORT).show();
+                }
+
                 else if (EtPhoneNo.getText().toString().trim().equals("")){
                     Toast.makeText(SignUpActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
                 }
@@ -118,6 +122,10 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 else if (EtPassword.getText().toString().trim().equals("")){
                     Toast.makeText(SignUpActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (EtPassword.getText().length() < 6){
+                    Toast.makeText(SignUpActivity.this, "Password atleast 6 Letter ", Toast.LENGTH_SHORT).show();
                 }
                 else{
 

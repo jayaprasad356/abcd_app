@@ -26,6 +26,7 @@ public class Constant {
 
     public static final String ID = "id";
     public static final String PROFILE = "profile";
+    public static final String DEVICE_VERIFY = "device_verify";
     public static final String USER_ID = "user_id";
     public static final String MOBILE = "mobile";
     public static final String STUDENT_NAME = "student_name";

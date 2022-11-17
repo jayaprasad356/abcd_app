@@ -100,26 +100,33 @@ public class UpdateProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(EtName.getText().toString().trim().equals("") ){
-                    Toast.makeText(activity, "Name is empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateProfileActivity.this, "Name is empty", Toast.LENGTH_SHORT).show();
                 }
-                else if (EtPhoneNo.getText().toString().trim().equals("")){
-                    Toast.makeText(activity, "Phone Number is empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (EtPhoneNo.getText().length() != 10){
-                    Toast.makeText(activity, "Phone Number is invalid", Toast.LENGTH_SHORT).show();
-                }
-                else if (edDOB.getText().toString().trim().equals("")){
-                    Toast.makeText(activity, "DOB is empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (EtEmail.getText().toString().trim().equals("")){
-                    Toast.makeText(activity, "Email is empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (EtCity.getText().toString().trim().equals("")){
-                    Toast.makeText(activity, "City is empty", Toast.LENGTH_SHORT).show();
+                else if(EtName.getText().length() < 4 ){
+                    Toast.makeText(UpdateProfileActivity.this, "Name atleast 4 Letter", Toast.LENGTH_SHORT).show();
                 }
 
+                else if (EtPhoneNo.getText().toString().trim().equals("")){
+                    Toast.makeText(UpdateProfileActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
+                }
+                else if (EtPhoneNo.getText().length() != 10){
+                    Toast.makeText(UpdateProfileActivity.this, "Phone Number is invalid", Toast.LENGTH_SHORT).show();
+                }
+                else if (edDOB.getText().toString().trim().equals("")){
+                    Toast.makeText(UpdateProfileActivity.this, "DOB is empty", Toast.LENGTH_SHORT).show();
+                }
+                else if (EtEmail.getText().toString().trim().equals("")){
+                    Toast.makeText(UpdateProfileActivity.this, "Email is empty", Toast.LENGTH_SHORT).show();
+                }
+                else if (EtCity.getText().toString().trim().equals("")){
+                    Toast.makeText(UpdateProfileActivity.this, "City is empty", Toast.LENGTH_SHORT).show();
+                }
                 else if (EtPassword.getText().toString().trim().equals("")){
-                    Toast.makeText(activity, "Password is empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateProfileActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (EtPassword.getText().length() < 6){
+                    Toast.makeText(UpdateProfileActivity.this, "Password atleast 6 Letter ", Toast.LENGTH_SHORT).show();
                 }
                 else{
 
