@@ -113,6 +113,10 @@ public class WithdrawalActivity extends AppCompatActivity {
                         session.setData(Constant.ACCOUNT_NUM,jsonObject.getString(Constant.BALANCE));
                         startActivity(new Intent(activity, MainActivity.class));
                         finish();
+                    }else {
+                        Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -130,6 +134,7 @@ public class WithdrawalActivity extends AppCompatActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put(Constant.USER_ID,session.getData(Constant.ID));
         ApiConfig.RequestToVolley((result, response) -> {
+            Log.d("WITHDRAWAL_RES",response);
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -149,8 +154,6 @@ public class WithdrawalActivity extends AppCompatActivity {
 
                         redeemedAdapter = new RedeemedAdapter(activity,redeems);
                         recycler.setAdapter(redeemedAdapter);
-                    } else {
-                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

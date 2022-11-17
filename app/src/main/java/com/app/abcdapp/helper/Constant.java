@@ -9,8 +9,8 @@ import android.telephony.TelephonyManager;
 import java.util.UUID;
 
 public class Constant {
-    public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
-    //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
+    //public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
+    public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String IMPORT_DATA_URL = BaseUrl + "import_data.php";
@@ -39,15 +39,21 @@ public class Constant {
     public static final String BANK = "bank";
     public static final String BRANCH = "branch";
     public static final String IFSC = "ifsc";
+    public static final String EARN = "earn";
+    public static final String WITHDRAWAL = "withdrawal";
 
     public static final String EMAIL = "email";
     public static final String NAME = "name";
     public static final String BALANCE = "balance";
+    public static final String REFER_CODE = "refer_code";
+    public static final String TODAY_CODES = "today_codes";
+    public static final String TOTAL_CODES = "total_codes";
 
     public static final String SUCCESS = "success";
     public static final String MESSAGE = "message";
     public static final String DATA = "data";
     public static final String BANK_DETAILS = "bank_details";
+    public static final String USER_DETAILS = "user_details";
 
     public static final String DATE = "date";
     public static final String DOB = "dob";

@@ -82,6 +82,7 @@
                     android:layout_height="@dimen/_100sdp"
                     android:src="@drawable/profile"/>
                 <TextView
+                    android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="George Leaon"
@@ -90,6 +91,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:layout_gravity="center"/>
                 <TextView
+                    android:id="@+id/tvMobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+91 8847374373"
@@ -128,9 +130,10 @@
                             android:textColor="@color/primaryDarkColor"
                             android:textSize="@dimen/_8sdp"/>
                         <TextView
+                            android:id="@+id/tvEarn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23000"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"/>
 
@@ -165,7 +168,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23000"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"/>
 
@@ -197,14 +200,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Withdrawal Done"
+                            android:text="Total Withdrawal"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDarkColor"
                             android:textSize="@dimen/_8sdp"/>
                         <TextView
+                            android:id="@+id/tvWithdrawal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23000"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"/>
 
@@ -231,14 +235,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Codes Generated"
+                            android:text="Total Codes"
                             android:textStyle="bold"
                             android:textColor="@color/primaryDarkColor"
                             android:textSize="@dimen/_8sdp"/>
                         <TextView
+                            android:id="@+id/tvCodes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23000"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"/>
 
@@ -278,9 +283,10 @@
                             android:textColor="@color/primaryDarkColor"
                             android:textSize="@dimen/_8sdp"/>
                         <TextView
+                            android:id="@+id/tvBalance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23000"
+                            android:text="0"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"/>
 

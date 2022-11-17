@@ -92,9 +92,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.ProfileActivity"
-            android:exported="true" />
-        <activity
             android:name=".activities.WithdrawalActivity"
             android:exported="true" />
         <activity

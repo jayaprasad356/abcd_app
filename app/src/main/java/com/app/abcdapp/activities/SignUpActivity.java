@@ -104,6 +104,9 @@ public class SignUpActivity extends AppCompatActivity {
                 else if (EtPhoneNo.getText().toString().trim().equals("")){
                     Toast.makeText(SignUpActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
                 }
+                else if (EtPhoneNo.getText().length() != 10){
+                    Toast.makeText(SignUpActivity.this, "Phone Number is invalid", Toast.LENGTH_SHORT).show();
+                }
                 else if (edDOB.getText().toString().trim().equals("")){
                     Toast.makeText(SignUpActivity.this, "DOB is empty", Toast.LENGTH_SHORT).show();
                 }

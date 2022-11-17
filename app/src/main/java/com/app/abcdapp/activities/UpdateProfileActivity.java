@@ -105,6 +105,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 else if (EtPhoneNo.getText().toString().trim().equals("")){
                     Toast.makeText(activity, "Phone Number is empty", Toast.LENGTH_SHORT).show();
                 }
+                else if (EtPhoneNo.getText().length() != 10){
+                    Toast.makeText(activity, "Phone Number is invalid", Toast.LENGTH_SHORT).show();
+                }
                 else if (edDOB.getText().toString().trim().equals("")){
                     Toast.makeText(activity, "DOB is empty", Toast.LENGTH_SHORT).show();
                 }
@@ -155,9 +158,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap<>();
         params.put(Constant.USER_ID,session.getData(Constant.ID));
         ApiConfig.RequestToVolley((result, response) -> {
-
-            Log.d("res",response);
-
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -198,11 +198,16 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
                         JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-                        session.setData(Constant.ID, jsonArray.getJSONObject(0).getString(Constant.ID));
-                        session.setData(Constant.NAME, jsonArray.getJSONObject(0).getString(Constant.NAME));
-                        session.setData(Constant.MOBILE, jsonArray.getJSONObject(0).getString(Constant.MOBILE));
-                        session.setData(Constant.CITY, jsonArray.getJSONObject(0).getString(Constant.CITY));
-                        session.setData(Constant.PASSWORD, jsonArray.getJSONObject(0).getString(Constant.PASSWORD));
+                        session.setData(Constant.ID,jsonArray.getJSONObject(0).getString(Constant.ID));
+                        session.setData(Constant.NAME,jsonArray.getJSONObject(0).getString(Constant.NAME));
+                        session.setData(Constant.MOBILE,jsonArray.getJSONObject(0).getString(Constant.MOBILE));
+                        session.setData(Constant.EARN,jsonArray.getJSONObject(0).getString(Constant.EARN));
+                        session.setData(Constant.WITHDRAWAL,jsonArray.getJSONObject(0).getString(Constant.WITHDRAWAL));
+                        session.setInt(Constant.TOTAL_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TOTAL_CODES)));
+                        session.setInt(Constant.TODAY_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TODAY_CODES)));
+                        session.setData(Constant.BALANCE,jsonArray.getJSONObject(0).getString(Constant.BALANCE));
+                        session.setData(Constant.REFER_CODE,jsonArray.getJSONObject(0).getString(Constant.REFER_CODE));
+
                         startActivity(new Intent(activity, MainActivity.class));
                         finish();
                     } else {

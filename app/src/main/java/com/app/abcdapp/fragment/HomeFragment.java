@@ -85,8 +85,8 @@ public class HomeFragment extends Fragment {
         otp_textbox_nine = root.findViewById(R.id.otp_edit_box9);
         otp_textbox_ten = root.findViewById(R.id.otp_edit_box10);
 
-        tvTodayCodes.setText(session.getInt(Constant.CODES)+ "");
-        tvTotalCodes.setText(session.getInt(Constant.CODES)+ "");
+        tvTodayCodes.setText((session.getInt(Constant.TODAY_CODES) + session.getInt(Constant.CODES))+ "");
+        tvTotalCodes.setText((session.getInt(Constant.TOTAL_CODES) + session.getInt(Constant.CODES))+ "");
 
 
 

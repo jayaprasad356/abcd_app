@@ -2,6 +2,7 @@ package com.app.abcdapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.abcdapp.R;
+import com.app.abcdapp.helper.Constant;
+import com.app.abcdapp.helper.Session;
 
 public class ReferEarnActivity extends AppCompatActivity {
 
@@ -24,6 +27,8 @@ public class ReferEarnActivity extends AppCompatActivity {
     private ClipboardManager myClipboard;
     private ClipData myClip;
     String text;
+    Session session;
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,10 @@ public class ReferEarnActivity extends AppCompatActivity {
         backbtn = findViewById(R.id.backbtn);
         tvRefercode = findViewById(R.id.tvRefercode);
         btncopy = findViewById(R.id.btncopy);
+        activity = ReferEarnActivity.this;
+        session = new Session(activity);
+
+        tvRefercode.setText(session.getData(Constant.REFER_CODE));
 
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         text = tvRefercode.getText().toString();

@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.activities.ReferEarnActivity;
 import com.app.abcdapp.activities.UpdateProfileActivity;
+import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
 
 
@@ -27,6 +29,8 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     ImageView imgMenu;
     Session session;
     Activity activity;
+
+    TextView tvName,tvMobile,tvEarn,tvWithdrawal,tvCodes,tvBalance;
 
 
     public ProfileFragment() {
@@ -47,18 +51,25 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
         cardView1 = root.findViewById(R.id.cardView1);
         imgMenu = root.findViewById(R.id.imgMenu);
+        tvName = root.findViewById(R.id.tvName);
+        tvMobile = root.findViewById(R.id.tvMobile);
+        tvEarn = root.findViewById(R.id.tvEarn);
+        tvWithdrawal = root.findViewById(R.id.tvWithdrawal);
+        tvCodes = root.findViewById(R.id.tvCodes);
+        tvBalance = root.findViewById(R.id.tvBalance);
 
-
-
+        tvName.setText(session.getData(Constant.NAME));
+        tvMobile.setText(session.getData(Constant.MOBILE));
+        tvEarn.setText(session.getData(Constant.EARN)) ;
+        tvWithdrawal.setText(session.getData(Constant.WITHDRAWAL));
+        tvCodes.setText(session.getInt(Constant.TOTAL_CODES) + "");
+        tvBalance.setText(session.getData(Constant.BALANCE));
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ReferEarnActivity.class);
                 startActivity(intent);
             }
-            
-            
-            
         });
 
 

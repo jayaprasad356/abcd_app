@@ -92,12 +92,22 @@ public class WalletFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        session.setData(Constant.BALANCE,jsonObject.getString(Constant.BALANCE));
-                        tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
                         session.setInt(Constant.CODES,0);
                         JSONObject object = new JSONObject(response);
                         JSONArray jsonArray = object.getJSONArray(Constant.DATA);
                         JSONArray bankArray = object.getJSONArray(Constant.BANK_DETAILS);
+                        JSONArray userArray = object.getJSONArray(Constant.USER_DETAILS);
+                        session.setData(Constant.NAME,userArray.getJSONObject(0).getString(Constant.NAME));
+                        session.setData(Constant.MOBILE,userArray.getJSONObject(0).getString(Constant.MOBILE));
+                        session.setData(Constant.EARN,userArray.getJSONObject(0).getString(Constant.EARN));
+                        session.setData(Constant.WITHDRAWAL,userArray.getJSONObject(0).getString(Constant.WITHDRAWAL));
+                        session.setInt(Constant.TOTAL_CODES,Integer.parseInt(userArray.getJSONObject(0).getString(Constant.TOTAL_CODES)));
+                        session.setInt(Constant.TODAY_CODES,Integer.parseInt(userArray.getJSONObject(0).getString(Constant.TODAY_CODES)));
+                        session.setData(Constant.BALANCE,userArray.getJSONObject(0).getString(Constant.BALANCE));
+                        session.setData(Constant.REFER_CODE,userArray.getJSONObject(0).getString(Constant.REFER_CODE));
+
+                        tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
+
                         if (bankArray.length() != 0){
                             session.setData(Constant.ACCOUNT_NUM,bankArray.getJSONObject(0).getString(Constant.ACCOUNT_NUM));
                             session.setData(Constant.HOLDER_NAME,bankArray.getJSONObject(0).getString(Constant.HOLDER_NAME));
