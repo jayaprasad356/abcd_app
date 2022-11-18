@@ -56,6 +56,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Account Number"
+                    android:textColor="@color/navyblue"
+                    android:textSize="@dimen/_14sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     />
 
@@ -73,6 +75,8 @@
                     android:layout_height="wrap_content"
                     android:text="Account Holder Name"
                     android:layout_marginTop="@dimen/_15sdp"
+                    android:textColor="@color/navyblue"
+                    android:textSize="@dimen/_14sdp"
 
                     />
 
@@ -87,6 +91,8 @@
                     android:layout_height="wrap_content"
                     android:text="Bank Name"
                     android:layout_marginTop="@dimen/_15sdp"
+                    android:textColor="@color/navyblue"
+                    android:textSize="@dimen/_14sdp"
 
                     />
 
@@ -102,6 +108,8 @@
                     android:layout_height="wrap_content"
                     android:text="Branch"
                     android:layout_marginTop="@dimen/_15sdp"
+                    android:textColor="@color/navyblue"
+                    android:textSize="@dimen/_14sdp"
 
                     />
 
@@ -118,6 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:text="IFSC code"
+                    android:textColor="@color/navyblue"
+                    android:textSize="@dimen/_14sdp"
                     />
 
 

@@ -85,9 +85,8 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         });
 
 
-        tvRefercode.setText(session.getData(Constant.REFER_CODE));
+        tvRefercode.setText(" Your Refer Code : "+session.getData(Constant.REFER_CODE));
         String text = tvRefercode.getText().toString();
-        tvRefercode.setText(session.getData(Constant.REFER_CODE));
         btncopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

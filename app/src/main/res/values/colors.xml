@@ -21,6 +21,8 @@
 
     <color name="secondaryLightColor">#ff9e40</color>
     <color name="secondaryGreenColor">#8f7f26</color>
+    <color name="textcolor">#ffdd40</color>
+    <color name="navyblue">#000080</color>
 
     <color name="secondaryDarkColor">#c43c00</color>
 

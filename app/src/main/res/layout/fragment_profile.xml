@@ -316,13 +316,6 @@
                 android:padding="@dimen/_5sdp"
                 >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Refer Code"
-                    android:textColor="@color/grey"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/_8sdp"/>
 
                 <TextView
                     android:id="@+id/tvRefercode"
@@ -332,7 +325,7 @@
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_18sdp"/>
 
                 <Button
                     android:id="@+id/btncopy"
