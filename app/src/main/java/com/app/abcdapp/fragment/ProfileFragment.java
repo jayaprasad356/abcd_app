@@ -1,7 +1,11 @@
 package com.app.abcdapp.fragment;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.activities.ReferEarnActivity;
@@ -29,8 +35,12 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     ImageView imgMenu;
     Session session;
     Activity activity;
+    Button btncopy;
 
-    TextView tvName,tvMobile,tvEarn,tvWithdrawal,tvCodes,tvBalance;
+    private ClipboardManager myClipboard;
+    private ClipData myClip;
+
+    TextView tvName,tvMobile,tvEarn,tvWithdrawal,tvCodes,tvBalance,tvRefercode;
 
 
     public ProfileFragment() {
@@ -57,6 +67,8 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         tvWithdrawal = root.findViewById(R.id.tvWithdrawal);
         tvCodes = root.findViewById(R.id.tvCodes);
         tvBalance = root.findViewById(R.id.tvBalance);
+        btncopy = root.findViewById(R.id.btncopy);
+        tvRefercode = root.findViewById(R.id.tvRefercode);
 
         tvName.setText(session.getData(Constant.NAME));
         tvMobile.setText(session.getData(Constant.MOBILE));
@@ -71,6 +83,27 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 startActivity(intent);
             }
         });
+
+
+        tvRefercode.setText(session.getData(Constant.REFER_CODE));
+        String text = tvRefercode.getText().toString();
+        tvRefercode.setText(session.getData(Constant.REFER_CODE));
+        btncopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "DOWNLOAD THE APP AND GET UNLIMITED EARNING .you can also Download App from below link and enter referral code while login-"+"\n"+text+"\n"+"https://play.google.com/store/apps/details?id=abcdjob.workonline.com.qrcode";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(sharingIntent);
+
+            }
+        });
+
 
 
         imgMenu.setOnClickListener(new View.OnClickListener() {

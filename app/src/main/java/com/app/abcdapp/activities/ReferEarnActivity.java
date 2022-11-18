@@ -51,10 +51,6 @@ public class ReferEarnActivity extends AppCompatActivity {
         btncopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 String shareBody = "DOWNLOAD THE APP AND GET UNLIMITED EARNING .you can also Download App from below link and enter referral code while login-"+"\n"+text+"\n"+"https://play.google.com/store/apps/details?id=abcdjob.workonline.com.qrcode";

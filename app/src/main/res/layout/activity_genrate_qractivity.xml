@@ -8,16 +8,45 @@
     android:background="@drawable/bg"
     >
 
+    <RelativeLayout
+        android:layout_above="@+id/ivQrcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_40sdp"
+        >
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_60sdp">
+
+
+            <ImageView
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:src="@drawable/app_logo"
+                android:scaleType="fitXY"
+                />
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+
+
     <ImageView
         android:id="@+id/ivQrcode"
-        android:layout_centerInParent="true"
         android:layout_width="@dimen/_180sdp"
         android:layout_height="@dimen/_180sdp"
-        android:background="@drawable/qrcode"
-        />
+        android:layout_centerInParent="true"
+        android:background="@drawable/qrcode" />
 
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,5 +57,16 @@
         android:textSize="@dimen/_16sdp"
         android:textStyle="bold"
         />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv1"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Refer And Earn Rs. 720 Instantly"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp" />
 
 </RelativeLayout>

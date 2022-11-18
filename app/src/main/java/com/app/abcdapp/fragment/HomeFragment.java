@@ -112,23 +112,40 @@ public class HomeFragment extends Fragment {
                         otp_textbox_three.getText().toString().trim() + otp_textbox_four.getText().toString().trim() + otp_textbox_five.getText().toString().trim() +
                         otp_textbox_six.getText().toString().trim() + otp_textbox_seven.getText().toString().trim() + otp_textbox_eight.getText().toString().trim() +
                         otp_textbox_nine.getText().toString().trim() + otp_textbox_ten.getText().toString().trim();
+
+
                 if (!tvName.getText().toString().trim().equals(edName.getText().toString().trim())){
 
-                    Toast.makeText(getActivity(), "Name not match", Toast.LENGTH_SHORT).show();
-                }else if (!tvCity.getText().toString().trim().equals(edCity.getText().toString().trim())){
+                   // Toast.makeText(getActivity(), "Name not match", Toast.LENGTH_SHORT).show();
+                    edName.setError("Name not match");
+                    edName.requestFocus();
+                    return;
 
-                    Toast.makeText(getActivity(), "City not match", Toast.LENGTH_SHORT).show();
                 }
-                else if (!tvPincode.getText().toString().trim().equals(edPincode.getText().toString().trim())){
-
-                    Toast.makeText(getActivity(), "Pin code not match", Toast.LENGTH_SHORT).show();
-                }
-
                 else if (!tvId.getText().toString().trim().equals(Idnumber.toString().trim())){
 
 
-                    Toast.makeText(getActivity(), "Id number not match", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity(), "Id number not match", Toast.LENGTH_SHORT).show();
+                    otp_textbox_ten.setError("Id number not match");
+                    otp_textbox_ten.requestFocus();
+                    return;
                 }
+                else if (!tvCity.getText().toString().trim().equals(edCity.getText().toString().trim())){
+
+                   // Toast.makeText(getActivity(), "City not match", Toast.LENGTH_SHORT).show();
+                    edCity.setError("City not match");
+                    edCity.requestFocus();
+                    return;
+                }
+                else if (!tvPincode.getText().toString().trim().equals(edPincode.getText().toString().trim())){
+
+                   // Toast.makeText(getActivity(), "Pin code not match", Toast.LENGTH_SHORT).show();
+                    edPincode.setError("Pin code not match");
+                    edPincode.requestFocus();
+                    return;
+                }
+
+
 
                 else {
 

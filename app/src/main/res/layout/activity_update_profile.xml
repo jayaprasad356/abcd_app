@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textColor="@color/white" />
+                android:textColor="@color/secondaryGreenColor" />
 
             <EditText
                 android:id="@+id/EtName"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="Phone No"
-                android:textColor="@color/white"
+                android:textColor="@color/secondaryGreenColor"
 
                 />
 
@@ -101,6 +101,26 @@
                 android:hint="Phone Number"
                 android:inputType="number"
                 android:maxLength="10"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Password"
+                android:textColor="@color/secondaryGreenColor" />
+
+            <EditText
+                android:id="@+id/EtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ed_bg"
+                android:hint="Password"
+                android:inputType="textPassword"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp" />
@@ -117,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Select Date of Birth"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/secondaryGreenColor" />
 
 
                 <EditText
@@ -139,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="Email"
-                android:textColor="@color/white"
+                android:textColor="@color/secondaryGreenColor"
 
                 />
 
@@ -159,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="City"
-                android:textColor="@color/white" />
+                android:textColor="@color/secondaryGreenColor" />
 
 
             <EditText
@@ -174,23 +194,7 @@
 
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:text="Password"
-                android:textColor="@color/white" />
 
-            <EditText
-                android:id="@+id/EtPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ed_bg"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
 
 
             <Button

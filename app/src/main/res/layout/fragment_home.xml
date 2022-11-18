@@ -59,96 +59,119 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_weight="2">
+
+
+
                         <RelativeLayout
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:layout_width="@dimen/_120sdp"
-                                android:layout_height="@dimen/_120sdp"
-                                android:src="@drawable/app_logo"/>
+                            android:layout_height="wrap_content"
+                            >
+
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="@dimen/_60sdp">
+
+
+                                <ImageView
+                                    android:layout_width="@dimen/_120sdp"
+                                    android:layout_height="@dimen/_120sdp"
+                                    android:src="@drawable/app_logo"
+                                    android:scaleType="fitXY"
+                                    />
+
+
+                            </androidx.cardview.widget.CardView>
 
                         </RelativeLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="0.8"
                             android:gravity="center"
                             android:layout_gravity="center"
-                            android:orientation="vertical">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_100sdp"
-                                android:layout_height="@dimen/_50sdp"
-                                app:cardElevation="@dimen/_5sdp"
-                                android:layout_margin="@dimen/_5sdp"
-                                app:cardCornerRadius="@dimen/_5sdp"
-                                android:backgroundTint="#00BCD4"
+                            android:orientation="horizontal">
 
-                                >
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:padding="@dimen/_10sdp"
                                     android:orientation="vertical">
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Today Codes"
-                                        android:textStyle="bold"
-                                        android:textColor="@color/primaryDarkColor"
-                                        android:textSize="@dimen/_8sdp"/>
+                                        android:text="Today Codes "
+                                        android:layout_gravity="right"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Total Codes "
+                                        android:layout_gravity="right"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="History Days "
+                                        android:layout_gravity="right"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                </LinearLayout>
+
+
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:orientation="vertical">
+
                                     <TextView
                                         android:id="@+id/tvTodayCodes"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="23000"
-                                        android:textStyle="bold"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/white"
                                         android:textSize="@dimen/_12sdp"/>
 
-                                </LinearLayout>
-
-
-                            </androidx.cardview.widget.CardView>
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cardView1"
-                                android:layout_width="@dimen/_100sdp"
-                                android:layout_height="@dimen/_50sdp"
-                                app:cardElevation="@dimen/_5sdp"
-                                android:layout_margin="@dimen/_5sdp"
-                                app:cardCornerRadius="@dimen/_5sdp"
-                                android:backgroundTint="#FFAEED"
-                                >
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:padding="@dimen/_10sdp"
-                                    android:orientation="vertical">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Total Codes"
-                                        android:textStyle="bold"
-                                        android:textColor="@color/primaryDarkColor"
-                                        android:textSize="@dimen/_8sdp"/>
                                     <TextView
                                         android:id="@+id/tvTotalCodes"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="23000"
-                                        android:textStyle="bold"
+                                        android:layout_gravity="start"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+                                    <TextView
+                                        android:id="@+id/tvHistorydays"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/white"
                                         android:textSize="@dimen/_12sdp"/>
 
                                 </LinearLayout>
 
 
-                            </androidx.cardview.widget.CardView>
 
 
 
@@ -171,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:text="vihdldrthmqw"
                             android:textAllCaps="true"
-                            android:textColor="@color/white"
+                            android:textColor="@color/secondaryGreenColor"
                             android:textSize="@dimen/_14sdp" />
 
 
@@ -203,7 +226,7 @@
                             android:layout_height="wrap_content"
                             android:text="hojai"
                             android:textAllCaps="true"
-                            android:textColor="@color/white"
+                            android:textColor="@color/secondaryGreenColor"
                             android:textSize="@dimen/_14sdp" />
 
 
@@ -356,7 +379,7 @@
                             android:layout_height="wrap_content"
                             android:text="hojai"
                             android:textAllCaps="true"
-                            android:textColor="@color/white"
+                            android:textColor="@color/secondaryGreenColor"
                             android:textSize="@dimen/_14sdp" />
 
 
@@ -388,7 +411,7 @@
                             android:layout_height="wrap_content"
                             android:text="782445"
                             android:textAllCaps="true"
-                            android:textColor="@color/white"
+                            android:textColor="@color/secondaryGreenColor"
                             android:textSize="@dimen/_14sdp" />
 
 

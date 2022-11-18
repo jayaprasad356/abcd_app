@@ -299,6 +299,72 @@
 
         </RelativeLayout>
 
+
+        <androidx.cardview.widget.CardView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:backgroundTint="@color/primaryColor"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Refer Code"
+                    android:textColor="@color/grey"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/_8sdp"/>
+
+                <TextView
+                    android:id="@+id/tvRefercode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DEMO"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <Button
+                    android:id="@+id/btncopy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="COPY TO SHARE"
+                    android:layout_gravity="center"
+                    android:textColor="@color/primaryColor"
+                    android:backgroundTint="@color/white"
+                    android:paddingHorizontal="@dimen/_40sdp"
+                    android:paddingVertical="@dimen/_5sdp"/>
+
+
+                <TextView
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:text="Refer your friend and family members and earn ? 300 Bonus + ? 250 Refund + 1000 codes ( ? 170) Totally ? 720/- instantly in"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_8sdp"/>
+
+
+
+
+
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
     </RelativeLayout>
 
 </FrameLayout>
