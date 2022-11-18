@@ -10,6 +10,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
@@ -30,7 +31,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/l1"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +46,6 @@
                 android:id="@+id/card1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:backgroundTint="@color/primaryColor"
 
@@ -439,6 +441,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Generate"
+                        android:layout_marginVertical="@dimen/_20sdp"
                         android:backgroundTint="@color/primaryLightColor"
                         android:layout_marginHorizontal="@dimen/_20sdp"
                         />

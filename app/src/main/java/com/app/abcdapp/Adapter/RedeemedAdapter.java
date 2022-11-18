@@ -38,7 +38,7 @@ public class RedeemedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         holder.tvAmount.setText("₹ "+redeem.getAmount());
         if (redeem.getStatus().equals("paid")){
             holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.green));
-        }else if (redeem.getStatus().equals("process")){
+        }else if (redeem.getStatus().equals("pending")){
             holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.primaryColor));
         }else {
             holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.red));
