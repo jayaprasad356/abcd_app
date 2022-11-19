@@ -56,18 +56,22 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(EtPhoneNumber.getText().toString().trim().equals("") ){
-                    Toast.makeText(LoginActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (EtPassword.getText().toString().trim().equals("")){
-                    Toast.makeText(LoginActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
-                }
-                else{
 
-                    Login();
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    startActivity(intent);
-                }
+                ApprovalAlertdialog();
+
+//                if(EtPhoneNumber.getText().toString().trim().equals("") ){
+//                    Toast.makeText(LoginActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
+//                }
+//                else if (EtPassword.getText().toString().trim().equals("")){
+//                    Toast.makeText(LoginActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//
+//
+//                    Login();
+////                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+////                    startActivity(intent);
+//                }
             }
         });
     }
@@ -142,6 +146,28 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage("Would you request to change device ?");
         builder.setTitle("Device verification failed !");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Send request to admin", (DialogInterface.OnClickListener) (dialog, which) -> {
+            Toast.makeText(activity, "Request sent Successfully, Wait for conformation", Toast.LENGTH_SHORT).show();
+            dialog.cancel();
+        });
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            // If user click no then dialog box is canceled.
+            dialog.cancel();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+
+    }
+    private void ApprovalAlertdialog() {
+
+
+        // Create the object of AlertDialog Builder class
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("Please Contact Admin");
+        builder.setTitle("Wait for Approval");
         builder.setCancelable(false);
         builder.setPositiveButton("Send request to admin", (DialogInterface.OnClickListener) (dialog, which) -> {
             Toast.makeText(activity, "Request sent Successfully, Wait for conformation", Toast.LENGTH_SHORT).show();

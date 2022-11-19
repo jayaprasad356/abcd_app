@@ -6,12 +6,24 @@
         android:title="Update Profile">
     </item>
 
+
+    <item android:id="@+id/notification"
+        android:title="Notification">
+    </item>
+
     <item android:id="@+id/ReferEarn"
         android:title="Refer Earn">
     </item>
 
+
+
     <item android:id="@+id/logoutitem"
         android:title="Logout">
     </item>
+
+
+
+
+
 
 </menu>

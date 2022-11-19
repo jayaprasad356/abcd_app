@@ -23,10 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.abcdapp.R;
+import com.app.abcdapp.activities.NotificaionActivity;
 import com.app.abcdapp.activities.ReferEarnActivity;
 import com.app.abcdapp.activities.UpdateProfileActivity;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
+import com.app.abcdapp.model.Notification;
 
 
 public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
@@ -130,6 +132,13 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.logoutitem){
             session.logoutUser(activity);
+        }
+
+        else if (item.getItemId() == R.id.notification){
+
+            Intent intent = new Intent(activity, NotificaionActivity.class);
+            startActivity(intent);
+
         }
 
         else if (item.getItemId() == R.id.ReferEarn){

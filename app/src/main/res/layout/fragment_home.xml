@@ -28,12 +28,42 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/llWaiting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:indicatorColor="@color/white"
+            app:indicatorSize="@dimen/_20sdp"
+            app:trackThickness="@dimen/_2sdp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Please Wait..."
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp" />
+
+    </LinearLayout>
+
+
     <ScrollView
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/l1"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_5sdp"
+        android:visibility="gone"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -441,6 +471,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Generate"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_20sdp"
                         android:layout_marginVertical="@dimen/_20sdp"
                         android:backgroundTint="@color/primaryLightColor"
                         android:layout_marginHorizontal="@dimen/_20sdp"

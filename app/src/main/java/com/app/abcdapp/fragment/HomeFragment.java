@@ -6,16 +6,20 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.abcdapp.activities.GenrateQRActivity;
+import com.app.abcdapp.activities.MainActivity;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.DatabaseHelper;
 import com.app.abcdapp.helper.Session;
@@ -38,8 +42,12 @@ public class HomeFragment extends Fragment {
     ArrayList<GenerateCodes> generateCodes = new ArrayList<GenerateCodes>();
     Session session;
     Activity activity;
+    ScrollView frame;
+    LinearLayout llWaiting;
 
     String Idnumber = "";
+
+    Handler handler;
 
 
 
@@ -61,6 +69,12 @@ public class HomeFragment extends Fragment {
 
         databaseHelper = new DatabaseHelper(getActivity());
 
+        handler = new Handler();
+
+         GotoActivity();
+
+
+
 
         tvName = root.findViewById(R.id.tvName);
         tvPincode = root.findViewById(R.id.tvPincode);
@@ -72,6 +86,8 @@ public class HomeFragment extends Fragment {
         tvTodayCodes = root.findViewById(R.id.tvTodayCodes);
         tvTotalCodes = root.findViewById(R.id.tvTotalCodes);
         btnGenerate = root.findViewById(R.id.btnGenerate);
+        frame = root.findViewById(R.id.frame);
+        llWaiting = root.findViewById(R.id.llWaiting);
 
 
         otp_textbox_one = root.findViewById(R.id.otp_edit_box1);
@@ -144,6 +160,8 @@ public class HomeFragment extends Fragment {
 
                 else {
 
+
+
                     session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
                     Intent intent = new Intent(getActivity(), GenrateQRActivity.class);
                     startActivity(intent);
@@ -156,6 +174,23 @@ public class HomeFragment extends Fragment {
 
 
         return root;
+    }
+
+
+    private void GotoActivity()
+    {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+
+                frame.setVisibility(View.VISIBLE);
+                llWaiting.setVisibility(View.GONE);
+
+
+
+            }
+        },3000);
     }
 
 
