@@ -68,9 +68,6 @@ public class WalletFragment extends Fragment {
 
         tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
 
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
-            session.setData(Constant.FCM_ID, token);
-        });
 
         walletApi(session,activity);
 

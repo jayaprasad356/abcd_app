@@ -17,6 +17,7 @@ import com.app.abcdapp.fragment.WalletFragment;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            session.setData(Constant.FCM_ID, token);
+        });
+
     }
 
     @Override

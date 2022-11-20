@@ -143,6 +143,6 @@ public class Constant {
 
 
 
-        return ("" + (int) numOfDays + " Days");
+        return ("" + (int) numOfDays);
     }
 }
