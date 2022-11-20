@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
 import android.util.Log;
@@ -174,8 +175,8 @@ public class HomeFragment extends Fragment {
                 else {
                     if (session.getData(Constant.CODE_GENERATE).equals("1")){
                         session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
-                        Intent intent = new Intent(getActivity(), GenrateQRActivity.class);
-                        startActivity(intent);
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        fm.beginTransaction().replace(R.id.Container, new GenrateQRFragment()).commit();
 
                     }else {
                         Toast.makeText(activity, "You are Restricted for Generating Code", Toast.LENGTH_SHORT).show();
@@ -191,6 +192,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
 
     private void GotoActivity()
     {
@@ -212,6 +214,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
 
     }
 

@@ -40,6 +40,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             holder.tvTitle.setText("Refer bonus added by admin");
         }else if (wallet.getType().equals("code_bonus")){
             holder.tvTitle.setText(wallet.getCodes() + " Codes added by admin");
+        }else if (wallet.getType().equals("register_bonus")){
+            holder.tvTitle.setText(wallet.getCodes() + " Codes added by admin");
         }else {
             holder.tvTitle.setText("Amount credited For Qr Code");
         }

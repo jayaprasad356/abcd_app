@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.fragment.HomeFragment;
@@ -63,5 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        WalletFragment fragm = new WalletFragment();
+        fragm.walletApi(session,activity);
     }
 }

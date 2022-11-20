@@ -45,6 +45,16 @@
             android:gravity="center"
             android:paddingHorizontal="@dimen/_28sdp"/>
 
+        <TextView
+            android:id="@+id/datetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01-11-2000 09:03:23"
+            android:textColor="#404B52"
+            android:gravity="center"
+            android:textSize="@dimen/_8sdp"
+            android:paddingHorizontal="@dimen/_28sdp"
+            />
 
     </LinearLayout>
 

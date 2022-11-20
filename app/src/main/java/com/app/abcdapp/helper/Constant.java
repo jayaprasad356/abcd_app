@@ -28,6 +28,7 @@ public class Constant {
     public static final String WITHDRAWAL_URL = BaseUrl + "withdrawal.php";
     public static final String WITHDRAWAL_LIST_URL = BaseUrl + "withdrawal_lists.php";
     public static final String NOTIFICATION_LIST_URL = BaseUrl + "notification_lists.php";
+    public static final String CHANGE_DEVICE_LIST_URL = BaseUrl + "change_device.php";
 
 
 
@@ -54,6 +55,7 @@ public class Constant {
     public static final String LAST_UPDATED_DATE = "last_updated_date";
     public static final String LAST_UPDATED_DATE_STATUS = "last_updated_date_status";
     public static final String RUN_API = "run_api";
+    public static final String FCM_ID = "fcm_id";
 
     public static final String EMAIL = "email";
     public static final String NAME = "name";

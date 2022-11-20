@@ -5,15 +5,16 @@ import com.app.abcdapp.Adapter.NotificationAdapter;
 import java.util.ArrayList;
 
 public class Notification {
-    String id,title,description;
+    String id,title,description,datetime;
     public Notification(){
 
     }
 
-    public Notification(String id, String title, String description) {
+    public Notification(String id, String title, String description, String datetime) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.datetime = datetime;
     }
 
     public String getId() {
@@ -38,6 +39,14 @@ public class Notification {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 }
 

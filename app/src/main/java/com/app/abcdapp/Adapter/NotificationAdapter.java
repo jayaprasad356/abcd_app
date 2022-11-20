@@ -38,6 +38,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         holder.title.setText(notification.getTitle());
         holder.description.setText(notification.getDescription());
+        holder.datetime.setText(notification.getDatetime());
 
 
 
@@ -50,11 +51,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     static class ExploreItemHolder extends RecyclerView.ViewHolder {
-        final TextView title,description;
+        final TextView title,description,datetime;
         public ExploreItemHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
+            datetime = itemView.findViewById(R.id.datetime);
 
 
 

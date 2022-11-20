@@ -23,6 +23,7 @@ import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
 import com.app.abcdapp.model.Transanction;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -42,6 +43,7 @@ public class WalletFragment extends Fragment {
     Activity activity;
     Session session;
     TextView tvBalance;
+
 
 
 
@@ -66,7 +68,11 @@ public class WalletFragment extends Fragment {
 
         tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
 
-        walletApi();
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            session.setData(Constant.FCM_ID, token);
+        });
+
+        walletApi(session,activity);
 
         btnWithdrawal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,18 +82,19 @@ public class WalletFragment extends Fragment {
                 
             }
         });
-
         return root;
 
     }
 
-    private void walletApi()
+
+
+    public void walletApi(Session session,Activity activity)
     {
         Map<String, String> params = new HashMap<>();
         params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         params.put(Constant.CODES,session.getInt(Constant.CODES)+"");
+        params.put(Constant.FCM_ID,session.getData(Constant.FCM_ID));
         ApiConfig.RequestToVolley((result, response) -> {
-            Log.d("WALLET_RES",response);
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -129,7 +136,6 @@ public class WalletFragment extends Fragment {
                                 userArray.getJSONObject(0).getString(Constant.JOINED_DATE),
                                 withdrawal_status);
 
-                        tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
 
                         if (session.getData(Constant.STATUS).equals("2")){
                             session.logoutUser(activity);
@@ -142,9 +148,11 @@ public class WalletFragment extends Fragment {
                             session.setData(Constant.BRANCH,bankArray.getJSONObject(0).getString(Constant.BRANCH));
                             session.setData(Constant.IFSC,bankArray.getJSONObject(0).getString(Constant.IFSC));
                         }
+
                         if (jsonArray.length() != 0){
-                            Gson g = new Gson();
                             ArrayList<Transanction> transanctions = new ArrayList<>();
+                            Gson g = new Gson();
+
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
@@ -156,8 +164,17 @@ public class WalletFragment extends Fragment {
                                     break;
                                 }
                             }
-                            transactionAdapter = new TransactionAdapter(activity,transanctions);
-                            recycler.setAdapter(transactionAdapter);
+                            try {
+
+                                tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
+                                transactionAdapter = new TransactionAdapter(activity,transanctions);
+                                recycler.setAdapter(transactionAdapter);
+
+                            }catch (Exception e){
+
+                            }
+
+
 
                         }
 

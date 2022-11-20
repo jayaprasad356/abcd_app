@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     Session session;
     Activity activity;
+    String Mobile,Password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void Login() {
+        Mobile = EtPhoneNumber.getText().toString().trim();
+        Password = EtPassword.getText().toString().trim();
 
         Map<String, String> params = new HashMap<>();
         params.put(Constant.MOBILE,EtPhoneNumber.getText().toString().trim());
@@ -180,8 +183,7 @@ public class LoginActivity extends AppCompatActivity {
         builder.setTitle("Device verification failed !");
         builder.setCancelable(false);
         builder.setPositiveButton("Send request to admin", (DialogInterface.OnClickListener) (dialog, which) -> {
-            Toast.makeText(activity, "Request sent Successfully, Wait for conformation", Toast.LENGTH_SHORT).show();
-            dialog.cancel();
+            changeDeviceApi(dialog);
         });
         builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
             // If user click no then dialog box is canceled.
@@ -193,6 +195,41 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+    private void changeDeviceApi(DialogInterface dialog)
+    {
+        Map<String, String> params = new HashMap<>();
+        params.put(Constant.MOBILE,Mobile);
+        params.put(Constant.PASSWORD,Password);
+        params.put(Constant.DEVICE_ID,Constant.getDeviceId(activity));
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+
+                    }
+                    else {
+                        Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            else {
+                Toast.makeText(this, String.valueOf(response) +String.valueOf(result), Toast.LENGTH_SHORT).show();
+
+            }
+            //pass url
+        }, activity, Constant.CHANGE_DEVICE_LIST_URL, params,true);
+
+
+
+    }
+
     private void ApprovalAlertdialog(String msg) {
 
 
