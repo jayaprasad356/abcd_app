@@ -163,7 +163,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
 
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.USER_ID,session.getData(Constant.ID));
+        params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
                 try {
@@ -191,7 +191,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private void updateUser() {
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.USER_ID, session.getData(Constant.ID));
+        params.put(Constant.USER_ID, session.getData(Constant.USER_ID));
         params.put(Constant.NAME, EtName.getText().toString().trim());
         params.put(Constant.EMAIL, EtEmail.getText().toString().trim());
         params.put(Constant.CITY, EtCity.getText().toString().trim());
@@ -204,16 +204,31 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
-                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-                        session.setData(Constant.ID,jsonArray.getJSONObject(0).getString(Constant.ID));
-                        session.setData(Constant.NAME,jsonArray.getJSONObject(0).getString(Constant.NAME));
-                        session.setData(Constant.MOBILE,jsonArray.getJSONObject(0).getString(Constant.MOBILE));
-                        session.setData(Constant.EARN,jsonArray.getJSONObject(0).getString(Constant.EARN));
-                        session.setData(Constant.WITHDRAWAL,jsonArray.getJSONObject(0).getString(Constant.WITHDRAWAL));
-                        session.setInt(Constant.TOTAL_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TOTAL_CODES)));
-                        session.setInt(Constant.TODAY_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TODAY_CODES)));
-                        session.setData(Constant.BALANCE,jsonArray.getJSONObject(0).getString(Constant.BALANCE));
-                        session.setData(Constant.REFER_CODE,jsonArray.getJSONObject(0).getString(Constant.REFER_CODE));
+                        JSONArray userArray = jsonObject.getJSONArray(Constant.DATA);
+
+                        session.setUserData(userArray.getJSONObject(0).getString(Constant.ID),
+                                userArray.getJSONObject(0).getString(Constant.NAME),
+                                userArray.getJSONObject(0).getString(Constant.MOBILE),
+                                userArray.getJSONObject(0).getString(Constant.PASSWORD),
+                                userArray.getJSONObject(0).getString(Constant.DOB),
+                                userArray.getJSONObject(0).getString(Constant.EMAIL),
+                                userArray.getJSONObject(0).getString(Constant.CITY),
+                                userArray.getJSONObject(0).getString(Constant.REFERRED_BY),
+                                userArray.getJSONObject(0).getString(Constant.EARN),
+                                userArray.getJSONObject(0).getString(Constant.WITHDRAWAL),
+                                userArray.getJSONObject(0).getString(Constant.TOTAL_REFERRALS),
+                                userArray.getJSONObject(0).getInt(Constant.TODAY_CODES),
+                                userArray.getJSONObject(0).getInt(Constant.TOTAL_CODES),
+                                userArray.getJSONObject(0).getString(Constant.BALANCE),
+                                userArray.getJSONObject(0).getString(Constant.DEVICE_ID),
+                                userArray.getJSONObject(0).getString(Constant.STATUS),
+                                userArray.getJSONObject(0).getString(Constant.REFER_CODE),
+                                userArray.getJSONObject(0).getString(Constant.REFER_BONUS_SENT),
+                                userArray.getJSONObject(0).getString(Constant.CODE_GENERATE),
+                                userArray.getJSONObject(0).getString(Constant.CODE_GENERATE_TIME),
+                                userArray.getJSONObject(0).getString(Constant.LAST_UPDATED),
+                                userArray.getJSONObject(0).getString(Constant.JOINED_DATE),
+                                userArray.getJSONObject(0).getString(Constant.WITHDRAWAL_STATUS));
 
                         startActivity(new Intent(activity, MainActivity.class));
                         finish();

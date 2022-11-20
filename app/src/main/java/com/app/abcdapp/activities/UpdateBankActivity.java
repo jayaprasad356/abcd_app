@@ -96,7 +96,7 @@ public class UpdateBankActivity extends AppCompatActivity {
 
     private void updateBank() {
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.USER_ID,session.getData(Constant.ID));
+        params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         params.put(Constant.ACCOUNT_NUM,etAccountnum.getText().toString().trim());
         params.put(Constant.HOLDER_NAME,etHolderName.getText().toString().trim());
         params.put(Constant.BANK,etBankname.getText().toString().trim());

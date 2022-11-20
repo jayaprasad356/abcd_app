@@ -36,8 +36,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         final ItemHolder holder = (ItemHolder) holderParent;
         final Transanction wallet = wallets.get(position);
 
+        if (wallet.getType().equals("refer_bonus")){
+            holder.tvTitle.setText("Refer bonus added by admin");
+        }else if (wallet.getType().equals("code_bonus")){
+            holder.tvTitle.setText(wallet.getCodes() + " Codes added by admin");
+        }else {
+            holder.tvTitle.setText("Amount credited For Qr Code");
+        }
         holder.tvDateTime.setText(wallet.getDatetime());
         holder.tvAmount.setText("+ ₹"+wallet.getAmount());
+
 
     }
 

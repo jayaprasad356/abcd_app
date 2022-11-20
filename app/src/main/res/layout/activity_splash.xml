@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_120sdp"
         android:layout_centerInParent="true"
-        android:backgroundTint="@color/secondaryGreenColor"
+        android:backgroundTint="#8f7f26"
         >
 
 

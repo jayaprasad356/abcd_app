@@ -13,6 +13,8 @@ import com.app.abcdapp.R;
 import com.app.abcdapp.fragment.HomeFragment;
 import com.app.abcdapp.fragment.ProfileFragment;
 import com.app.abcdapp.fragment.WalletFragment;
+import com.app.abcdapp.helper.Constant;
+import com.app.abcdapp.helper.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fm;
     private BottomNavigationView navbar;
     Activity activity;
+    Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +32,15 @@ public class MainActivity extends AppCompatActivity {
         navbar = findViewById(R.id.bottomNavigation);
         navbar.setSelectedItemId(R.id.Home);
         activity = MainActivity.this;
-        fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+        session = new Session(activity);
+        if (session.getBoolean(Constant.RUN_API)){
+            fm.beginTransaction().replace(R.id.Container, new WalletFragment()).commit();
+
+        }
+        else {
+            fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+
+        }
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -102,7 +102,7 @@ public class WithdrawalActivity extends AppCompatActivity {
 
     private void withdrawalApi() {
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.USER_ID,session.getData(Constant.ID));
+        params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         params.put(Constant.AMOUNT,etAmount.getText().toString().trim());
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
@@ -132,7 +132,7 @@ public class WithdrawalActivity extends AppCompatActivity {
 
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(Constant.USER_ID,session.getData(Constant.ID));
+        params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         ApiConfig.RequestToVolley((result, response) -> {
             Log.d("WITHDRAWAL_RES",response);
             if (result) {

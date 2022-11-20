@@ -84,7 +84,7 @@ public class WalletFragment extends Fragment {
     private void walletApi()
     {
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.USER_ID,session.getData(Constant.ID));
+        params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         params.put(Constant.CODES,session.getInt(Constant.CODES)+"");
         ApiConfig.RequestToVolley((result, response) -> {
             Log.d("WALLET_RES",response);
@@ -92,21 +92,48 @@ public class WalletFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        session.setBoolean(Constant.RUN_API,false);
                         session.setInt(Constant.CODES,0);
-                        JSONObject object = new JSONObject(response);
-                        JSONArray jsonArray = object.getJSONArray(Constant.DATA);
-                        JSONArray bankArray = object.getJSONArray(Constant.BANK_DETAILS);
-                        JSONArray userArray = object.getJSONArray(Constant.USER_DETAILS);
-                        session.setData(Constant.NAME,userArray.getJSONObject(0).getString(Constant.NAME));
-                        session.setData(Constant.MOBILE,userArray.getJSONObject(0).getString(Constant.MOBILE));
-                        session.setData(Constant.EARN,userArray.getJSONObject(0).getString(Constant.EARN));
-                        session.setData(Constant.WITHDRAWAL,userArray.getJSONObject(0).getString(Constant.WITHDRAWAL));
-                        session.setInt(Constant.TOTAL_CODES,Integer.parseInt(userArray.getJSONObject(0).getString(Constant.TOTAL_CODES)));
-                        session.setInt(Constant.TODAY_CODES,Integer.parseInt(userArray.getJSONObject(0).getString(Constant.TODAY_CODES)));
-                        session.setData(Constant.BALANCE,userArray.getJSONObject(0).getString(Constant.BALANCE));
-                        session.setData(Constant.REFER_CODE,userArray.getJSONObject(0).getString(Constant.REFER_CODE));
+                        JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
+                        JSONArray bankArray = jsonObject.getJSONArray(Constant.BANK_DETAILS);
+                        String codegenerate = "0",withdrawal_status = "0";
+                        JSONArray userArray = jsonObject.getJSONArray(Constant.USER_DETAILS);
+                        JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
+                        if (setArray.getJSONObject(0).getString(Constant.CODE_GENERATE).equals("1")){
+                            codegenerate = userArray.getJSONObject(0).getString(Constant.CODE_GENERATE);
+                        }
+                        if (setArray.getJSONObject(0).getString(Constant.WITHDRAWAL_STATUS).equals("1")){
+                            withdrawal_status = userArray.getJSONObject(0).getString(Constant.WITHDRAWAL_STATUS);
+                        }
+                        session.setUserData(userArray.getJSONObject(0).getString(Constant.ID),
+                                userArray.getJSONObject(0).getString(Constant.NAME),
+                                userArray.getJSONObject(0).getString(Constant.MOBILE),
+                                userArray.getJSONObject(0).getString(Constant.PASSWORD),
+                                userArray.getJSONObject(0).getString(Constant.DOB),
+                                userArray.getJSONObject(0).getString(Constant.EMAIL),
+                                userArray.getJSONObject(0).getString(Constant.CITY),
+                                userArray.getJSONObject(0).getString(Constant.REFERRED_BY),
+                                userArray.getJSONObject(0).getString(Constant.EARN),
+                                userArray.getJSONObject(0).getString(Constant.WITHDRAWAL),
+                                userArray.getJSONObject(0).getString(Constant.TOTAL_REFERRALS),
+                                userArray.getJSONObject(0).getInt(Constant.TODAY_CODES),
+                                userArray.getJSONObject(0).getInt(Constant.TOTAL_CODES),
+                                userArray.getJSONObject(0).getString(Constant.BALANCE),
+                                userArray.getJSONObject(0).getString(Constant.DEVICE_ID),
+                                userArray.getJSONObject(0).getString(Constant.STATUS),
+                                userArray.getJSONObject(0).getString(Constant.REFER_CODE),
+                                userArray.getJSONObject(0).getString(Constant.REFER_BONUS_SENT),
+                                codegenerate,
+                                userArray.getJSONObject(0).getString(Constant.CODE_GENERATE_TIME),
+                                userArray.getJSONObject(0).getString(Constant.LAST_UPDATED),
+                                userArray.getJSONObject(0).getString(Constant.JOINED_DATE),
+                                withdrawal_status);
 
                         tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
+
+                        if (session.getData(Constant.STATUS).equals("2")){
+                            session.logoutUser(activity);
+                        }
 
                         if (bankArray.length() != 0){
                             session.setData(Constant.ACCOUNT_NUM,bankArray.getJSONObject(0).getString(Constant.ACCOUNT_NUM));
@@ -139,7 +166,7 @@ public class WalletFragment extends Fragment {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(activity, String.valueOf(e), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
                 }
             }
         }, activity, Constant.WALLET_URL, params, true);

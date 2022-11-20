@@ -8,13 +8,23 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.app.abcdapp.Adapter.NotificationAdapter;
 import com.app.abcdapp.R;
+import com.app.abcdapp.helper.ApiConfig;
+import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
 import com.app.abcdapp.model.Notification;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NotificaionActivity extends AppCompatActivity {
 
@@ -48,55 +58,37 @@ public class NotificaionActivity extends AppCompatActivity {
 
     private void notificationList()
     {
+        Map<String, String> params = new HashMap<>();
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray jsonArray = object.getJSONArray(Constant.DATA);
+                        Gson g = new Gson();
+                        ArrayList<Notification> notifications = new ArrayList<>();
 
-        ArrayList<Notification> notifications = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                            if (jsonObject1 != null) {
+                                Notification group = g.fromJson(jsonObject1.toString(), Notification.class);
+                                notifications.add(group);
+                            } else {
+                                break;
+                            }
+                        }
+                        notificationAdapter = new NotificationAdapter(activity, notifications);
+                        recyclerView.setAdapter(notificationAdapter);
+                    }
 
 
-        Notification serviceModel1  = new Notification("","Amount Transfer","₹499");
-        Notification serviceModel2  = new Notification("","Amount Transfer","₹499");
-        Notification serviceModel3  = new Notification("","Amount Transfer","₹499");
-
-
-        notifications.add(serviceModel1);
-        notifications.add(serviceModel2);
-        notifications.add(serviceModel3);
-
-        notificationAdapter = new NotificationAdapter(activity, notifications);
-        recyclerView.setAdapter(notificationAdapter);
-
-
-//        Map<String, String> params = new HashMap<>();
-//        ApiConfig.RequestToVolley((result, response) -> {
-//            if (result) {
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-//                        JSONObject object = new JSONObject(response);
-//                        JSONArray jsonArray = object.getJSONArray(Constant.DATA);
-//                        Gson g = new Gson();
-//                        ArrayList<Notification> notifications = new ArrayList<>();
-//
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-//
-//                            if (jsonObject1 != null) {
-//                                Notification group = g.fromJson(jsonObject1.toString(), Notification.class);
-//                                notifications.add(group);
-//                            } else {
-//                                break;
-//                            }
-//                        }
-//                        notificationAdapter = new NotificationAdapter(activity, notifications);
-//                        recyclerView.setAdapter(notificationAdapter);
-//                    }
-//
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    Toast.makeText(activity, String.valueOf(e), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }, activity, Constant.NOTIFICATION_LIST, params, true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, activity, Constant.NOTIFICATION_LIST_URL, params, true);
 
     }
 

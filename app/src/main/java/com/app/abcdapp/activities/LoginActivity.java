@@ -57,21 +57,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ApprovalAlertdialog();
 
-//                if(EtPhoneNumber.getText().toString().trim().equals("") ){
-//                    Toast.makeText(LoginActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
-//                }
-//                else if (EtPassword.getText().toString().trim().equals("")){
-//                    Toast.makeText(LoginActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//
-//
-//                    Login();
-////                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-////                    startActivity(intent);
-//                }
+
+                if(EtPhoneNumber.getText().toString().trim().equals("") ){
+                    Toast.makeText(LoginActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
+                }
+                else if (EtPassword.getText().toString().trim().equals("")){
+                    Toast.makeText(LoginActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
+                }
+                else{
+
+
+                    Login();
+                }
             }
         });
     }
@@ -84,38 +82,67 @@ public class LoginActivity extends AppCompatActivity {
         params.put(Constant.DEVICE_ID,Constant.getDeviceId(activity));
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
+                clearFields();
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        if (jsonObject.getBoolean(Constant.DEVICE_VERIFY)){
-                            JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
-                            Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
-                            session.setData(Constant.ID,jsonArray.getJSONObject(0).getString(Constant.ID));
-                            session.setData(Constant.NAME,jsonArray.getJSONObject(0).getString(Constant.NAME));
-                            session.setData(Constant.MOBILE,jsonArray.getJSONObject(0).getString(Constant.MOBILE));
-                            session.setData(Constant.EARN,jsonArray.getJSONObject(0).getString(Constant.EARN));
-                            session.setData(Constant.WITHDRAWAL,jsonArray.getJSONObject(0).getString(Constant.WITHDRAWAL));
-                            session.setInt(Constant.TOTAL_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TOTAL_CODES)));
-                            session.setInt(Constant.TODAY_CODES,Integer.parseInt(jsonArray.getJSONObject(0).getString(Constant.TODAY_CODES)));
-                            session.setData(Constant.BALANCE,jsonArray.getJSONObject(0).getString(Constant.BALANCE));
-                            session.setData(Constant.REFER_CODE,jsonArray.getJSONObject(0).getString(Constant.REFER_CODE));
+                        if (jsonObject.getBoolean(Constant.USER_VERIFY)){
+                            if (jsonObject.getBoolean(Constant.DEVICE_VERIFY)){
+                                String codegenerate = "0",withdrawal_status = "0";
+                                JSONArray userArray = jsonObject.getJSONArray(Constant.DATA);
+                                JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
+                                if (setArray.getJSONObject(0).getString(Constant.CODE_GENERATE).equals("1")){
+                                    codegenerate = userArray.getJSONObject(0).getString(Constant.CODE_GENERATE);
+                                }
+                                if (setArray.getJSONObject(0).getString(Constant.WITHDRAWAL_STATUS).equals("1")){
+                                    withdrawal_status = userArray.getJSONObject(0).getString(Constant.WITHDRAWAL_STATUS);
+                                }
 
-                            if (session.getBoolean(Constant.IMPORT_DATA)){
-                                session.setBoolean("is_logged_in", true);
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
+                                Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                                session.setUserData(userArray.getJSONObject(0).getString(Constant.ID),
+                                        userArray.getJSONObject(0).getString(Constant.NAME),
+                                        userArray.getJSONObject(0).getString(Constant.MOBILE),
+                                        userArray.getJSONObject(0).getString(Constant.PASSWORD),
+                                        userArray.getJSONObject(0).getString(Constant.DOB),
+                                        userArray.getJSONObject(0).getString(Constant.EMAIL),
+                                        userArray.getJSONObject(0).getString(Constant.CITY),
+                                        userArray.getJSONObject(0).getString(Constant.REFERRED_BY),
+                                        userArray.getJSONObject(0).getString(Constant.EARN),
+                                        userArray.getJSONObject(0).getString(Constant.WITHDRAWAL),
+                                        userArray.getJSONObject(0).getString(Constant.TOTAL_REFERRALS),
+                                        userArray.getJSONObject(0).getInt(Constant.TODAY_CODES),
+                                        userArray.getJSONObject(0).getInt(Constant.TOTAL_CODES),
+                                        userArray.getJSONObject(0).getString(Constant.BALANCE),
+                                        userArray.getJSONObject(0).getString(Constant.DEVICE_ID),
+                                        userArray.getJSONObject(0).getString(Constant.STATUS),
+                                        userArray.getJSONObject(0).getString(Constant.REFER_CODE),
+                                        userArray.getJSONObject(0).getString(Constant.REFER_BONUS_SENT),
+                                        codegenerate,
+                                        userArray.getJSONObject(0).getString(Constant.CODE_GENERATE_TIME),
+                                        userArray.getJSONObject(0).getString(Constant.LAST_UPDATED),
+                                        userArray.getJSONObject(0).getString(Constant.JOINED_DATE),
+                                        withdrawal_status);
+                                if (session.getBoolean(Constant.IMPORT_DATA)){
+                                    session.setBoolean("is_logged_in", true);
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finish();
 
-                            }else {
-                                startActivity(new Intent(LoginActivity.this, ImportDataActivity.class));
-                                finish();
+                                }else {
+                                    startActivity(new Intent(LoginActivity.this, ImportDataActivity.class));
+                                    finish();
+                                }
+
+                            }
+                            else {
+
+                                showAlertdialog();
                             }
 
+                        }else {
+                            ApprovalAlertdialog(jsonObject.getString(Constant.MESSAGE));
                         }
-                       else {
 
-                           showAlertdialog();
-                        }
 
                     }
                     else {
@@ -137,6 +164,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void clearFields() {
+        EtPhoneNumber.getText().clear();
+        EtPassword.getText().clear();
     }
 
     private void showAlertdialog() {
@@ -161,20 +193,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    private void ApprovalAlertdialog() {
+    private void ApprovalAlertdialog(String msg) {
 
 
         // Create the object of AlertDialog Builder class
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage("Please Contact Admin");
-        builder.setTitle("Wait for Approval");
+        builder.setMessage(msg);
+        builder.setTitle("Failed to Login");
         builder.setCancelable(false);
-        builder.setPositiveButton("Send request to admin", (DialogInterface.OnClickListener) (dialog, which) -> {
-            Toast.makeText(activity, "Request sent Successfully, Wait for conformation", Toast.LENGTH_SHORT).show();
-            dialog.cancel();
-        });
-        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-            // If user click no then dialog box is canceled.
+        builder.setPositiveButton("ok", (DialogInterface.OnClickListener) (dialog, which) -> {
             dialog.cancel();
         });
         AlertDialog alertDialog = builder.create();

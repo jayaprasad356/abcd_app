@@ -1,5 +1,7 @@
 package com.app.abcdapp.fragment;
 
+import static com.app.abcdapp.helper.Constant.getHistoryDays;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,12 +29,17 @@ import com.app.abcdapp.java.GenericTextWatcher;
 import com.app.abcdapp.R;
 import com.app.abcdapp.model.GenerateCodes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class HomeFragment extends Fragment {
 
-    TextView tvName,tvPincode,tvCity, tvId,tvTodayCodes,tvTotalCodes;
+    TextView tvName,tvPincode,tvCity, tvId,tvTodayCodes,tvTotalCodes,tvHistorydays;
     EditText edName,edPincode,edCity;
     Button btnGenerate;
 
@@ -48,6 +55,7 @@ public class HomeFragment extends Fragment {
     String Idnumber = "";
 
     Handler handler;
+    long code_generate_time = 0;
 
 
 
@@ -70,8 +78,11 @@ public class HomeFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getActivity());
 
         handler = new Handler();
+        code_generate_time = Long.parseLong(session.getData(Constant.CODE_GENERATE_TIME)) * 1000;
 
-         GotoActivity();
+
+        GotoActivity();
+
 
 
 
@@ -85,6 +96,7 @@ public class HomeFragment extends Fragment {
         edCity = root.findViewById(R.id.edCity);
         tvTodayCodes = root.findViewById(R.id.tvTodayCodes);
         tvTotalCodes = root.findViewById(R.id.tvTotalCodes);
+        tvHistorydays = root.findViewById(R.id.tvHistorydays);
         btnGenerate = root.findViewById(R.id.btnGenerate);
         frame = root.findViewById(R.id.frame);
         llWaiting = root.findViewById(R.id.llWaiting);
@@ -103,6 +115,7 @@ public class HomeFragment extends Fragment {
 
         tvTodayCodes.setText((session.getInt(Constant.TODAY_CODES) + session.getInt(Constant.CODES))+ "");
         tvTotalCodes.setText((session.getInt(Constant.TOTAL_CODES) + session.getInt(Constant.CODES))+ "");
+        tvHistorydays.setText(getHistoryDays(session.getData(Constant.JOINED_DATE)));
         EditText[] edit = {otp_textbox_one, otp_textbox_two, otp_textbox_three, otp_textbox_four,otp_textbox_five,otp_textbox_six,otp_textbox_seven,otp_textbox_eight,otp_textbox_nine,otp_textbox_ten};
         otp_textbox_one.addTextChangedListener(new GenericTextWatcher(otp_textbox_one, edit));
         otp_textbox_two.addTextChangedListener(new GenericTextWatcher(otp_textbox_two, edit));
@@ -159,23 +172,25 @@ public class HomeFragment extends Fragment {
 
 
                 else {
+                    if (session.getData(Constant.CODE_GENERATE).equals("1")){
+                        session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
+                        Intent intent = new Intent(getActivity(), GenrateQRActivity.class);
+                        startActivity(intent);
 
+                    }else {
+                        Toast.makeText(activity, "You are Restricted for Generating Code", Toast.LENGTH_SHORT).show();
+                    }
 
-
-                    session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
-                    Intent intent = new Intent(getActivity(), GenrateQRActivity.class);
-                    startActivity(intent);
 
                 }
 
             }
         });
-        Log.d("ID_NUMBER","Id number not match" + edit.toString());
+
 
 
         return root;
     }
-
 
     private void GotoActivity()
     {
@@ -190,7 +205,7 @@ public class HomeFragment extends Fragment {
 
 
             }
-        },3000);
+        },code_generate_time);
     }
 
 
