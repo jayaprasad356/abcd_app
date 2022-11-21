@@ -4,6 +4,7 @@ package com.app.abcdapp.helper;
 import android.content.Intent;
 import android.util.Log;
 
+import com.app.abcdapp.activities.NotificaionActivity;
 import com.app.abcdapp.activities.SplashActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -31,6 +32,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     void sendPushNotification(JSONObject json) {
         try {
+            Session session = new Session(getApplicationContext());
 
             JSONObject data = json.getJSONObject(Constant.DATA);
 
@@ -39,8 +41,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String message = data.getString("message");
             String imageUrl = data.getString("image");
             String id = data.getString("id");
+            Intent intent = null;
+            if (session.getBoolean("is_logged_in")){
+                intent = new Intent(getApplicationContext(), NotificaionActivity.class);
 
-            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+            }else {
+                intent = new Intent(getApplicationContext(), SplashActivity.class);
+            }
+
+
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
             mNotificationManager.showSmallNotification(title, message, intent);
 

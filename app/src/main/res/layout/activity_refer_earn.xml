@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
-                    android:text="Refer your friend and family members and earn ? 300 Bonus + ? 250 Refund + 1000 codes ( ? 170) Totally ? 720/- instantly in"
+                    android:text="@string/refertext"
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:textAlignment="center"
