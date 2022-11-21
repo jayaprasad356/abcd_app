@@ -22,6 +22,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.abcdapp.BuildConfig;
 import com.app.abcdapp.R;
 import com.app.abcdapp.activities.NotificaionActivity;
 import com.app.abcdapp.activities.ReferEarnActivity;
@@ -42,7 +43,7 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     private ClipboardManager myClipboard;
     private ClipData myClip;
 
-    TextView tvName,tvMobile,tvEarn,tvWithdrawal,tvCodes,tvBalance,tvRefercode;
+    TextView tvName,tvMobile,tvEarn,tvWithdrawal,tvCodes,tvBalance,tvRefercode,tvTotalRefer;
 
 
     public ProfileFragment() {
@@ -71,6 +72,7 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         tvBalance = root.findViewById(R.id.tvBalance);
         btncopy = root.findViewById(R.id.btncopy);
         tvRefercode = root.findViewById(R.id.tvRefercode);
+        tvTotalRefer = root.findViewById(R.id.tvTotalRefer);
 
         tvName.setText(session.getData(Constant.NAME));
         tvMobile.setText(session.getData(Constant.MOBILE));
@@ -78,6 +80,7 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         tvWithdrawal.setText(session.getData(Constant.WITHDRAWAL));
         tvCodes.setText(session.getInt(Constant.TOTAL_CODES) + "");
         tvBalance.setText(session.getData(Constant.BALANCE));
+        tvTotalRefer.setText(session.getData(Constant.TOTAL_REFERRALS));
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,12 +98,17 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
 
 
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = "DOWNLOAD THE APP AND GET UNLIMITED EARNING .you can also Download App from below link and enter referral code while login-"+"\n"+text+"\n"+"https://play.google.com/store/apps/details?id=abcdjob.workonline.com.qrcode";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(sharingIntent);
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                    String shareMessage= "\nDOWNLOAD THE APP AND GET UNLIMITED EARNING .you can also Download App from below link and enter referral code while login-"+"\n"+text+"\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
 
             }
         });
