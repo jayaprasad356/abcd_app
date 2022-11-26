@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -18,6 +19,8 @@ public class ProgressDisplay {
     @SuppressLint("UseCompatLoadingForDrawables")
     public ProgressDisplay(Activity activity) {
         try {
+            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             ViewGroup layout = (ViewGroup) (activity).findViewById(android.R.id.content).getRootView();
 
             mProgressBar = new ProgressBar(activity, null, android.R.attr.progressBarStyle);
@@ -31,7 +34,7 @@ public class ProgressDisplay {
             rl.setGravity(Gravity.CENTER);
             rl.addView(mProgressBar);
             layout.addView(rl, params);
-            hideProgress();
+            hideProgress(activity);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,8 +46,9 @@ public class ProgressDisplay {
             mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    public void hideProgress() {
+    public void hideProgress(Activity activity) {
         mProgressBar.setVisibility(View.GONE);
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
     }
 }

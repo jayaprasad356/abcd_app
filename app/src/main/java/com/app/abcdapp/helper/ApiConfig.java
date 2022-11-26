@@ -6,7 +6,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -48,22 +47,22 @@ public class ApiConfig extends Application {
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void RequestToVolley(final VolleyCallback callback, final Activity activity, final String url, final Map<String, String> params, final boolean isProgress) {
-        if (ProgressDisplay.mProgressBar != null) {
-            ProgressDisplay.mProgressBar.setVisibility(View.GONE);
+        if (CustomDialog.dialog != null) {
+            CustomDialog.dialog.cancel();
         }
-        final ProgressDisplay progressDisplay = new ProgressDisplay(activity);
-        progressDisplay.hideProgress();
+
+        final CustomDialog customDialog = new CustomDialog(activity);
 
         if (isProgress)
-            progressDisplay.showProgress();
+            customDialog.showDialog();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             if (ApiConfig.isConnected(activity))
                 callback.onSuccess(true, response);
             if (isProgress)
-                progressDisplay.hideProgress();
+                customDialog.closeDialog();
         }, error -> {
             if (isProgress)
-                progressDisplay.hideProgress();
+                customDialog.closeDialog();
             if (ApiConfig.isConnected(activity))
                 callback.onSuccess(false, "");
             String message = VolleyErrorMessage(error);

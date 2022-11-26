@@ -15,7 +15,8 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class Constant {
-    public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
+    public static final String MainBaseUrl = "https://admin.abcdapp.in/";
+    //public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
     //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
@@ -29,6 +30,7 @@ public class Constant {
     public static final String WITHDRAWAL_LIST_URL = BaseUrl + "withdrawal_lists.php";
     public static final String NOTIFICATION_LIST_URL = BaseUrl + "notification_lists.php";
     public static final String CHANGE_DEVICE_LIST_URL = BaseUrl + "change_device.php";
+    public static final String APPUPDATE_URL = BaseUrl + "appupdate.php";
 
 
 
@@ -70,6 +72,9 @@ public class Constant {
     public static final String SETTINGS = "settings";
     public static final String BANK_DETAILS = "bank_details";
     public static final String USER_DETAILS = "user_details";
+    public static final String LINK = "link";
+    public static final String DESCRIPTION = "description";
+    public static final String VERSION = "version";
 
     public static final String DATE = "date";
     public static final String DOB = "dob";

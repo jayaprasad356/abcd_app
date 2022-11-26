@@ -92,6 +92,7 @@ public class WalletFragment extends Fragment {
         params.put(Constant.CODES,session.getInt(Constant.CODES)+"");
         params.put(Constant.FCM_ID,session.getData(Constant.FCM_ID));
         ApiConfig.RequestToVolley((result, response) -> {
+            Log.d("WALLET_RES",response);
             if (result) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
