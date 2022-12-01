@@ -170,36 +170,23 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginHorizontal="@dimen/_30sdp"
         android:text="Sign in"
+        android:textAllCaps="false"
         android:padding="@dimen/_10sdp"
         android:backgroundTint="@color/primaryLightColor"
         />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't a account create an new account?"
-            android:gravity="center"
-            android:layout_gravity="end"
-            android:textSize="@dimen/_10sdp"
-            android:textColor="@color/white"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/tvSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" SignUp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="@dimen/_10sdp"
-            android:textColor="@color/primaryLightColor"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:text="Create new account"
+        android:padding="@dimen/_10sdp"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/secondaryDarkColor"
+        />
+
 
 
 

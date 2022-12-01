@@ -91,6 +91,7 @@ public class WalletFragment extends Fragment {
         params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         params.put(Constant.CODES,session.getInt(Constant.CODES)+"");
         params.put(Constant.FCM_ID,session.getData(Constant.FCM_ID));
+        session.setInt(Constant.CODES,0);
         ApiConfig.RequestToVolley((result, response) -> {
             Log.d("WALLET_RES",response);
             if (result) {
@@ -98,7 +99,7 @@ public class WalletFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         session.setBoolean(Constant.RUN_API,false);
-                        session.setInt(Constant.CODES,0);
+
                         JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                         JSONArray bankArray = jsonObject.getJSONArray(Constant.BANK_DETAILS);
                         String codegenerate = "0",withdrawal_status = "0";

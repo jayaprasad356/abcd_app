@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView tvSignup;
+    Button btnSignUp;
     EditText EtPhoneNumber,EtPassword;
     Button btnLogin;
     Session session;
@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         EtPhoneNumber = findViewById(R.id.EtPhoneNumber);
         EtPassword = findViewById(R.id.EtPassword);
-        tvSignup = findViewById(R.id.tvSignup);
-        tvSignup.setOnClickListener(new View.OnClickListener() {
+        btnSignUp = findViewById(R.id.btnSignUp);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -57,9 +57,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
                 if(EtPhoneNumber.getText().toString().trim().equals("") ){
                     Toast.makeText(LoginActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
                 }
