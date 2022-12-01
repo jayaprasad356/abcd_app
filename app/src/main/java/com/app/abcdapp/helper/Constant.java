@@ -93,6 +93,8 @@ public class Constant {
     public static final String LAST_UPDATED = "last_updated";
     public static final String JOINED_DATE = "joined_date";
     public static final String WITHDRAWAL_STATUS = "withdrawal_status";
+    public static final String SYNC_TIME = "sync_time";
+
     @SuppressLint("HardwareIds")
     public static final  String getDeviceId(Activity activity) {
 

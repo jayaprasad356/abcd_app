@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     Session session;
     Activity activity;
     String Mobile,Password;
+    TextView tvMakePayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         session = new Session(activity);
 
         btnLogin = findViewById(R.id.btnLogin);
+        tvMakePayment = findViewById(R.id.tvMakePayment);
         EtPhoneNumber = findViewById(R.id.EtPhoneNumber);
         EtPassword = findViewById(R.id.EtPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
@@ -70,6 +73,19 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        tvMakePayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://admin.abcdapp.in/payments.php"));
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void Login() {
@@ -92,6 +108,8 @@ public class LoginActivity extends AppCompatActivity {
                                 String codegenerate = "0",withdrawal_status = "0";
                                 JSONArray userArray = jsonObject.getJSONArray(Constant.DATA);
                                 JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
+                                session.setData(Constant.SYNC_TIME,setArray.getJSONObject(0).getString(Constant.SYNC_TIME));
+
                                 if (setArray.getJSONObject(0).getString(Constant.CODE_GENERATE).equals("1")){
                                     codegenerate = userArray.getJSONObject(0).getString(Constant.CODE_GENERATE);
                                 }

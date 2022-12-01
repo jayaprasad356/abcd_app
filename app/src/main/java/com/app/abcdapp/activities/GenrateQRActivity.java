@@ -59,8 +59,11 @@ public class GenrateQRActivity extends AppCompatActivity {
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
         long hoursInMilli = minutesInMilli * 60;
-        long elapsedHours = different / hoursInMilli;
-        if (elapsedHours >= 1){
+        long elapsedMinutue = different / minutesInMilli *5;
+        Toast.makeText(activity, ""+elapsedMinutue, Toast.LENGTH_SHORT).show();
+
+        if (elapsedMinutue >= 2){
+
             session.setBoolean(Constant.RUN_API,true);
         }
         else {

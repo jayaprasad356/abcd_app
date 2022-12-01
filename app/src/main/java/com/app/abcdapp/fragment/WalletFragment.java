@@ -105,6 +105,8 @@ public class WalletFragment extends Fragment {
                         String codegenerate = "0",withdrawal_status = "0";
                         JSONArray userArray = jsonObject.getJSONArray(Constant.USER_DETAILS);
                         JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
+                        session.setData(Constant.SYNC_TIME,setArray.getJSONObject(0).getString(Constant.SYNC_TIME));
+
                         if (setArray.getJSONObject(0).getString(Constant.CODE_GENERATE).equals("1")){
                             codegenerate = userArray.getJSONObject(0).getString(Constant.CODE_GENERATE);
                         }

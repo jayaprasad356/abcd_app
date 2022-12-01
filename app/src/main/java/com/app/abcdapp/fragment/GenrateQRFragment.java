@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.activities.GenrateQRActivity;
@@ -73,8 +74,13 @@ public class GenrateQRFragment extends Fragment {
         long minutesInMilli = secondsInMilli * 60;
         long hoursInMilli = minutesInMilli * 60;
         long elapsedHours = different / hoursInMilli;
-        if (elapsedHours >= 1){
+        long elapsedMinutue = different / minutesInMilli;
+
+        if (elapsedMinutue >= Long.parseLong(session.getData(Constant.SYNC_TIME))){
+
             session.setBoolean(Constant.RUN_API,true);
+            session.setBoolean(Constant.LAST_UPDATED_DATE_STATUS,false);
+
         }
         else {
             session.setBoolean(Constant.RUN_API,false);
@@ -93,10 +99,11 @@ public class GenrateQRFragment extends Fragment {
             @Override
             public void run() {
 
-
-
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+
+
+
 
 
 

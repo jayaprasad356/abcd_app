@@ -139,6 +139,9 @@ public class HomeFragment extends Fragment {
                         otp_textbox_nine.getText().toString().trim() + otp_textbox_ten.getText().toString().trim();
 
 
+
+
+
                 if (!tvName.getText().toString().trim().equals(edName.getText().toString().trim())){
 
                    // Toast.makeText(getActivity(), "Name not match", Toast.LENGTH_SHORT).show();
