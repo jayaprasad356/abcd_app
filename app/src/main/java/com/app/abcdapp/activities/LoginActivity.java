@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-         activity = LoginActivity.this;
+        activity = LoginActivity.this;
         session = new Session(activity);
 
         btnLogin = findViewById(R.id.btnLogin);
@@ -78,11 +78,16 @@ public class LoginActivity extends AppCompatActivity {
         tvMakePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://admin.abcdapp.in/payments.php"));
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(session.getData(Constant.PAYMENT_LINK)));
+                    startActivity(intent);
+                }catch (Exception e){
+
+                }
+
             }
         });
 
