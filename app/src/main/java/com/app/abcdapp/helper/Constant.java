@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class Constant {
-    public static final String MainBaseUrl = "https://admin.abcdapp.in/";
+    public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
     //public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
     //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
