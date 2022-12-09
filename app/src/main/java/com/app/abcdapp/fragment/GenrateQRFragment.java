@@ -98,9 +98,7 @@ public class GenrateQRFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+                MainActivity.fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
 
 
 

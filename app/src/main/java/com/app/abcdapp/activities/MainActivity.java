@@ -22,7 +22,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FragmentManager fm;
+    public static FragmentManager fm = null;
     private BottomNavigationView navbar;
     Activity activity;
     Session session;
