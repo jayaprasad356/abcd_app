@@ -40,10 +40,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         activity = SplashActivity.this;
         session = new Session(activity);
-
-
-
-
         handler = new Handler();
         checkVersion();
     }
@@ -73,12 +69,13 @@ public class SplashActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        if (currentversion.equals(latestversion)){
+                        if (Integer.parseInt(currentversion) >= Integer.parseInt(latestversion)){
                             GotoActivity();
 
                         }else {
                             updateAlertDialog();
                         }
+
                     }
                     else {
                         Log.d("MAINACTIVITY",jsonObject.getString(Constant.MESSAGE));
@@ -128,6 +125,11 @@ public class SplashActivity extends AppCompatActivity {
                 Session session = new Session(SplashActivity.this);
                 if (session.getBoolean("is_logged_in")){
                     Intent intent=new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }else if (session.getBoolean(Constant.CHECKIN)){
+                    Intent intent=new Intent(SplashActivity.this, CheckInActivity.class);
                     startActivity(intent);
                     finish();
 

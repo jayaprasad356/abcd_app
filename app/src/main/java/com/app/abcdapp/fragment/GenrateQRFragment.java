@@ -100,11 +100,6 @@ public class GenrateQRFragment extends Fragment {
             public void run() {
                 MainActivity.fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
 
-
-
-
-
-
             }
         },1000);
     }

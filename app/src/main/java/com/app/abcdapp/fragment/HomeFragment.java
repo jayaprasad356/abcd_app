@@ -3,6 +3,8 @@ package com.app.abcdapp.fragment;
 import static com.app.abcdapp.helper.Constant.getHistoryDays;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,6 +27,7 @@ import com.app.abcdapp.activities.GenrateQRActivity;
 import com.app.abcdapp.activities.MainActivity;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.DatabaseHelper;
+import com.app.abcdapp.helper.ProgressDisplay;
 import com.app.abcdapp.helper.Session;
 import com.app.abcdapp.java.GenericTextWatcher;
 import com.app.abcdapp.R;
@@ -51,12 +54,12 @@ public class HomeFragment extends Fragment {
     Session session;
     Activity activity;
     ScrollView frame;
-    LinearLayout llWaiting;
 
     String Idnumber = "";
 
     Handler handler;
     long code_generate_time = 0;
+    public static Dialog dialog = null;
 
 
 
@@ -75,11 +78,26 @@ public class HomeFragment extends Fragment {
 
         activity = getActivity();
         session = new Session(activity);
-
         databaseHelper = new DatabaseHelper(getActivity());
 
         handler = new Handler();
-        code_generate_time = Long.parseLong(session.getData(Constant.CODE_GENERATE_TIME)) * 1000;
+        try {
+            code_generate_time = Long.parseLong(session.getData(Constant.CODE_GENERATE_TIME)) * 1000;
+
+
+        }catch (Exception e){
+            code_generate_time = 3 * 1000;
+
+
+        }
+
+        dialog = new Dialog(activity);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        dialog.setContentView(R.layout.customdia2);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.show();
 
 
         GotoActivity();
@@ -100,8 +118,6 @@ public class HomeFragment extends Fragment {
         tvHistorydays = root.findViewById(R.id.tvHistorydays);
         btnGenerate = root.findViewById(R.id.btnGenerate);
         frame = root.findViewById(R.id.frame);
-        llWaiting = root.findViewById(R.id.llWaiting);
-
 
         otp_textbox_one = root.findViewById(R.id.otp_edit_box1);
         otp_textbox_two = root.findViewById(R.id.otp_edit_box2);
@@ -205,7 +221,7 @@ public class HomeFragment extends Fragment {
 
 
                 frame.setVisibility(View.VISIBLE);
-                llWaiting.setVisibility(View.GONE);
+                dialog.cancel();
 
 
 

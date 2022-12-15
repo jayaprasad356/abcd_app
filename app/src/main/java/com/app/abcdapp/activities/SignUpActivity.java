@@ -166,7 +166,10 @@ public class SignUpActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                        session.setData(Constant.MOBILE,EtPhoneNo.getText().toString().trim());
+                        session.setData(Constant.PASSWORD,EtPassword.getText().toString().trim());
+                        session.setBoolean(Constant.CHECKIN,true);
+                        startActivity(new Intent(SignUpActivity.this, CheckInActivity.class));
                         finish();
                     }
                     else {

@@ -84,6 +84,7 @@ public class Constant {
     public static final String CITY = "city";
     public static final String PINCCODE = "pincode";
     public static final String PASSWORD = "password";
+    public static final String CHECKIN = "checkin";
     public static final String PAYMENT_LINK = "payment_link";
     public static final String DEVICE_ID = "device_id";
     public static final String STATUS = "status";

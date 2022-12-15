@@ -6,9 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".helper.ApiConfig"
@@ -21,6 +23,9 @@
         android:theme="@style/Theme.ABCDApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.CheckInActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.NotificaionActivity"
             android:exported="false" />
@@ -68,6 +73,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="true" />
+
         <service
             android:name=".helper.MyFirebaseMessagingService"
             android:exported="false">

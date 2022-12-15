@@ -6,20 +6,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
-import com.app.abcdapp.helper.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,89 +21,29 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
-
-    Button btnSignUp;
-    EditText EtPhoneNumber,EtPassword;
-    Button btnLogin;
-    Session session;
-    Activity activity;
+public class CheckInActivity extends AppCompatActivity {
     String Mobile,Password;
-    TextView tvMakePayment;
+    Activity activity;
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        activity = LoginActivity.this;
+        setContentView(R.layout.activity_check_in);
+        activity = CheckInActivity.this;
         session = new Session(activity);
+        Mobile = session.getData(Constant.MOBILE);
+        Password = session.getData(Constant.PASSWORD);
 
-        btnLogin = findViewById(R.id.btnLogin);
-        tvMakePayment = findViewById(R.id.tvMakePayment);
-        EtPhoneNumber = findViewById(R.id.EtPhoneNumber);
-        EtPassword = findViewById(R.id.EtPassword);
-        btnSignUp = findViewById(R.id.btnSignUp);
-
-        EtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_show, 0);
-
-
-        Utils.setHideShowPassword(EtPassword);
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(EtPhoneNumber.getText().toString().trim().equals("") ){
-                    Toast.makeText(LoginActivity.this, "Phone Number is empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (EtPassword.getText().toString().trim().equals("")){
-                    Toast.makeText(LoginActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
-                }
-                else{
-
-
-                    Login();
-                }
-            }
-        });
-
-
-        tvMakePayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                    intent.setData(Uri.parse(session.getData(Constant.PAYMENT_LINK)));
-                    startActivity(intent);
-                }catch (Exception e){
-
-                }
-
-            }
-        });
-
+        Login();
     }
-
     private void Login() {
-        Mobile = EtPhoneNumber.getText().toString().trim();
-        Password = EtPassword.getText().toString().trim();
-
         Map<String, String> params = new HashMap<>();
-        params.put(Constant.MOBILE,EtPhoneNumber.getText().toString().trim());
-        params.put(Constant.PASSWORD,EtPassword.getText().toString().trim());
+        params.put(Constant.MOBILE,Mobile);
+        params.put(Constant.PASSWORD,Password);
         params.put(Constant.DEVICE_ID,Constant.getDeviceId(activity));
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
-                clearFields();
-
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
@@ -127,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (setArray.getJSONObject(0).getString(Constant.WITHDRAWAL_STATUS).equals("1")){
                                     withdrawal_status = userArray.getJSONObject(0).getString(Constant.WITHDRAWAL_STATUS);
                                 }
+                                session.setBoolean(Constant.CHECKIN,false);
 
                                 Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
                                 session.setUserData(userArray.getJSONObject(0).getString(Constant.ID),
@@ -154,11 +88,11 @@ public class LoginActivity extends AppCompatActivity {
                                         withdrawal_status);
                                 if (session.getBoolean(Constant.IMPORT_DATA)){
                                     session.setBoolean("is_logged_in", true);
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    startActivity(new Intent(activity, MainActivity.class));
                                     finish();
 
                                 }else {
-                                    startActivity(new Intent(LoginActivity.this, ImportDataActivity.class));
+                                    startActivity(new Intent(activity, ImportDataActivity.class));
                                     finish();
                                 }
 
@@ -189,17 +123,11 @@ public class LoginActivity extends AppCompatActivity {
 
             }
             //pass url
-        }, LoginActivity.this, Constant.LOGIN_URL, params,true);
+        }, activity, Constant.LOGIN_URL, params,true);
 
 
 
     }
-
-    private void clearFields() {
-        EtPhoneNumber.getText().clear();
-        EtPassword.getText().clear();
-    }
-
     private void showAlertdialog() {
 
 
@@ -221,7 +149,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
     private void changeDeviceApi(DialogInterface dialog)
     {
         Map<String, String> params = new HashMap<>();
@@ -273,5 +200,4 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
 }
