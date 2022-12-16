@@ -69,6 +69,8 @@ public class WalletFragment extends Fragment {
         tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
 
 
+
+
         walletApi(session,activity);
 
         btnWithdrawal.setOnClickListener(new View.OnClickListener() {

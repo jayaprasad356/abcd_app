@@ -35,14 +35,7 @@ public class MainActivity extends AppCompatActivity {
         navbar.setSelectedItemId(R.id.Home);
         activity = MainActivity.this;
         session = new Session(activity);
-        if (session.getBoolean(Constant.RUN_API)){
-            fm.beginTransaction().replace(R.id.Container, new WalletFragment()).commit();
 
-        }
-        else {
-            fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
-
-        }
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

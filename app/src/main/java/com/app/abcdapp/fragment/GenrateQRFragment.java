@@ -98,7 +98,14 @@ public class GenrateQRFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                MainActivity.fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+                if (session.getBoolean(Constant.RUN_API)){
+                    MainActivity.fm.beginTransaction().replace(R.id.Container, new WalletFragment()).commit();
+
+                }
+                else {
+                    MainActivity.fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+
+                }
 
             }
         },1000);
