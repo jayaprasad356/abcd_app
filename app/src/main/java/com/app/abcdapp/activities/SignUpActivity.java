@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -169,8 +171,8 @@ public class SignUpActivity extends AppCompatActivity {
                         session.setData(Constant.MOBILE,EtPhoneNo.getText().toString().trim());
                         session.setData(Constant.PASSWORD,EtPassword.getText().toString().trim());
                         session.setBoolean(Constant.CHECKIN,true);
-                        startActivity(new Intent(SignUpActivity.this, CheckInActivity.class));
-                        finish();
+                        showAlertdialog();
+
                     }
                     else {
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
@@ -186,6 +188,24 @@ public class SignUpActivity extends AppCompatActivity {
             //pass url
         }, SignUpActivity.this, Constant.REGISTER_URL, params,true);
 
+
+
+
+    }
+    private void showAlertdialog() {
+
+
+        // Create the object of AlertDialog Builder class
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Registered Successfully");
+        builder.setIcon(R.drawable.check);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", (DialogInterface.OnClickListener) (dialog, which) -> {
+            startActivity(new Intent(SignUpActivity.this, CheckInActivity.class));
+            finish();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
 
 
