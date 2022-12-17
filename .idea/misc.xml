@@ -61,6 +61,10 @@
         <entry key="..\:/abcd_app/app/src/main/res/layout/redeem_list_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/layout/wallet_list_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/abcd_app/app/src/main/res/menu/popup_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/abcd_app__/app/src/main/res/drawable/et_back.xml" value="0.279" />
+        <entry key="..\:/abcd_app__/app/src/main/res/layout/activity_about_rise_ticket.xml" value="0.3145833333333333" />
+        <entry key="..\:/abcd_app__/app/src/main/res/layout/activity_rise_ticket.xml" value="0.3145833333333333" />
+        <entry key="..\:/abcd_app__/app/src/main/res/layout/risetoken_bottom_sheet_lyt.xml" value="0.31354166666666666" />
       </map>
     </option>
   </component>
