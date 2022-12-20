@@ -26,7 +26,9 @@ import com.app.abcdapp.BuildConfig;
 import com.app.abcdapp.R;
 import com.app.abcdapp.activities.NotificaionActivity;
 import com.app.abcdapp.activities.ReferEarnActivity;
+import com.app.abcdapp.activities.RiseTicketActivity;
 import com.app.abcdapp.activities.UpdateProfileActivity;
+import com.app.abcdapp.chat.ChatActivity;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
 import com.app.abcdapp.model.Notification;
@@ -155,6 +157,12 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         else if (item.getItemId() == R.id.Uptdatepofile){
 
             Intent intent = new Intent(activity, UpdateProfileActivity.class);
+            startActivity(intent);
+
+        }
+        else if (item.getItemId() == R.id.help){
+
+            Intent intent = new Intent(activity, ChatActivity.class);
             startActivity(intent);
 
         }

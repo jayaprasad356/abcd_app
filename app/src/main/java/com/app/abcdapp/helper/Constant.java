@@ -92,6 +92,9 @@ public class Constant {
     public static final String REFER_BONUS_SENT = "refer_bonus_sent";
     public static final String CODE_GENERATE = "code_generate";
     public static final String CODE_GENERATE_TIME = "code_generate_time";
+    public static final String PENDING_TICKET = "pending_ticket";
+    public static final String TITLE = "title";
+    public static final String CATEGORY = "category";
     public static final String LAST_UPDATED = "last_updated";
     public static final String JOINED_DATE = "joined_date";
     public static final String WITHDRAWAL_STATUS = "withdrawal_status";

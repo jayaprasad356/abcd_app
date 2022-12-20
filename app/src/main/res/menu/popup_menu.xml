@@ -11,6 +11,10 @@
         android:title="Notification">
     </item>
 
+    <item android:id="@+id/help"
+        android:title="Help Support">
+    </item>
+
     <item android:id="@+id/ReferEarn"
         android:title="Refer Earn">
     </item>

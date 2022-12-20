@@ -18,64 +18,56 @@
         android:textStyle="bold"
         android:layout_marginHorizontal="20dp"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/drop_Down"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+    <Spinner
+        android:id="@+id/spinCategory"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/et_back">
+        android:layout_height="@dimen/_40sdp"
+        android:entries="@array/categories"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:background="@drawable/et_back"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:inputType="none"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title"
         android:textColor="@color/white"
-        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_7sdp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginHorizontal="20dp"/>
+        />
 
     <EditText
-        android:id="@+id/EtTitle"
+        android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/et_back"
         android:textColor="@color/black"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="20dp" />
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_7sdp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description"
         android:textSize="16sp"
         android:textColor="@color/white"
-        android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:layout_marginHorizontal="20dp"/>
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_7sdp"/>
 
     <EditText
-        android:id="@+id/EtDescription"
+        android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:inputType="textMultiLine"
         android:background="@drawable/et_back"
         android:textColor="@color/black"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="20dp" />
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_7sdp" />
 
 
     <Button
@@ -83,9 +75,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Rise Ticket"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/primaryDarkColor"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:backgroundTint="@color/primaryLightColor"
         android:layout_marginBottom="30dp"/>
 
 </LinearLayout>

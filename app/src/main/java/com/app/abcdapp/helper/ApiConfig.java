@@ -9,6 +9,7 @@ import android.os.Build;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.DefaultLifecycleObserver;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -16,10 +17,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.FirebaseDatabase;
+import com.vanniktech.emoji.EmojiManager;
+import com.vanniktech.emoji.ios.IosEmojiProvider;
 
 import java.util.Map;
 
-public class ApiConfig extends Application {
+public class ApiConfig extends Application implements DefaultLifecycleObserver {
     static ApiConfig mInstance;
     public static final String TAG = ApiConfig.class.getSimpleName();
     RequestQueue mRequestQueue;
@@ -128,6 +132,8 @@ public class ApiConfig extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        EmojiManager.install(new IosEmojiProvider());
 
 
     }

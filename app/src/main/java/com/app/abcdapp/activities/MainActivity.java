@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         navbar.setSelectedItemId(R.id.Home);
         activity = MainActivity.this;
         session = new Session(activity);
+        fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
 
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

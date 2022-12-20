@@ -4,6 +4,7 @@ pluginManagement {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+
     }
 }
 dependencyResolutionManagement {
@@ -11,10 +12,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
         maven { url 'https://jitpack.io' }
     }
     rootProject.name = "ABCD App"
-    include ':app'
+    include ':app',':record-view'
 
 
 }
