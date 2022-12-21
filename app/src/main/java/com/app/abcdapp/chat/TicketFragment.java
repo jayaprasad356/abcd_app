@@ -1,10 +1,12 @@
 package com.app.abcdapp.chat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.abcdapp.R;
+import com.app.abcdapp.activities.RiseTicketActivity;
 import com.app.abcdapp.chat.adapters.TicketAdapters;
 import com.app.abcdapp.chat.managers.Utils;
 import com.app.abcdapp.chat.models.Ticket;
@@ -29,12 +32,13 @@ import java.util.ArrayList;
 
 public class TicketFragment extends Fragment {
     public RecyclerView mRecyclerView;
-    public ArrayList<Ticket> mTickets;
+    public ArrayList<Ticket> mTickets,AllTickets;
     public TicketAdapters ticketAdapters;
     Activity activity;
-    Chip chipPending,chipOpened,chipClosed;
+    Chip chipPending,chipOpened,chipClosed,chipAll;
     Session session;
     String type = "";
+    private Button riseTicketBtn;
 
 
     public TicketFragment() {
@@ -53,6 +57,8 @@ public class TicketFragment extends Fragment {
         chipPending = root.findViewById(R.id.chipPending);
         chipOpened = root.findViewById(R.id.chipOpened);
         chipClosed = root.findViewById(R.id.chipClosed);
+        chipAll = root.findViewById(R.id.chipAll);
+        riseTicketBtn = root.findViewById(R.id.btnRiseTicket);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -60,6 +66,18 @@ public class TicketFragment extends Fragment {
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         readTickets();
 
+        riseTicketBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), RiseTicketActivity.class));
+            }
+        });
+        chipAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         chipPending.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -91,6 +109,7 @@ public class TicketFragment extends Fragment {
     private void readTickets() {
 
         mTickets = new ArrayList<>();
+        //FIXME :
         Query reference;
         if (chipOpened.isChecked()){
             type = chipOpened.getText().toString();
@@ -98,13 +117,15 @@ public class TicketFragment extends Fragment {
         }else if (chipClosed.isChecked()){
             type = chipClosed.getText().toString();
             reference = Utils.getQueryClosedTicketByMyId(session.getData(Constant.MOBILE));
-        }
-        else {
+        } else if(chipAll.isChecked()) {
+            type = chipAll.getText().toString();
+            reference = Utils.getQueryClosedTicketByMyId(session.getData(Constant.MOBILE));
+        }else {
             type = chipPending.getText().toString();
             reference = Utils.getQueryPendingTicketByMyId(session.getData(Constant.MOBILE));
-
         }
         reference.keepSynced(true);
+        reference = Utils.getQueryOpenedTicketByMyId(session.getData(Constant.MOBILE));
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -127,9 +148,52 @@ public class TicketFragment extends Fragment {
 
             }
         });
+        reference = Utils.getQueryClosedTicketByMyId(session.getData(Constant.MOBILE));
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Ticket user = snapshot.getValue(Ticket.class);
+                        assert user != null;
+                        mTickets.add(user);
+                    }
+
+                }
+                setAdatper();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        reference = Utils.getQueryPendingTicketByMyId(session.getData(Constant.MOBILE));
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Ticket user = snapshot.getValue(Ticket.class);
+                        assert user != null;
+                        mTickets.add(user);
+                    }
+
+                }
+                setAdatper();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
-
     private void setAdatper() {
         ticketAdapters = new TicketAdapters(activity, mTickets,type);
         mRecyclerView.setAdapter(ticketAdapters);

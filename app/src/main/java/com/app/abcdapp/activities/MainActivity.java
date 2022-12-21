@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.app.abcdapp.R;
+import com.app.abcdapp.chat.TicketFragment;
 import com.app.abcdapp.fragment.HomeFragment;
 import com.app.abcdapp.fragment.ProfileFragment;
 import com.app.abcdapp.fragment.WalletFragment;
@@ -50,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.Wallet:
 
                         fm.beginTransaction().replace(R.id.Container, new WalletFragment()).commit();
+                        break;
 
-
-
-
+                    case R.id.Support:
+                        fm.beginTransaction().replace(R.id.Container,new TicketFragment()).commit();
                         break;
                 }
                 return true;

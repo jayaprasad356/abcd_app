@@ -6,12 +6,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+    <Button
+        android:id="@+id/btnRiseTicket"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/white"
+        android:layout_marginEnd="30dp"
+        android:textAllCaps="false"
+        android:text="Rise Ticket" />
+
     <HorizontalScrollView
         android:id="@+id/hori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_5sdp"
+        android:layout_below="@id/btnRiseTicket"
         android:layout_centerHorizontal="true"
+        android:paddingStart="@dimen/_5sdp"
         tools:ignore="RtlSymmetry">
 
         <com.google.android.material.chip.ChipGroup
@@ -20,6 +32,15 @@
             android:layout_height="wrap_content"
             app:singleSelection="true">
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="All"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="@color/bg_pending" />
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipPending"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
