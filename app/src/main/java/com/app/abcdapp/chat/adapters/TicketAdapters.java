@@ -1,8 +1,11 @@
 package com.app.abcdapp.chat.adapters;
 
+import static com.app.abcdapp.chat.constants.IConstants.CATEGORY;
 import static com.app.abcdapp.chat.constants.IConstants.EXTRA_USER_ID;
 import static com.app.abcdapp.chat.constants.IConstants.NAME;
 import static com.app.abcdapp.chat.constants.IConstants.ONE;
+import static com.app.abcdapp.chat.constants.IConstants.OPENED_TICKET;
+import static com.app.abcdapp.chat.constants.IConstants.PENDING_TICKET;
 import static com.app.abcdapp.chat.constants.IConstants.TICKET_ID;
 import static com.app.abcdapp.chat.constants.IConstants.TYPE;
 import static com.app.abcdapp.chat.constants.IConstants.ZERO;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.abcdapp.chat.MessageActivity;
@@ -32,13 +36,11 @@ public class TicketAdapters extends RecyclerView.Adapter<TicketAdapters.ViewHold
 
     private final Activity mContext;
     private final ArrayList<Ticket> mTickets;
-    private final String type;
 
 
-    public TicketAdapters(Activity mContext, ArrayList<Ticket> ticketsList, String type) {
+    public TicketAdapters(Activity mContext, ArrayList<Ticket> ticketsList) {
         this.mContext = mContext;
         this.mTickets = ticketsList;
-        this.type = type;
     }
 
     @NonNull
@@ -56,20 +58,33 @@ public class TicketAdapters extends RecyclerView.Adapter<TicketAdapters.ViewHold
         viewHolder.tvTitle.setText(ticket.getTitle());
         viewHolder.tvDescription.setText(ticket.getDescription());
         viewHolder.tvCategory.setText(ticket.getCategory());
-        if (!type.equals("Pending")){
-            viewHolder.itemView.setOnClickListener(new SingleClickListener() {
-                @Override
-                public void onClickView(View v) {
-                    final Intent intent = new Intent(mContext, MessageActivity.class);
-                    intent.putExtra(EXTRA_USER_ID, ticket.getId());
-                    intent.putExtra(TICKET_ID, ticket.getId());
-                    intent.putExtra(NAME, ticket.getName());
-                    intent.putExtra(TYPE, type);
-                    mContext.startActivity(intent);
-                }
-            });
+        if (ticket.getType().equals(PENDING_TICKET)){
+            viewHolder.tvType.setText("Pending");
+            viewHolder.tvType.setTextColor(ContextCompat.getColor(mContext, R.color.yellow_900));
+
+        }else if (ticket.getType().equals(OPENED_TICKET)){
+            viewHolder.tvType.setText("Opened");
+            viewHolder.tvType.setTextColor(ContextCompat.getColor(mContext, R.color.green_900));
 
         }
+        else {
+            viewHolder.tvType.setText("Closed");
+            viewHolder.tvType.setTextColor(ContextCompat.getColor(mContext, R.color.red_900));
+
+        }
+
+        viewHolder.itemView.setOnClickListener(new SingleClickListener() {
+            @Override
+            public void onClickView(View v) {
+                final Intent intent = new Intent(mContext, MessageActivity.class);
+                intent.putExtra(EXTRA_USER_ID, ticket.getId());
+                intent.putExtra(TICKET_ID, ticket.getId());
+                intent.putExtra(NAME, ticket.getName());
+                intent.putExtra(TYPE, ticket.getType());
+                intent.putExtra(CATEGORY, ticket.getCategory());
+                mContext.startActivity(intent);
+            }
+        });
 
 
     }
@@ -87,7 +102,7 @@ public class TicketAdapters extends RecyclerView.Adapter<TicketAdapters.ViewHold
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tvName,tvMobile,tvTitle,tvDescription,tvCategory;
+        public final TextView tvName,tvMobile,tvTitle,tvDescription,tvCategory,tvType;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +112,7 @@ public class TicketAdapters extends RecyclerView.Adapter<TicketAdapters.ViewHold
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvCategory = itemView.findViewById(R.id.tvCategory);
+            tvType = itemView.findViewById(R.id.tvType);
         }
     }
 

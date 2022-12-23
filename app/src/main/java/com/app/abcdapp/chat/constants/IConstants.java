@@ -14,6 +14,7 @@ public interface IConstants {
 
     String REF_USERS = "Users";
     String PENDING_TICKET = "pending_ticket";
+    String CHAT_SUPPORT = "chat_support";
     String OPENED_TICKET = "opened_ticket";
     String CLOSED_TICKET = "closed_ticket";
     String REF_CHATS = "Chats_v2";
@@ -42,6 +43,7 @@ public interface IConstants {
     String EXTRA_USER_ID = "userId";
     String TICKET_ID = "ticket_id";
     String TYPE = "type";
+    String CATEGORY = "category";
     String NAME = "name";
     String BROADCAST_PLAY_RECORDING_EVENT = "com.app.abcdapp.chat.PLAY_RECORDING_EVENT";
 

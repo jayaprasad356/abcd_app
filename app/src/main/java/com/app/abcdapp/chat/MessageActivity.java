@@ -2,6 +2,7 @@ package com.app.abcdapp.chat;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static com.app.abcdapp.chat.constants.IConstants.BROADCAST_DOWNLOAD_EVENT;
+import static com.app.abcdapp.chat.constants.IConstants.CATEGORY;
 import static com.app.abcdapp.chat.constants.IConstants.CLOSED_TICKET;
 import static com.app.abcdapp.chat.constants.IConstants.CURRENT_ID;
 import static com.app.abcdapp.chat.constants.IConstants.DELAY_ONE_SEC;
@@ -136,6 +137,7 @@ import com.app.abcdapp.chat.models.Chat;
 import com.app.abcdapp.chat.models.DownloadFileEvent;
 import com.app.abcdapp.chat.models.User;
 import com.app.abcdapp.chat.views.SingleClickListener;
+import com.app.abcdapp.helper.Constant;
 import com.devlomi.record_view.OnRecordListener;
 import com.devlomi.record_view.RecordButton;
 import com.devlomi.record_view.RecordView;
@@ -183,7 +185,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
     private LinearLayoutManager layoutManager;
     private RecyclerView mRecyclerView;
-    private String currentId, userId,ticketId, userName = "Sender";
+    private String currentId, userId,ticketId,category, userName = "Sender";
     private String strSender, strReceiver;
     private ArrayList<Chat> chats;
     private MessageAdapters messageAdapters;
@@ -250,6 +252,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         Intent intent = getIntent();
         userId = "admin_1";
         ticketId = intent.getStringExtra(TICKET_ID);
+        category = intent.getStringExtra(CATEGORY);
         type = intent.getStringExtra(TYPE);
         currentId = ticketId;
 
@@ -365,12 +368,8 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
             return false;
         });
         Utils.uploadTypingStatus();
-        startTyping();
-        //idleTyping(s.length());
-        recordButton.setListenForRecord(false);
-        recordButton.setImageResource(R.drawable.ic_send);
         typingListening();
-        //seenMessage();
+
 
         final Handler handler = new Handler(Looper.getMainLooper());
         //This permission required because when you playing the recorded your voice, at that time audio wave effect shown.
@@ -419,9 +418,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     private void initListener() {
         //ListenForRecord must be false ,otherwise onClick will not be called
         recordButton.setOnRecordClickListener(v -> {
-            if (!blockUnblockCheckBeforeSend()) {
-                clickToSend();
-            }
+            clickToSend();
         });
 
         //Cancel Bounds is when the Slide To Cancel text gets before the timer . default is 8
@@ -528,7 +525,8 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                 imgAttachmentEmoji.setVisibility(View.VISIBLE);
                 newMessage.setVisibility(View.VISIBLE);
                 imgAddAttachment.setVisibility(View.VISIBLE);
-                imgCamera.setVisibility(View.VISIBLE);
+                //imgCamera.setVisibility(View.VISIBLE);
+                imgCamera.setVisibility(View.GONE);
             }, 10);
         }
         isStart = false;
@@ -656,6 +654,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
             ActivityCompat.requestPermissions(this, permissionsStorage, PERMISSION_DOCUMENT);
         }
     }
+
 
     private void openContactPicker() {
         if (permissionsAvailable(permissionsContact)) {
@@ -1000,10 +999,6 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
 
     private void typingListening() {
-        startTyping();
-        //idleTyping(s.length());
-        recordButton.setListenForRecord(false);
-        recordButton.setImageResource(R.drawable.ic_send);
         newMessage.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1011,22 +1006,22 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                try {
-//                    if (s.length() == 0) {
-//                        stopTyping();
-//                        recordButton.setListenForRecord(true);
-//                        recordButton.setImageResource(R.drawable.recv_ic_mic_white);
-//                    } else if (s.length() > 0) {
-//                        startTyping();
-//                        idleTyping(s.length());
-//                        recordButton.setListenForRecord(false);
-//                        recordButton.setImageResource(R.drawable.ic_send);
-//                    }
-//                } catch (Exception e) {
-//                    stopTyping();
-//                    recordButton.setListenForRecord(true);
-//                    recordButton.setImageResource(R.drawable.recv_ic_mic_white);
-//                }
+                try {
+                    if (s.length() == 0) {
+                        stopTyping();
+                        recordButton.setListenForRecord(true);
+                        recordButton.setImageResource(R.drawable.recv_ic_mic_white);
+                    } else if (s.length() > 0) {
+                        startTyping();
+                        idleTyping(s.length());
+                        recordButton.setListenForRecord(false);
+                        recordButton.setImageResource(R.drawable.ic_send);
+                    }
+                } catch (Exception e) {
+                    stopTyping();
+                    recordButton.setListenForRecord(true);
+                    recordButton.setImageResource(R.drawable.recv_ic_mic_white);
+                }
             }
 
             @Override
@@ -1703,6 +1698,131 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     protected void onStart() {
         super.onStart();
         Utils.readStatus(STATUS_ONLINE);
+        if (type.equals(Constant.PENDING_TICKET)){
+            reference = FirebaseDatabase.getInstance().getReference(REF_CHATS).child(strSender);
+            reference.keepSynced(true);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.hasChildren()) {
+                        String msg = "";
+                        if (category.equals("I want to refer friend")){
+                            msg = "Hi, Thanks for your message. Please share your friends whatsapp number who is going to join, We will guide him.";
+
+                        }
+                        else if (category.equals("App issue")){
+                            msg = "Hi, Thanks for your message, Please share the screen shot of the issue you are facing. Share the details and wait for our reply, We will chat with you shortly.";
+
+                        }
+                        else if (category.equals("Withdrawal not received")){
+                            msg = "Hi, Thanks for your message. Please share the below details. Date Of Withdrawal, Amount Withdrawn, Bank Account Details. Share the details and wait for our reply, We will chat with you shortly.";
+
+                        }
+                        else if (category.equals("Refer bonus not received")){
+                            msg = "Hi, Thanks for your message. Please share the below details. Date of referral, Joined person Name & Contact number. Share the details and wait for our reply, We will chat with you shortly.";
+                        }
+                        else {
+                            msg = "Hi, Thanks for your message. Please share the query and wait for our reply, We will chat with you shortly.";
+                        }
+                        sendAutoMessage(TYPE_TEXT, msg, null);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }
+
+    }
+    private void sendAutoMessage(String type, String message, Attachment attachment) {
+        if (blockUnblockCheckBeforeSend()) {
+            return;
+        }
+
+
+        notify = true;
+        String defaultMsg;
+        final String sender = currentId;
+        final String receiver = userId;
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+        hashMap.put(EXTRA_SENDER, receiver);
+        hashMap.put(EXTRA_RECEIVER, sender);
+        hashMap.put(EXTRA_MESSAGE, message);
+        hashMap.put(EXTRA_ATTACH_TYPE, type);
+//        hashMap.put(EXTRA_TYPE, type);
+        hashMap.put(EXTRA_TYPE, TYPE_TEXT);//This is for older version users(Default TEXT, all other set as IMAGE)
+
+        try {
+            if (!type.equalsIgnoreCase(TYPE_TEXT) && !type.equalsIgnoreCase(TYPE_IMAGE)) {
+                defaultMsg = Utils.getDefaultMessage();
+                hashMap.put(EXTRA_MESSAGE, defaultMsg);
+            }
+        } catch (Exception ignored) {
+        }
+
+        try {
+            if (type.equalsIgnoreCase(TYPE_TEXT)) {
+                //No need to do anything here.
+            } else if (type.equalsIgnoreCase(TYPE_IMAGE)) {
+                hashMap.put(EXTRA_TYPE, TYPE_IMAGE);
+                hashMap.put(EXTRA_IMGPATH, message);
+            } else {
+                hashMap.put(EXTRA_ATTACH_PATH, message);
+                try {
+                    if (attachment != null) {
+                        hashMap.put(EXTRA_ATTACH_NAME, attachment.getName());
+                        hashMap.put(EXTRA_ATTACH_FILE, attachment.getFileName());
+                        hashMap.put(EXTRA_ATTACH_SIZE, attachment.getBytesCount());
+                        if (attachment.getData() != null) {
+                            hashMap.put(EXTRA_ATTACH_DATA, attachment.getData());
+                        }
+                        if (attachment.getDuration() != null) {
+                            hashMap.put(EXTRA_ATTACH_DURATION, attachment.getDuration());
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
+        hashMap.put(EXTRA_SEEN, FALSE);
+        hashMap.put(EXTRA_DATETIME, Utils.getDateTime());
+
+        final String key = Utils.getChatUniqueId();
+        reference.child(REF_CHATS).child(strSender).child(key).setValue(hashMap);
+        reference.child(REF_CHATS).child(strReceiver).child(key).setValue(hashMap);
+        Utils.chatSendSound(getApplicationContext());
+
+        try {
+            String msg = message;
+            if (!type.equalsIgnoreCase(TYPE_TEXT) && !type.equalsIgnoreCase(TYPE_IMAGE)) {
+                try {
+                    String firstCapital = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
+                    if (attachment != null) {
+                        msg = "New " + firstCapital + "(" + attachment.getName() + ")";
+                    } else {
+                        msg = firstCapital;
+                    }
+                } catch (Exception e) {
+                    msg = message;
+                }
+            }
+
+            if (notify) {
+                sendNotification(receiver, strUsername, msg, type);
+            }
+            notify = false;
+        } catch (Exception ignored) {
+        }
     }
 
     @Override

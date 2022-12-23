@@ -40,6 +40,9 @@ public class Constant {
     public static final String USER_VERIFY = "user_verify";
     public static final String USER_ID = "user_id";
     public static final String MOBILE = "mobile";
+    public static final String TYPE = "type";
+    public static final String SUPPORT = "support";
+    public static final String TIMESTAMP = "timestamp";
     public static final String STUDENT_NAME = "student_name";
     public static final String ID_NUMBER = "id_number";
     public static final String ECITY = "ecity";

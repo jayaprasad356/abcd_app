@@ -35,7 +35,6 @@ public class TicketFragment extends Fragment {
     public ArrayList<Ticket> mTickets,AllTickets;
     public TicketAdapters ticketAdapters;
     Activity activity;
-    Chip chipPending,chipOpened,chipClosed,chipAll;
     Session session;
     String type = "";
     private Button riseTicketBtn;
@@ -54,10 +53,6 @@ public class TicketFragment extends Fragment {
         activity = getActivity();
         session = new Session(activity);
         mRecyclerView = root.findViewById(R.id.recyclerView);
-        chipPending = root.findViewById(R.id.chipPending);
-        chipOpened = root.findViewById(R.id.chipOpened);
-        chipClosed = root.findViewById(R.id.chipClosed);
-        chipAll = root.findViewById(R.id.chipAll);
         riseTicketBtn = root.findViewById(R.id.btnRiseTicket);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
@@ -72,36 +67,7 @@ public class TicketFragment extends Fragment {
                 startActivity(new Intent(requireActivity(), RiseTicketActivity.class));
             }
         });
-        chipAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-        chipPending.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    readTickets();
-                }
-            }
-        });
-        chipOpened.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    readTickets();
-                }
-            }
-        });
-        chipClosed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    readTickets();
-                }
-            }
-        });
 
         return root;
     }
@@ -111,20 +77,6 @@ public class TicketFragment extends Fragment {
         mTickets = new ArrayList<>();
         //FIXME :
         Query reference;
-        if (chipOpened.isChecked()){
-            type = chipOpened.getText().toString();
-            reference = Utils.getQueryOpenedTicketByMyId(session.getData(Constant.MOBILE));
-        }else if (chipClosed.isChecked()){
-            type = chipClosed.getText().toString();
-            reference = Utils.getQueryClosedTicketByMyId(session.getData(Constant.MOBILE));
-        } else if(chipAll.isChecked()) {
-            type = chipAll.getText().toString();
-            reference = Utils.getQueryClosedTicketByMyId(session.getData(Constant.MOBILE));
-        }else {
-            type = chipPending.getText().toString();
-            reference = Utils.getQueryPendingTicketByMyId(session.getData(Constant.MOBILE));
-        }
-        reference.keepSynced(true);
         reference = Utils.getQueryOpenedTicketByMyId(session.getData(Constant.MOBILE));
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,8 +90,6 @@ public class TicketFragment extends Fragment {
                     }
 
                 }
-                setAdatper();
-
 
             }
 
@@ -160,7 +110,6 @@ public class TicketFragment extends Fragment {
                     }
 
                 }
-                setAdatper();
 
 
             }
@@ -171,6 +120,7 @@ public class TicketFragment extends Fragment {
             }
         });
         reference = Utils.getQueryPendingTicketByMyId(session.getData(Constant.MOBILE));
+        reference.keepSynced(true);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -195,7 +145,7 @@ public class TicketFragment extends Fragment {
 
     }
     private void setAdatper() {
-        ticketAdapters = new TicketAdapters(activity, mTickets,type);
+        ticketAdapters = new TicketAdapters(activity, mTickets);
         mRecyclerView.setAdapter(ticketAdapters);
     }
 }

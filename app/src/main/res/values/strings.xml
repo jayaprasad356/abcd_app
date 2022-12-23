@@ -6,8 +6,10 @@
     <string name="make_payment"><u>Make Payment</u></string>
 
     <string-array name="categories">
-        <item>Withdrawal Issue</item>
-        <item>Code Generate Issue</item>
+        <item>I want to refer friend</item>
+        <item>App issue</item>
+        <item>Withdrawal not received</item>
+        <item>Refer bonus not received</item>
         <item>Others</item>
     </string-array>
 

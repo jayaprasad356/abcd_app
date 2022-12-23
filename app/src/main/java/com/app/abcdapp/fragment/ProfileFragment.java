@@ -160,12 +160,6 @@ public class ProfileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             startActivity(intent);
 
         }
-        else if (item.getItemId() == R.id.help){
-
-            Intent intent = new Intent(activity, ChatActivity.class);
-            startActivity(intent);
-
-        }
         return false;
     }
 }

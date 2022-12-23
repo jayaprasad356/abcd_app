@@ -1,6 +1,7 @@
 package com.app.abcdapp.chat.managers;
 
 import static android.os.Build.VERSION.SDK_INT;
+import static com.app.abcdapp.chat.constants.IConstants.CHAT_SUPPORT;
 import static com.app.abcdapp.chat.constants.IConstants.CLOSED_TICKET;
 import static com.app.abcdapp.chat.constants.IConstants.EXTRA_IS_ONLINE;
 import static com.app.abcdapp.chat.constants.IConstants.EXTRA_LASTSEEN;
@@ -650,6 +651,9 @@ public class Utils {
     }
     public static Query getQueryPendingTicket() {
         return FirebaseDatabase.getInstance().getReference(PENDING_TICKET);
+    }
+    public static Query getQuerySupportStatus() {
+        return FirebaseDatabase.getInstance().getReference(CHAT_SUPPORT);
     }
     public static Query getQueryPendingTicketByMyId(String mobile) {
         return FirebaseDatabase.getInstance().getReference(PENDING_TICKET).orderByChild(Constant.MOBILE).equalTo(mobile);
