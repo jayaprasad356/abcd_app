@@ -9,6 +9,7 @@ import static com.app.abcdapp.chat.constants.IConstants.PENDING_TICKET;
 import static com.app.abcdapp.chat.constants.IConstants.TICKET_ID;
 import static com.app.abcdapp.chat.constants.IConstants.TYPE;
 import static com.app.abcdapp.chat.constants.IConstants.ZERO;
+import static com.app.abcdapp.helper.Constant.DESCRIPTION;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -55,7 +56,6 @@ public class TicketAdapters extends RecyclerView.Adapter<TicketAdapters.ViewHold
         final Ticket ticket = mTickets.get(i);
         viewHolder.tvName.setText(ticket.getName());
         viewHolder.tvMobile.setText(ticket.getMobile());
-        viewHolder.tvTitle.setText(ticket.getTitle());
         viewHolder.tvDescription.setText(ticket.getDescription());
         viewHolder.tvCategory.setText(ticket.getCategory());
         if (ticket.getType().equals(PENDING_TICKET)){
@@ -81,6 +81,7 @@ public class TicketAdapters extends RecyclerView.Adapter<TicketAdapters.ViewHold
                 intent.putExtra(TICKET_ID, ticket.getId());
                 intent.putExtra(NAME, ticket.getName());
                 intent.putExtra(TYPE, ticket.getType());
+                intent.putExtra(DESCRIPTION, ticket.getDescription());
                 intent.putExtra(CATEGORY, ticket.getCategory());
                 mContext.startActivity(intent);
             }
@@ -102,14 +103,13 @@ public class TicketAdapters extends RecyclerView.Adapter<TicketAdapters.ViewHold
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tvName,tvMobile,tvTitle,tvDescription,tvCategory,tvType;
+        public final TextView tvName,tvMobile,tvDescription,tvCategory,tvType;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvName = itemView.findViewById(R.id.tvName);
             tvMobile = itemView.findViewById(R.id.tvMobile);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvCategory = itemView.findViewById(R.id.tvCategory);
             tvType = itemView.findViewById(R.id.tvType);

@@ -60,6 +60,7 @@ import static com.app.abcdapp.chat.constants.IConstants.TYPE_RECORDING;
 import static com.app.abcdapp.chat.constants.IConstants.TYPE_TEXT;
 import static com.app.abcdapp.chat.constants.IConstants.VIBRATE_HUNDRED;
 import static com.app.abcdapp.chat.constants.IConstants.ZERO;
+import static com.app.abcdapp.helper.Constant.DESCRIPTION;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -234,7 +235,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
     private Uri imgUri;
     private TextView txtUsername;
     RelativeLayout bottomChatLayout;
-    String type;
+    String type,description;
 
 
     @Override
@@ -254,12 +255,8 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         ticketId = intent.getStringExtra(TICKET_ID);
         category = intent.getStringExtra(CATEGORY);
         type = intent.getStringExtra(TYPE);
+        description = intent.getStringExtra(DESCRIPTION);
         currentId = ticketId;
-
-
-
-
-
         reference = FirebaseDatabase.getInstance().getReference(REF_USERS).child(currentId);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -294,7 +291,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         layoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(layoutManager);
         btnGoToBottom.setVisibility(View.GONE);
-        if (type.equals("Closed")){
+        if (type.equals(Constant.CLOSED_TICKET)){
             bottomChatLayout.setVisibility(View.GONE);
         }
 
@@ -779,7 +776,6 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         hashMap.put(EXTRA_RECEIVER, receiver);
         hashMap.put(EXTRA_MESSAGE, message);
         hashMap.put(EXTRA_ATTACH_TYPE, type);
-//        hashMap.put(EXTRA_TYPE, type);
         hashMap.put(EXTRA_TYPE, TYPE_TEXT);//This is for older version users(Default TEXT, all other set as IMAGE)
 
         try {
@@ -1724,7 +1720,8 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                         else {
                             msg = "Hi, Thanks for your message. Please share the query and wait for our reply, We will chat with you shortly.";
                         }
-                        sendAutoMessage(TYPE_TEXT, msg, null);
+//                        sendMessage(TYPE_TEXT,description, null);
+//                        sendAutoMessage(TYPE_TEXT, msg, null);
                     }
 
                 }

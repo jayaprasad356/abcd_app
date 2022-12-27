@@ -75,13 +75,33 @@ public class TicketFragment extends Fragment {
     private void readTickets() {
 
         mTickets = new ArrayList<>();
-        //FIXME :
         Query reference;
+        reference = Utils.getQueryPendingTicketByMyId(session.getData(Constant.MOBILE));
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Ticket user = snapshot.getValue(Ticket.class);
+                        assert user != null;
+                        mTickets.add(user);
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         reference = Utils.getQueryOpenedTicketByMyId(session.getData(Constant.MOBILE));
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mTickets.clear();
                 if (dataSnapshot.hasChildren()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Ticket user = snapshot.getValue(Ticket.class);
@@ -99,27 +119,6 @@ public class TicketFragment extends Fragment {
             }
         });
         reference = Utils.getQueryClosedTicketByMyId(session.getData(Constant.MOBILE));
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Ticket user = snapshot.getValue(Ticket.class);
-                        assert user != null;
-                        mTickets.add(user);
-                    }
-
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        reference = Utils.getQueryPendingTicketByMyId(session.getData(Constant.MOBILE));
         reference.keepSynced(true);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -142,6 +141,9 @@ public class TicketFragment extends Fragment {
 
             }
         });
+
+
+
 
     }
     private void setAdatper() {

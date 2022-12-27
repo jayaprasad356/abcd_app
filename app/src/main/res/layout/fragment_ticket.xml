@@ -15,7 +15,7 @@
         android:textColor="@color/white"
         android:layout_marginEnd="30dp"
         android:textAllCaps="false"
-        android:text="Rise Ticket" />
+        android:text="Chat with Us" />
 
 
     <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView

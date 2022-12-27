@@ -42,7 +42,7 @@ public class WalletFragment extends Fragment {
     TransactionAdapter transactionAdapter;
     Activity activity;
     Session session;
-    TextView tvBalance;
+    TextView tvBalance,tvminiwithdrawal;
 
 
 
@@ -61,12 +61,14 @@ public class WalletFragment extends Fragment {
         btnWithdrawal = root.findViewById(R.id.btnWithdrawal);
         recycler = root.findViewById(R.id.recycler);
         tvBalance = root.findViewById(R.id.tvBalance);
+        tvminiwithdrawal = root.findViewById(R.id.tvminiwithdrawal);
         activity = getActivity();
         session = new Session(activity);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recycler.setLayoutManager(linearLayoutManager);
 
         tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
+        tvminiwithdrawal.setText("Minimum Redeem =  ₹"+session.getData(Constant.MIN_WITHDRAWAL));
 
 
 
@@ -93,6 +95,7 @@ public class WalletFragment extends Fragment {
         params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
         params.put(Constant.CODES,session.getInt(Constant.CODES)+"");
         params.put(Constant.FCM_ID,session.getData(Constant.FCM_ID));
+        params.put(Constant.DEVICE_ID,Constant.getDeviceId(activity));
         session.setInt(Constant.CODES,0);
         ApiConfig.RequestToVolley((result, response) -> {
             Log.d("WALLET_RES",response);
@@ -108,6 +111,7 @@ public class WalletFragment extends Fragment {
                         JSONArray userArray = jsonObject.getJSONArray(Constant.USER_DETAILS);
                         JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
                         session.setData(Constant.SYNC_TIME,setArray.getJSONObject(0).getString(Constant.SYNC_TIME));
+                        session.setData(Constant.MIN_WITHDRAWAL,setArray.getJSONObject(0).getString(Constant.MIN_WITHDRAWAL));
 
                         if (setArray.getJSONObject(0).getString(Constant.CODE_GENERATE).equals("1")){
                             codegenerate = userArray.getJSONObject(0).getString(Constant.CODE_GENERATE);

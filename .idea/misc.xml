@@ -15,8 +15,9 @@
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_import_data.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_main.xml" value="0.1421940928270042" />
-        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_message.xml" value="0.144017094017094" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_message.xml" value="0.16666666666666666" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_refer_earn.xml" value="0.16666666666666666" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_rise_ticket.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_splash.xml" value="0.1421940928270042" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_update_bank.xml" value="0.22" />
@@ -33,11 +34,14 @@
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_wallet.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_withdrawal.xml" value="0.1421940928270042" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/include_attachment_view.xml" value="0.144017094017094" />
-        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/list_tickets.xml" value="0.3333333333333333" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/list_tickets.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/notification_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/redeem_list_layout.xml" value="0.22" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/risetoken_bottom_sheet_lyt.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/wallet_list_layout.xml" value="0.3333333333333333" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/menu/login_popup.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/menu/popup_menu.xml" value="0.144017094017094" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable-v24/custom_progress_dialog.xml" value="0.1" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable/bg.xml" value="0.1715" />
         <entry key="..\:/abcd_app/app/src/main/res/drawable/bg_bluecardcurve.xml" value="0.126" />

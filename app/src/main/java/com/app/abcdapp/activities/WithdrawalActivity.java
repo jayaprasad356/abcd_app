@@ -42,7 +42,7 @@ public class WithdrawalActivity extends AppCompatActivity {
     RedeemedAdapter redeemedAdapter;
     Activity activity;
     Button btnUpdateBank,btnWithdrawal;
-    TextView tvBalance;
+    TextView tvBalance,tvminiwithdrawal;
     Session session;
     EditText etAmount;
 
@@ -60,8 +60,10 @@ public class WithdrawalActivity extends AppCompatActivity {
         tvBalance = findViewById(R.id.tvBalance);
         btnWithdrawal = findViewById(R.id.btnWithdrawal);
         etAmount = findViewById(R.id.etAmount);
+        tvminiwithdrawal = findViewById(R.id.tvminiwithdrawal);
 
         tvBalance.setText("Available Balance = ₹"+session.getData(Constant.BALANCE));
+        tvminiwithdrawal.setText("Minimum Redeem =  ₹"+session.getData(Constant.MIN_WITHDRAWAL));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         recycler.setLayoutManager(linearLayoutManager);
         redeemlist();
@@ -84,9 +86,8 @@ public class WithdrawalActivity extends AppCompatActivity {
                 if (etAmount.getText().toString().trim().equals("") || etAmount.getText().toString().trim().equals("0")){
                     etAmount.setError("enter amount");
                     etAmount.requestFocus();
-                }else if (Double.parseDouble(etAmount.getText().toString().trim()) < 250) {
-                    Toast.makeText(activity, "minimum 250 balance required", Toast.LENGTH_SHORT).show();
-
+                }else if (Double.parseDouble(etAmount.getText().toString().trim()) < Integer.parseInt(session.getData(Constant.MIN_WITHDRAWAL))) {
+                    Toast.makeText(activity, "minimum "+session.getData(Constant.MIN_WITHDRAWAL)+" balance required", Toast.LENGTH_SHORT).show();
                 }else if (Double.parseDouble(etAmount.getText().toString().trim()) > Double.parseDouble(session.getData(Constant.BALANCE))) {
                     Toast.makeText(activity, "insuffcient balance", Toast.LENGTH_SHORT).show();
 

@@ -75,7 +75,6 @@
 
                 <LinearLayout
                     android:id="@+id/btnAttachmentVideo"
-                    android:visibility="invisible"
                     style="@style/AttachmentLinearLayout">
 
                     <ImageView

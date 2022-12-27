@@ -9,9 +9,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +33,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     Button btnSignUp;
     EditText EtPhoneNumber,EtPassword;
@@ -37,6 +42,10 @@ public class LoginActivity extends AppCompatActivity {
     Activity activity;
     String Mobile,Password;
     TextView tvMakePayment;
+    ImageView imgMenu;
+    CheckBox checkTerms;
+    LinearLayout whatsppjoin;
+    TextView tvTerms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,10 @@ public class LoginActivity extends AppCompatActivity {
         EtPhoneNumber = findViewById(R.id.EtPhoneNumber);
         EtPassword = findViewById(R.id.EtPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
+        imgMenu = findViewById(R.id.imgMenu);
+        checkTerms = findViewById(R.id.checkTerms);
+        whatsppjoin = findViewById(R.id.whatsppjoin);
+        tvTerms = findViewById(R.id.tvTerms);
 
         EtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_show, 0);
 
@@ -63,6 +76,30 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        tvTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(""+session.getData(Constant.JOB_DETAILS_LINK)); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+
+            }
+        });
+
+        imgMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showpopup(view);
+            }
+        });
+
+        whatsppjoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWhatsApp();
+            }
+        });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +109,9 @@ public class LoginActivity extends AppCompatActivity {
                 else if (EtPassword.getText().toString().trim().equals("")){
                     Toast.makeText(LoginActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
                 }
+                else if (!checkTerms.isChecked()){
+                    Toast.makeText(LoginActivity.this, "Please Check the box and login", Toast.LENGTH_SHORT).show();
+                }
                 else{
 
 
@@ -79,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
         tvMakePayment.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +139,25 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+    private void openWhatsApp() {
+
+        String url = "https://api.whatsapp.com/send?phone="+"91"+session.getData(Constant.WHATSAPP);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+
+
+    }
+
+
+    private void showpopup(View v) {
+
+        PopupMenu popup = new PopupMenu(activity,v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.login_popup);
+        popup.show();
+    }
+
 
     private void Login() {
         Mobile = EtPhoneNumber.getText().toString().trim();
@@ -274,4 +334,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.payment){
+            try {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(session.getData(Constant.PAYMENT_LINK)));
+                startActivity(intent);
+            }catch (Exception e){
+
+            }
+        }
+
+        return false;
+    }
 }

@@ -23,6 +23,7 @@
     <color name="secondaryLightColor">#ff9e40</color>
     <color name="secondaryGreenColor">#ffdd40</color>
     <color name="textcolor">#ffdd40</color>
+    <color name="yellow">#F9A825</color>
     <color name="navyblue">#000080</color>
 
     <color name="secondaryDarkColor">#c43c00</color>

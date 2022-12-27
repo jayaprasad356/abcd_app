@@ -70,4 +70,5 @@
     <string name="lblLocation">Location</string>
     <string name="lblVoiceRecording">Voice recording</string>
     <string name="msgNoMessage">No message!</string>
+    <string name="terms"><u>I have read and agreed to the job details and terms &amp; conditions.</u></string>
 </resources>

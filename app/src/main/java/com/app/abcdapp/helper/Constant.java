@@ -15,8 +15,8 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class Constant {
-    public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
-    //public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
+    //public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
+    public static final String MainBaseUrl = "https://demo.abcdapp.in/";
     //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
@@ -89,6 +89,8 @@ public class Constant {
     public static final String PASSWORD = "password";
     public static final String CHECKIN = "checkin";
     public static final String PAYMENT_LINK = "payment_link";
+    public static final String WHATSAPP = "whatsapp";
+    public static final String JOB_DETAILS_LINK = "job_details_link";
     public static final String DEVICE_ID = "device_id";
     public static final String STATUS = "status";
     public static final String REFERRED_BY = "referred_by";
@@ -96,11 +98,13 @@ public class Constant {
     public static final String CODE_GENERATE = "code_generate";
     public static final String CODE_GENERATE_TIME = "code_generate_time";
     public static final String PENDING_TICKET = "pending_ticket";
+    public static final String CLOSED_TICKET = "closed_ticket";
     public static final String TITLE = "title";
     public static final String CATEGORY = "category";
     public static final String LAST_UPDATED = "last_updated";
     public static final String JOINED_DATE = "joined_date";
     public static final String WITHDRAWAL_STATUS = "withdrawal_status";
+    public static final String MIN_WITHDRAWAL = "min_withdrawal";
     public static final String SYNC_TIME = "sync_time";
 
     @SuppressLint("HardwareIds")

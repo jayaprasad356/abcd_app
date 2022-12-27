@@ -58,6 +58,8 @@ public class SplashActivity extends AppCompatActivity {
                         JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                         JSONArray jsonArray2 = jsonObject.getJSONArray(Constant.SETTINGS);
                         session.setData(Constant.PAYMENT_LINK,jsonArray2.getJSONObject(0).getString(Constant.PAYMENT_LINK));
+                        session.setData(Constant.WHATSAPP,jsonArray2.getJSONObject(0).getString(Constant.WHATSAPP));
+                        session.setData(Constant.JOB_DETAILS_LINK,jsonArray2.getJSONObject(0).getString(Constant.JOB_DETAILS_LINK));
                         link = jsonArray.getJSONObject(0).getString(Constant.LINK);
                         description = jsonArray.getJSONObject(0).getString(Constant.DESCRIPTION);
                         String latestversion = jsonArray.getJSONObject(0).getString(Constant.VERSION);
