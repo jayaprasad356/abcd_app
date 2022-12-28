@@ -15,11 +15,12 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class Constant {
-    //public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
-    public static final String MainBaseUrl = "https://demo.abcdapp.in/";
+    //public static final String MainBaseUrl = "https://demo.abcdapp.in/";
+    public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
     //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
+    public static final String SEND_ADMIN_NOTIFY_URL = BaseUrl + "sendadminnotify.php";
     public static final String IMPORT_DATA_URL = BaseUrl + "import_data.php";
     public static final String REGISTER_URL = BaseUrl + "register.php";
     public static final String WALLET_URL = BaseUrl + "wallet.php";
@@ -31,6 +32,7 @@ public class Constant {
     public static final String NOTIFICATION_LIST_URL = BaseUrl + "notification_lists.php";
     public static final String CHANGE_DEVICE_LIST_URL = BaseUrl + "change_device.php";
     public static final String APPUPDATE_URL = BaseUrl + "appupdate.php";
+    public static final String SETTINGS_URL = BaseUrl + "settings.php";
 
 
 
@@ -96,6 +98,7 @@ public class Constant {
     public static final String REFERRED_BY = "referred_by";
     public static final String REFER_BONUS_SENT = "refer_bonus_sent";
     public static final String CODE_GENERATE = "code_generate";
+    public static final String CHAT_SUPPORT = "chat_support";
     public static final String CODE_GENERATE_TIME = "code_generate_time";
     public static final String PENDING_TICKET = "pending_ticket";
     public static final String CLOSED_TICKET = "closed_ticket";

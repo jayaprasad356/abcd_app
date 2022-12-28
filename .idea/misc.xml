@@ -7,6 +7,7 @@
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1135" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/bg.xml" value="0.1" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/custom_progress_dialog.xml" value="0.1135" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_error.xml" value="0.139" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_hide.xml" value="0.139" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1135" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_pass.xml" value="0.139" />
@@ -25,6 +26,7 @@
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_withdrawal.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/customdia.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/customdia2.xml" value="0.4466666666666667" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/dialog_no_internet.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_genrate_q_r.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_profile.xml" value="0.22" />

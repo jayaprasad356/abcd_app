@@ -1,5 +1,6 @@
 package com.app.abcdapp.activities;
 
+import static com.app.abcdapp.chat.constants.IConstants.CHAT_SUPPORT;
 import static com.app.abcdapp.chat.constants.IConstants.EXTRA_ATTACH_DATA;
 import static com.app.abcdapp.chat.constants.IConstants.EXTRA_ATTACH_DURATION;
 import static com.app.abcdapp.chat.constants.IConstants.EXTRA_ATTACH_FILE;
@@ -29,6 +30,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,9 +39,13 @@ import android.widget.Toast;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.chat.ChatActivity;
+import com.app.abcdapp.chat.MessageActivity;
 import com.app.abcdapp.chat.adapters.MessageAdapters;
+import com.app.abcdapp.chat.constants.IConstants;
 import com.app.abcdapp.chat.managers.Utils;
 import com.app.abcdapp.chat.models.Chat;
+import com.app.abcdapp.chat.models.ChatSupport;
+import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.CustomDialog;
 import com.app.abcdapp.helper.Session;
@@ -51,7 +57,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class RiseTicketActivity extends AppCompatActivity {
 
@@ -84,24 +95,34 @@ public class RiseTicketActivity extends AppCompatActivity {
                     Toast.makeText(RiseTicketActivity.this, "Description is Empty", Toast.LENGTH_SHORT).show();
                 }else {
                     customDialog.showDialog();
-                    Query freq = Utils.getQuerySupportStatus();
-                    freq.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChildren()){
-                                riseTicket();
+                    Map<String, String> params = new HashMap<>();
+                    ApiConfig.RequestToVolley((result, response) -> {
+                        Log.d("SETTINGS_DATA",response);
+                        if (result) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                                    JSONArray setArray = jsonObject.getJSONArray(Constant.DATA);
+                                    if (setArray.getJSONObject(0).getString(Constant.CHAT_SUPPORT).equals("1")){
+                                        riseTicket();
+                                    }else {
+                                        Toast.makeText(RiseTicketActivity.this, "Please rise ticket only on Working hours Mon - Sat 10 AM to 6 PM", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+
+                                }
+
+                            } catch (JSONException e){
+                                e.printStackTrace();
                             }
-                            else {
-                                customDialog.closeDialog();
-                                Toast.makeText(RiseTicketActivity.this, "Please rise ticket only on Working hours Mon - Sat 10 AM to 6 PM", Toast.LENGTH_SHORT).show();
-                            }
+
+
+
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                        //pass url
+                    }, activity, Constant.SETTINGS_URL, params,false);
 
 
                 }
@@ -117,7 +138,7 @@ public class RiseTicketActivity extends AppCompatActivity {
         qref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.hasChildren()) {
+                if (!dataSnapshot.exists()) {
 
                     sendTicket();
                 }
@@ -159,6 +180,7 @@ public class RiseTicketActivity extends AppCompatActivity {
 
         strSender = currentId + SLASH + userId;
         strReceiver = userId + SLASH + currentId;
+        hashMap.put(IConstants.ID, key);
         reference.child(REF_CHATS).child(strSender).child(key).setValue(hashMap);
         reference.child(REF_CHATS).child(strReceiver).child(key).setValue(hashMap);
 
@@ -199,6 +221,7 @@ public class RiseTicketActivity extends AppCompatActivity {
         hashMap.put(EXTRA_SEEN, FALSE);
         hashMap.put(EXTRA_DATETIME, Utils.getDateTime());
         final String key = Utils.getChatUniqueId();
+        hashMap.put(IConstants.ID, key);
         reference.child(REF_CHATS).child(strSender).child(key).setValue(hashMap);
         reference.child(REF_CHATS).child(strReceiver).child(key).setValue(hashMap);
 

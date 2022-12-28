@@ -54,7 +54,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(@NotNull String s) {
         super.onNewToken(s);
 
-        Utils.uploadToken(s);
     }
 
     @Override

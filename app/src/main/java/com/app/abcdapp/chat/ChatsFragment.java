@@ -77,7 +77,6 @@ public class ChatsFragment extends com.app.abcdapp.chat.BaseFragment {
         //currentId = Objects.requireNonNull(firebaseUser).getUid();
 
 
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(Utils::uploadToken);
         return view;
     }
 

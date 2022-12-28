@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navbar;
     Activity activity;
     Session session;
+    String NOTIFY_CHAT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,18 @@ public class MainActivity extends AppCompatActivity {
         navbar.setSelectedItemId(R.id.Home);
         activity = MainActivity.this;
         session = new Session(activity);
-        fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+        NOTIFY_CHAT = getIntent().getStringExtra("NOTIFY_CHAT");
+        if (NOTIFY_CHAT != null){
+            navbar.setSelectedItemId(R.id.Support);
+            fm.beginTransaction().replace(R.id.Container, new TicketFragment()).commit();
+
+
+        }
+        else {
+            fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+
+
+        }
 
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

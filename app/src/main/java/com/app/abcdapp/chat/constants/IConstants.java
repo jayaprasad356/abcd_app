@@ -18,6 +18,7 @@ public interface IConstants {
     String OPENED_TICKET = "opened_ticket";
     String CLOSED_TICKET = "closed_ticket";
     String REF_CHATS = "Chats_v2";
+    String ID = "id";
     String REF_UPLOAD = "Uploads";
     String REF_BLOCK_USERS = "BlockUsers";
     String CURRENT_ID = "GCeJd5SMprMeh0rpXkhkoSMZREy2";

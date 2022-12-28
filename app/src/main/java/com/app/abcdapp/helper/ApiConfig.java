@@ -1,11 +1,18 @@
 package com.app.abcdapp.helper;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -17,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.app.abcdapp.R;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vanniktech.emoji.EmojiManager;
 import com.vanniktech.emoji.ios.IosEmojiProvider;
@@ -27,6 +35,7 @@ public class ApiConfig extends Application implements DefaultLifecycleObserver {
     static ApiConfig mInstance;
     public static final String TAG = ApiConfig.class.getSimpleName();
     RequestQueue mRequestQueue;
+    static boolean isDialogOpen = false;
 
     public static String VolleyErrorMessage(VolleyError error) {
         String message = "";
@@ -112,7 +121,6 @@ public class ApiConfig extends Application implements DefaultLifecycleObserver {
         return mInstance;
     }
 
-
     public static Boolean isConnected(final Activity activity) {
         boolean check = false;
         try {
@@ -121,13 +129,39 @@ public class ApiConfig extends Application implements DefaultLifecycleObserver {
             if (networkInfo != null && networkInfo.isConnected()) {
                 check = true;
             } else {
-                //Toast.makeText(activity, "No Internet", Toast.LENGTH_SHORT).show();
+                try {
+                    if (!isDialogOpen) {
+                        @SuppressLint("InflateParams") View sheetView = activity.getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
+                        ViewGroup parentViewGroup = (ViewGroup) sheetView.getParent();
+                        if (parentViewGroup != null) {
+                            parentViewGroup.removeAllViews();
+                        }
+
+                        final Dialog mBottomSheetDialog = new Dialog(activity);
+                        mBottomSheetDialog.setContentView(sheetView);
+                        mBottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        mBottomSheetDialog.show();
+                        isDialogOpen = true;
+                        Button btnRetry = sheetView.findViewById(R.id.btnRetry);
+                        mBottomSheetDialog.setCancelable(false);
+
+                        btnRetry.setOnClickListener(view -> {
+                            if (isConnected(activity)) {
+                                isDialogOpen = false;
+                                mBottomSheetDialog.dismiss();
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return check;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();

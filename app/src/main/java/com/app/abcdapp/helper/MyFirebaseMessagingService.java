@@ -4,6 +4,7 @@ package com.app.abcdapp.helper;
 import android.content.Intent;
 import android.util.Log;
 
+import com.app.abcdapp.activities.MainActivity;
 import com.app.abcdapp.activities.NotificaionActivity;
 import com.app.abcdapp.activities.SplashActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -42,12 +43,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String imageUrl = data.getString("image");
             String id = data.getString("id");
             Intent intent = null;
-            if (session.getBoolean("is_logged_in")){
-                intent = new Intent(getApplicationContext(), NotificaionActivity.class);
 
-            }else {
-                intent = new Intent(getApplicationContext(), SplashActivity.class);
+
+            if (type.equals("chat")){
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("NOTIFY_CHAT","true");
+
             }
+            else {
+                if (session.getBoolean("is_logged_in")){
+                    intent = new Intent(getApplicationContext(), NotificaionActivity.class);
+
+                }else {
+                    intent = new Intent(getApplicationContext(), SplashActivity.class);
+                }
+            }
+
 
 
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());

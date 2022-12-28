@@ -67,6 +67,7 @@ public class TicketFragment extends Fragment {
                 startActivity(new Intent(requireActivity(), RiseTicketActivity.class));
             }
         });
+        Utils.uploadToken(session.getData(Constant.FCM_ID),session.getData(Constant.USER_ID));
 
 
         return root;

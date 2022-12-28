@@ -68,6 +68,7 @@ import com.app.abcdapp.chat.models.Chat;
 import com.app.abcdapp.chat.models.LocationAddress;
 import com.app.abcdapp.chat.models.Others;
 import com.app.abcdapp.helper.Constant;
+import com.app.abcdapp.helper.Session;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -126,6 +127,7 @@ public class Utils {
 
     final static String DEF_TEXT = "Please update your app to get attachment options and many new features.";
     public static String UPDATE_TEXT = "";
+
 
     public static String getDefaultMessage() {
         if (Utils.isEmpty(UPDATE_TEXT)) {
@@ -829,14 +831,11 @@ public class Utils {
         assert date != null;
         return date.getTime();
     }
-    public static void uploadToken(String referenceToken) {
+    public static void uploadToken(String referenceToken,String userId) {
         try {
-            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (firebaseUser != null) {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference(REF_TOKENS);
-                Token token = new Token(referenceToken);
-                reference.child(firebaseUser.getUid()).setValue(token);
-            }
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference(REF_TOKENS);
+            Token token = new Token(referenceToken);
+            reference.child(userId).setValue(token);
         } catch (Exception e) {
             Utils.getErrors(e);
         }

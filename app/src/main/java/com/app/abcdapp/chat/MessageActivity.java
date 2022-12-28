@@ -89,6 +89,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,6 +100,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -119,6 +121,7 @@ import com.app.abcdapp.R;
 import com.app.abcdapp.chat.adapters.MessageAdapters;
 import com.app.abcdapp.chat.async.BaseTask;
 import com.app.abcdapp.chat.async.TaskRunner;
+import com.app.abcdapp.chat.constants.IConstants;
 import com.app.abcdapp.chat.fcm.APIService;
 import com.app.abcdapp.chat.fcm.RetroClient;
 import com.app.abcdapp.chat.fcmmodels.Data;
@@ -138,6 +141,7 @@ import com.app.abcdapp.chat.models.Chat;
 import com.app.abcdapp.chat.models.DownloadFileEvent;
 import com.app.abcdapp.chat.models.User;
 import com.app.abcdapp.chat.views.SingleClickListener;
+import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.devlomi.record_view.OnRecordListener;
 import com.devlomi.record_view.RecordButton;
@@ -165,6 +169,8 @@ import com.wafflecopter.multicontactpicker.LimitColumn;
 import com.wafflecopter.multicontactpicker.MultiContactPicker;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -176,6 +182,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -727,8 +734,6 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                 try {
                     CropImage.activity(imgUri)
                             .setGuidelines(CropImageView.Guidelines.ON_TOUCH)
-                            .setCropShape(CropImageView.CropShape.RECTANGLE)
-                            .setFixAspectRatio(true)
                             .start(mActivity);
                 } catch (Exception e) {
                     Utils.getErrors(e);
@@ -816,6 +821,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         hashMap.put(EXTRA_DATETIME, Utils.getDateTime());
 
         final String key = Utils.getChatUniqueId();
+        hashMap.put(IConstants.ID, key);
         reference.child(REF_CHATS).child(strSender).child(key).setValue(hashMap);
         reference.child(REF_CHATS).child(strReceiver).child(key).setValue(hashMap);
         Utils.chatSendSound(getApplicationContext());
@@ -836,7 +842,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
             }
 
             if (notify) {
-                sendNotification(receiver, strUsername, msg, type);
+                //sendNotification(msg);
             }
             notify = false;
         } catch (Exception ignored) {
@@ -885,43 +891,33 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
         });
     }
+    private void sendNotification(String msg)
+    {
+        Map<String, String> params = new HashMap<>();
+        params.put(Constant.TITLE,Name);
+        params.put(Constant.DESCRIPTION,msg);
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
-    private void sendNotification(String receiver, final String username, final String message, final String type) {
-        DatabaseReference tokenRef = FirebaseDatabase.getInstance().getReference(REF_TOKENS);
-        Query query = tokenRef.orderByKey().equalTo(receiver);
-
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Token token = snapshot.getValue(Token.class);
-
-                        final Data data = new Data(currentId, R.drawable.ic_stat_ic_notification, username, message, getString(R.string.strNewMessage), userId, type);
-
-                        assert token != null;
-                        final Sender sender = new Sender(data, token.getToken());
-
-                        apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
-                            @Override
-                            public void onResponse(@NotNull Call<MyResponse> call, @NotNull Response<MyResponse> response) {
-                                assert response.code() != 200 || response.body() != null;
-                            }
-
-                            @Override
-                            public void onFailure(@NotNull Call<MyResponse> call, @NotNull Throwable t) {
-
-                            }
-                        });
 
                     }
+
+                } catch (JSONException e){
+                    e.printStackTrace();
                 }
+
+
+
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+            //pass url
+        }, MessageActivity.this, Constant.SEND_ADMIN_NOTIFY_URL, params,false);
+
+
+
     }
 
     private void readMessages() {
@@ -1735,91 +1731,6 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
         }
 
-    }
-    private void sendAutoMessage(String type, String message, Attachment attachment) {
-        if (blockUnblockCheckBeforeSend()) {
-            return;
-        }
-
-
-        notify = true;
-        String defaultMsg;
-        final String sender = currentId;
-        final String receiver = userId;
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        HashMap<String, Object> hashMap = new HashMap<>();
-
-        hashMap.put(EXTRA_SENDER, receiver);
-        hashMap.put(EXTRA_RECEIVER, sender);
-        hashMap.put(EXTRA_MESSAGE, message);
-        hashMap.put(EXTRA_ATTACH_TYPE, type);
-//        hashMap.put(EXTRA_TYPE, type);
-        hashMap.put(EXTRA_TYPE, TYPE_TEXT);//This is for older version users(Default TEXT, all other set as IMAGE)
-
-        try {
-            if (!type.equalsIgnoreCase(TYPE_TEXT) && !type.equalsIgnoreCase(TYPE_IMAGE)) {
-                defaultMsg = Utils.getDefaultMessage();
-                hashMap.put(EXTRA_MESSAGE, defaultMsg);
-            }
-        } catch (Exception ignored) {
-        }
-
-        try {
-            if (type.equalsIgnoreCase(TYPE_TEXT)) {
-                //No need to do anything here.
-            } else if (type.equalsIgnoreCase(TYPE_IMAGE)) {
-                hashMap.put(EXTRA_TYPE, TYPE_IMAGE);
-                hashMap.put(EXTRA_IMGPATH, message);
-            } else {
-                hashMap.put(EXTRA_ATTACH_PATH, message);
-                try {
-                    if (attachment != null) {
-                        hashMap.put(EXTRA_ATTACH_NAME, attachment.getName());
-                        hashMap.put(EXTRA_ATTACH_FILE, attachment.getFileName());
-                        hashMap.put(EXTRA_ATTACH_SIZE, attachment.getBytesCount());
-                        if (attachment.getData() != null) {
-                            hashMap.put(EXTRA_ATTACH_DATA, attachment.getData());
-                        }
-                        if (attachment.getDuration() != null) {
-                            hashMap.put(EXTRA_ATTACH_DURATION, attachment.getDuration());
-                        }
-                    }
-                } catch (Exception ignored) {
-                }
-            }
-        } catch (Exception ignored) {
-        }
-
-        hashMap.put(EXTRA_SEEN, FALSE);
-        hashMap.put(EXTRA_DATETIME, Utils.getDateTime());
-
-        final String key = Utils.getChatUniqueId();
-        reference.child(REF_CHATS).child(strSender).child(key).setValue(hashMap);
-        reference.child(REF_CHATS).child(strReceiver).child(key).setValue(hashMap);
-        Utils.chatSendSound(getApplicationContext());
-
-        try {
-            String msg = message;
-            if (!type.equalsIgnoreCase(TYPE_TEXT) && !type.equalsIgnoreCase(TYPE_IMAGE)) {
-                try {
-                    String firstCapital = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
-                    if (attachment != null) {
-                        msg = "New " + firstCapital + "(" + attachment.getName() + ")";
-                    } else {
-                        msg = firstCapital;
-                    }
-                } catch (Exception e) {
-                    msg = message;
-                }
-            }
-
-            if (notify) {
-                sendNotification(receiver, strUsername, msg, type);
-            }
-            notify = false;
-        } catch (Exception ignored) {
-        }
     }
 
     @Override

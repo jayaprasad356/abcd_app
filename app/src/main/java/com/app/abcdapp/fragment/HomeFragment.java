@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.app.abcdapp.activities.GenrateQRActivity;
 import com.app.abcdapp.activities.MainActivity;
+import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.DatabaseHelper;
 import com.app.abcdapp.helper.ProgressDisplay;
@@ -192,14 +193,18 @@ public class HomeFragment extends Fragment {
 
 
                 else {
-                    if (session.getData(Constant.CODE_GENERATE).equals("1")){
-                        session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        fm.beginTransaction().replace(R.id.Container, new GenrateQRFragment()).commit();
+                    if (ApiConfig.isConnected(activity)){
+                        if (session.getData(Constant.CODE_GENERATE).equals("1")){
+                            session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            fm.beginTransaction().replace(R.id.Container, new GenrateQRFragment()).commit();
 
-                    }else {
-                        Toast.makeText(activity, "You are Restricted for Generating Code", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(activity, "You are Restricted for Generating Code", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
+
 
 
                 }

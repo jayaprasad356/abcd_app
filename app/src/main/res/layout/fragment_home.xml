@@ -276,6 +276,7 @@
                                 android:gravity="center"
                                 android:layout_marginRight="@dimen/_2sdp"
                                 android:maxLength="1"
+                                android:inputType="number"
                                 android:textSize="@dimen/_20sdp" />
 
                             <EditText
@@ -286,6 +287,7 @@
                                 android:background="@drawable/edittext_curve_bg"
                                 android:gravity="center"
                                 android:maxLength="1"
+                                android:inputType="number"
                                 android:layout_marginRight="@dimen/_2sdp"
                                 android:textSize="@dimen/_20sdp" />
 
