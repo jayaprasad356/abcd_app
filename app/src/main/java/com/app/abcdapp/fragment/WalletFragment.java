@@ -105,14 +105,19 @@ public class WalletFragment extends Fragment {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.getBoolean(Constant.SUCCESS)) {
                             session.setBoolean(Constant.RUN_API,false);
-
                             JSONArray jsonArray = jsonObject.getJSONArray(Constant.DATA);
                             JSONArray bankArray = jsonObject.getJSONArray(Constant.BANK_DETAILS);
                             String codegenerate = "0",withdrawal_status = "0";
                             JSONArray userArray = jsonObject.getJSONArray(Constant.USER_DETAILS);
                             JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
                             session.setData(Constant.SYNC_TIME,setArray.getJSONObject(0).getString(Constant.SYNC_TIME));
+                            session.setData(Constant.REWARD,setArray.getJSONObject(0).getString(Constant.REWARD));
+                            session.setData(Constant.AD_SHOW_TIME,setArray.getJSONObject(0).getString(Constant.AD_SHOW_TIME));
                             session.setData(Constant.MIN_WITHDRAWAL,setArray.getJSONObject(0).getString(Constant.MIN_WITHDRAWAL));
+                            session.setData(Constant.AD_STATUS,setArray.getJSONObject(0).getString(Constant.AD_STATUS));
+                            session.setData(Constant.FETCH_TIME,setArray.getJSONObject(0).getString(Constant.FETCH_TIME));
+                            session.setData(Constant.AD_REWARD_ID,setArray.getJSONObject(0).getString(Constant.AD_REWARD_ID));
+
 
                             if (setArray.getJSONObject(0).getString(Constant.CODE_GENERATE).equals("1")){
                                 codegenerate = userArray.getJSONObject(0).getString(Constant.CODE_GENERATE);

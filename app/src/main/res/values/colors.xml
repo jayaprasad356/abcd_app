@@ -46,6 +46,7 @@
     <color name="timingBGColorWhite">#21FFFFFF</color>
     <color name="yellow_50">#fffde7</color>
     <color name="yellow_900">#F57C00</color>
+    <color name="yellow_app">#f3c234</color>
     <color name="grey_400">#bdbdbd</color>
     <color name="grey_600">#757575</color>
     <color name="green_500">#4caf50</color>

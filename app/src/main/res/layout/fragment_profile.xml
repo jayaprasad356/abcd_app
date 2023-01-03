@@ -55,7 +55,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_290sdp"
+                    android:layout_height="@dimen/_240sdp"
                     android:layout_marginHorizontal="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_50sdp"
                     app:cardCornerRadius="@dimen/_5sdp"
@@ -114,6 +114,7 @@
                     android:layout_height="@dimen/_50sdp"
                     app:cardElevation="@dimen/_5sdp"
                     android:layout_margin="@dimen/_5sdp"
+                    android:visibility="gone"
                     app:cardCornerRadius="@dimen/_5sdp">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -121,14 +122,16 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:padding="@dimen/_10sdp"
+
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Total Earned"
-                            android:textStyle="bold"
                             android:textColor="@color/primaryDarkColor"
-                            android:textSize="@dimen/_8sdp"/>
+                            android:textSize="@dimen/_8sdp"
+                            android:textStyle="bold" />
                         <TextView
                             android:id="@+id/tvEarn"
                             android:layout_width="wrap_content"
@@ -258,6 +261,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/l3"
                 android:gravity="center"
+                android:visibility="gone"
                 android:layout_marginStart="@dimen/_35sdp"
                 android:layout_marginEnd="@dimen/_35sdp"
                 android:orientation="horizontal">

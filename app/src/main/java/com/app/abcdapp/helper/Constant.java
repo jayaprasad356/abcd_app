@@ -61,6 +61,8 @@ public class Constant {
     public static final String TOTAL_REFERRALS = "total_referrals";
     public static final String LAST_UPDATED_DATE = "last_updated_date";
     public static final String LAST_UPDATED_DATE_STATUS = "last_updated_date_status";
+    public static final String LAST_UPDATED_DATE_AD = "last_updated_date";
+    public static final String LAST_UPDATED_DATE_STATUS_AD = "last_updated_date_status";
     public static final String RUN_API = "run_api";
     public static final String FCM_ID = "fcm_id";
 
@@ -108,7 +110,12 @@ public class Constant {
     public static final String JOINED_DATE = "joined_date";
     public static final String WITHDRAWAL_STATUS = "withdrawal_status";
     public static final String MIN_WITHDRAWAL = "min_withdrawal";
+    public static final String AD_STATUS = "ad_status";
     public static final String SYNC_TIME = "sync_time";
+    public static final String REWARD = "reward";
+    public static final String AD_SHOW_TIME = "ad_show_time";
+    public static final String FETCH_TIME = "fetch_time";
+    public static final String AD_REWARD_ID = "ad_reward_id";
 
     @SuppressLint("HardwareIds")
     public static final  String getDeviceId(Activity activity) {
