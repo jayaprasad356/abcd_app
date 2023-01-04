@@ -6,9 +6,6 @@ import static com.app.abcdapp.helper.Constant.getHistoryDays;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -26,17 +23,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.abcdapp.activities.GenrateQRActivity;
-import com.app.abcdapp.activities.MainActivity;
 import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.DatabaseHelper;
-import com.app.abcdapp.helper.ProgressDisplay;
 import com.app.abcdapp.helper.Session;
 import com.app.abcdapp.java.GenericTextWatcher;
 import com.app.abcdapp.R;
@@ -160,7 +153,7 @@ public class HomeFragment extends Fragment {
         otp_textbox_eight.addTextChangedListener(new GenericTextWatcher(otp_textbox_eight, edit));
         otp_textbox_nine.addTextChangedListener(new GenericTextWatcher(otp_textbox_nine, edit));
         otp_textbox_ten.addTextChangedListener(new GenericTextWatcher(otp_textbox_ten, edit));
-        generateCodes = databaseHelper.getAllCodes();
+        generateCodes = databaseHelper.getLimitCodes();
 
         btnAutoFill.setOnClickListener(new View.OnClickListener() {
             @Override

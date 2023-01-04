@@ -99,10 +99,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return count;
     }
-    public ArrayList<GenerateCodes> getAllCodes() {
+    public ArrayList<GenerateCodes> getLimitCodes() {
         final ArrayList<GenerateCodes> generateCodes = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CODES + " ORDER BY RANDOM() LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+            do {
+                GenerateCodes generateCodes1 = new GenerateCodes(cursor.getString(cursor.getColumnIndexOrThrow(ID)),cursor.getString(cursor.getColumnIndexOrThrow(STUDENT_NAME))
+                        ,cursor.getString(cursor.getColumnIndexOrThrow(ID_NUMBER)),cursor.getString(cursor.getColumnIndexOrThrow(ECITY)),cursor.getString(cursor.getColumnIndexOrThrow(PIN_CODE)));
+                //@SuppressLint("Range") String count = cursor.getString(cursor.getColumnIndex(QTY));
+                generateCodes.add(generateCodes1);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        return generateCodes;
+    }
+    public ArrayList<GenerateCodes> getMissingCodes() {
+        final ArrayList<GenerateCodes> generateCodes = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CODES + " LIMIT 500", null);
         if (cursor.moveToFirst()) {
             do {
                 GenerateCodes generateCodes1 = new GenerateCodes(cursor.getString(cursor.getColumnIndexOrThrow(ID)),cursor.getString(cursor.getColumnIndexOrThrow(STUDENT_NAME))

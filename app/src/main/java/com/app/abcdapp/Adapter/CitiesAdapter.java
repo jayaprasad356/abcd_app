@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.model.Cities;
+import com.app.abcdapp.model.GenerateCodes;
 
 import java.util.ArrayList;
 
@@ -21,11 +22,11 @@ import android.annotation.SuppressLint;
 public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     final Activity activity;
-    ArrayList<Cities> cities;
+    ArrayList<GenerateCodes> generateCodes;
 
-    public CitiesAdapter(Activity activity, ArrayList<Cities> cities) {
+    public CitiesAdapter(Activity activity, ArrayList<GenerateCodes> generateCodes) {
         this.activity = activity;
-        this.cities = cities;
+        this.generateCodes = generateCodes;
     }
 
 
@@ -43,12 +44,12 @@ public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderParent, @SuppressLint("RecyclerView") int position) {
         final ExploreItemHolder holder = (ExploreItemHolder) holderParent;
-        final Cities cities1 = cities.get(position);
+        final GenerateCodes cities1 = generateCodes.get(position);
 
         //   Glide.with(activity).load(quotationList.getImage()).placeholder(R.drawable.logo).into(holder.imgProduct);
-        holder.tvCity.setText(cities1.getCity());
-        holder.tvCity.setText(cities1.getCity());
-        holder.tvCity.setText(cities1.getCity());
+        holder.tvCity.setText(cities1.getEcity());
+        holder.tvMobileNo.setText(cities1.getId_number());
+        holder.tvName.setText(cities1.getStudent_name());
 
 
 
@@ -57,7 +58,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return cities.size();
+        return generateCodes.size();
     }
 
     static class ExploreItemHolder extends RecyclerView.ViewHolder {
