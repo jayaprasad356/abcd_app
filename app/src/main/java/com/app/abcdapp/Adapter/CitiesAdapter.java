@@ -1,6 +1,7 @@
 package com.app.abcdapp.Adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.abcdapp.R;
-import com.app.abcdapp.model.Cities;
+import com.app.abcdapp.activities.FindMissingActivity;
+import com.app.abcdapp.fragment.FindMissingFragment;
+import com.app.abcdapp.fragment.HomeFragment;
 import com.app.abcdapp.model.GenerateCodes;
 
 import java.util.ArrayList;
@@ -23,10 +26,14 @@ public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     final Activity activity;
     ArrayList<GenerateCodes> generateCodes;
+    Dialog dialog;
+    FindMissingFragment findMissingFragment;
 
-    public CitiesAdapter(Activity activity, ArrayList<GenerateCodes> generateCodes) {
+    public CitiesAdapter(Activity activity, ArrayList<GenerateCodes> generateCodes, Dialog dialog,FindMissingFragment findMissingFragment) {
         this.activity = activity;
         this.generateCodes = generateCodes;
+        this.dialog = dialog;
+        this.findMissingFragment = findMissingFragment;
     }
 
 
@@ -50,6 +57,14 @@ public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.tvCity.setText(cities1.getEcity());
         holder.tvMobileNo.setText(cities1.getId_number());
         holder.tvName.setText(cities1.getStudent_name());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                findMissingFragment.setCityValue(cities1.getEcity());
+
+            }
+        });
 
 
 

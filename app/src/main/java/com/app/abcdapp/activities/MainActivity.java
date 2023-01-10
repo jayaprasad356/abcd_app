@@ -12,7 +12,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +27,21 @@ import android.widget.Toast;
 
 import com.app.abcdapp.R;
 import com.app.abcdapp.chat.TicketFragment;
+import com.app.abcdapp.fragment.FindMissingFragment;
 import com.app.abcdapp.fragment.HomeFragment;
 import com.app.abcdapp.fragment.ProfileFragment;
 import com.app.abcdapp.fragment.WalletFragment;
+import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +71,16 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else {
-            fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+            if (session.getData(Constant.WORK_ACTIVITY).equals("Find Missing")){
+                fm.beginTransaction().replace(R.id.Container, new FindMissingFragment()).commit();
+
+
+
+            }else {
+                fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+
+
+            }
 
 
         }
@@ -71,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.Profile:
-                        fm.beginTransaction().replace(R.id.Container, new ProfileFragment()).commit();
+                        fm.beginTransaction().replace(R.id.Container, new ProfileFragment()).commitAllowingStateLoss();
                         break;
                     case R.id.Home:
-                        fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commit();
+                        fm.beginTransaction().replace(R.id.Container, new HomeFragment()).commitAllowingStateLoss();
                         break;
                     case R.id.Wallet:
                         try {
@@ -91,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.Support:
-                        fm.beginTransaction().replace(R.id.Container,new TicketFragment()).commit();
+                        fm.beginTransaction().replace(R.id.Container,new TicketFragment()).commitAllowingStateLoss();
                         break;
                 }
                 return true;
@@ -103,23 +122,76 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        walletApi();
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            onStop();
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+    public void walletApi() {
+        if (ApiConfig.isConnected(activity)){
+            Map<String, String> params = new HashMap<>();
+            params.put(Constant.USER_ID,session.getData(Constant.USER_ID));
+            params.put(Constant.CODES,"0");
+            ApiConfig.RequestToVolley((result, response) -> {
+                Log.d("WALLET_API",response);
+                if (result) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                            session.setInt(Constant.TODAY_CODES,Integer.parseInt(jsonObject.getString(Constant.TODAY_CODES)));
+                            session.setInt(Constant.TOTAL_CODES,Integer.parseInt(jsonObject.getString(Constant.TOTAL_CODES)));
+                            session.setData(Constant.BALANCE, jsonObject.getString(Constant.BALANCE));
+                            session.setData(Constant.CODE_GENERATE, jsonObject.getString(Constant.CODE_GENERATE));
+                            session.setData(Constant.STATUS, jsonObject.getString(Constant.STATUS));
+                            finishAffinity();
+                        }else {
+
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, activity, Constant.WALLET_URL, params, true);
+
+
+        }
+
+
+    }
+
+
+
     private void showAlertDialog() {
 
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.wallet_dialog);
-        dialog.setCancelable(false);
         EditText edMobile = dialog.findViewById(R.id.edMobile);
-        TextView tvCancel = dialog.findViewById(R.id.tvCancel);
         TextView tvViewWallet = dialog.findViewById(R.id.tvViewWallet);
         Window window = dialog.getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
         tvViewWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
 
                             progressDialog.dismiss();
-                            fm.beginTransaction().replace(R.id.Container, new WalletFragment()).commit();
+                            fm.beginTransaction().replace(R.id.Container, new WalletFragment()).commitAllowingStateLoss();
 
 
 
@@ -153,12 +225,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        WalletFragment fragm = new WalletFragment();
-        fragm.walletApi(session,activity);
     }
 }

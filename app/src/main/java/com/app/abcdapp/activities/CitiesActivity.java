@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 
 import com.app.abcdapp.Adapter.CitiesAdapter;
 import com.app.abcdapp.R;
 import com.app.abcdapp.helper.DatabaseHelper;
-import com.app.abcdapp.model.Cities;
 import com.app.abcdapp.model.GenerateCodes;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ public class CitiesActivity extends AppCompatActivity {
     CitiesAdapter citiesAdapter;
     Activity activity;
     DatabaseHelper databaseHelper;
+    Dialog dialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,7 +46,8 @@ public class CitiesActivity extends AppCompatActivity {
         ArrayList<GenerateCodes> generateCodes = new ArrayList<GenerateCodes>();
         generateCodes = databaseHelper.getMissingCodes();
 
-        citiesAdapter = new CitiesAdapter(activity,generateCodes);
+
+       // citiesAdapter = new CitiesAdapter(activity,generateCodes, dialog);
         rvCityData.setAdapter(citiesAdapter);
 
 

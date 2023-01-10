@@ -4,10 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".activities.FindMissingActivity">
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp"
+        >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-
+    <ScrollView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l1"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -18,60 +42,226 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/card1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
                 android:backgroundTint="@color/primaryColor"
+
+
                 >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="@dimen/_20sdp"
-                    android:gravity="end"
-                    >
-
-
-                    <Button
-                        android:visibility="gone"
-                        android:id="@+id/btnpincode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pincode"
-                        android:backgroundTint="@color/primaryLightColor"
-                        android:layout_marginRight="@dimen/_10sdp"
-
-                        />
-
-                    <Button
-                        android:id="@+id/btnCities"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cities"
-                        android:backgroundTint="@color/primaryLightColor"
-                        />
-
-                </LinearLayout>
-
-
-
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp"
-                    android:layout_gravity="center"
+                    android:background="@drawable/bg_stroke"
                     >
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="2">
 
 
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            >
+
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="@dimen/_60sdp">
+
+
+                                <ImageView
+                                    android:layout_width="@dimen/_120sdp"
+                                    android:layout_height="@dimen/_120sdp"
+                                    android:src="@drawable/app_logo"
+                                    android:scaleType="fitXY"
+                                    />
+
+
+                            </androidx.cardview.widget.CardView>
+
+                        </RelativeLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/_5sdp"
+                                android:background="@drawable/box"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Wallet Balance"
+                                    android:textColor="@color/primaryColor"
+                                    android:layout_gravity="center"
+                                    android:textSize="@dimen/_10sdp"/>
+                                <TextView
+                                    android:id="@+id/tvBalance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="45"
+                                    android:layout_gravity="center"
+                                    android:textColor="@color/primaryColor"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/_15sdp"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.8"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Today Codes "
+                                        android:layout_gravity="start"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Total Codes "
+                                        android:layout_gravity="start"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="History Days "
+                                        android:layout_gravity=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                </LinearLayout>
+
+
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvTodayCodes"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="23000"
+                                        android:layout_gravity="start"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                    <TextView
+                                        android:id="@+id/tvTotalCodes"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="23000"
+                                        android:layout_gravity="start"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+                                    <TextView
+                                        android:id="@+id/tvHistorydays"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0"
+                                        android:layout_gravity="start"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                </LinearLayout>
+
+
+
+
+
+                            </LinearLayout>
+                            <Button
+                                android:id="@+id/btnAutoFill"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/yellow"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_gravity="center"
+                                android:textAllCaps="false"
+                                android:visibility="gone"
+                                android:text="Auto Fill"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnCities"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cities"
+                            android:backgroundTint="@color/primaryLightColor"/>
+
+                        <Button
+                            android:id="@+id/btnpincode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/primaryLightColor"
+                            android:text="Pincodes"
+                            android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/tvSkip"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:text="Skip"/>
+                    </RelativeLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:orientation="vertical">
 
                         <EditText
@@ -268,7 +458,6 @@
                         android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:orientation="horizontal"
-                        android:weightSum="2"
                         >
 
 
@@ -276,19 +465,19 @@
                             android:id="@+id/edCity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.6"
                             android:background="@drawable/ed_bg"
+                            android:layout_weight="3"
                             android:hint="Enter City location"
                             android:padding="@dimen/_10sdp"
+                            android:textColor="@color/black"
 
                             />
 
                         <Button
                             android:id="@+id/btnVerfifyCity"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_weight="1.4"
                             android:backgroundTint="@color/primaryLightColor"
                             android:text="Verify" />
 
@@ -302,33 +491,32 @@
 
                     <LinearLayout
                         android:id="@+id/llPincode"
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:orientation="horizontal"
                         android:weightSum="2"
+                        android:visibility="invisible"
 
                         >
 
                         <EditText
 
-                            android:layout_weight="0.6"
+                            android:layout_weight="3"
                             android:id="@+id/edPincode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ed_bg"
-                            android:hint="Enter Pin Code"
+                            android:hint="Enter Pincode"
                             android:inputType="number"
                             android:maxLength="6"
                             android:padding="@dimen/_10sdp"
-                           />
+                            />
 
                         <Button
                             android:id="@+id/btnVerfifyPincode"
-                            android:layout_weight="1.4"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Verify"
                             android:backgroundTint="@color/primaryLightColor"
@@ -338,7 +526,7 @@
 
                     </LinearLayout>
                     <Button
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:id="@+id/btnGenerate"
                         android:layout_alignParentBottom="true"
                         android:layout_width="match_parent"
@@ -352,6 +540,7 @@
                         />
 
 
+
                 </LinearLayout>
 
 
@@ -359,6 +548,10 @@
 
 
         </LinearLayout>
+    </ScrollView>
+
+
+
 
 
 </RelativeLayout>

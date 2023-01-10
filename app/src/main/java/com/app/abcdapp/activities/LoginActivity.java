@@ -180,6 +180,7 @@ public class LoginActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                 JSONArray userArray = jsonObject.getJSONArray(Constant.DATA);
                                 JSONArray setArray = jsonObject.getJSONArray(Constant.SETTINGS);
                                 session.setData(Constant.SYNC_TIME,setArray.getJSONObject(0).getString(Constant.SYNC_TIME));
+                                session.setInt(Constant.SYNC_CODES,Integer.parseInt(setArray.getJSONObject(0).getString(Constant.SYNC_CODES)));
                                 session.setData(Constant.REWARD,setArray.getJSONObject(0).getString(Constant.REWARD));
                                 session.setData(Constant.AD_SHOW_TIME,setArray.getJSONObject(0).getString(Constant.AD_SHOW_TIME));
                                 session.setData(Constant.MIN_WITHDRAWAL,setArray.getJSONObject(0).getString(Constant.MIN_WITHDRAWAL));

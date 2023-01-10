@@ -2,6 +2,7 @@ package com.app.abcdapp.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.abcdapp.R;
+import com.app.abcdapp.activities.FindMissingActivity;
+import com.app.abcdapp.fragment.FindMissingFragment;
 import com.app.abcdapp.model.GenerateCodes;
 import com.app.abcdapp.model.Pincode;
 
@@ -21,10 +24,14 @@ public class PincodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     final Activity activity;
     ArrayList<GenerateCodes> generateCodes;
+    Dialog dialog;
+    FindMissingFragment findMissingFragment;
 
-    public PincodeAdapter(Activity activity, ArrayList<GenerateCodes> generateCodes) {
+    public PincodeAdapter(Activity activity, ArrayList<GenerateCodes> generateCodes, Dialog dialog, FindMissingFragment findMissingFragment) {
         this.activity = activity;
         this.generateCodes = generateCodes;
+        this.dialog = dialog;
+        this.findMissingFragment = findMissingFragment;
     }
 
 
@@ -47,6 +54,14 @@ public class PincodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //   Glide.with(activity).load(quotationList.getImage()).placeholder(R.drawable.logo).into(holder.imgProduct);
         holder.tvCity.setText(generateCodes1.getEcity());
         holder.tvPincode.setText(generateCodes1.getPin_code());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                findMissingFragment.setPincodeValue(generateCodes1.getPin_code());
+
+            }
+        });
 
 
 

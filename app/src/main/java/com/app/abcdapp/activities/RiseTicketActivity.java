@@ -61,7 +61,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class RiseTicketActivity extends AppCompatActivity {
@@ -69,7 +74,6 @@ public class RiseTicketActivity extends AppCompatActivity {
     DatabaseReference reference;
     Session session;
     Activity activity;
-    CustomDialog customDialog;
     Spinner spinCategory;
     EditText etDescription;
     String RandomId;
@@ -81,7 +85,6 @@ public class RiseTicketActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rise_ticket);
 
         activity = RiseTicketActivity.this;
-        customDialog = new CustomDialog(activity);
         session = new Session(activity);
 
         etDescription = findViewById(R.id.etDescription);
@@ -94,40 +97,94 @@ public class RiseTicketActivity extends AppCompatActivity {
                 if (etDescription.getText().toString().trim().equals("")){
                     Toast.makeText(RiseTicketActivity.this, "Description is Empty", Toast.LENGTH_SHORT).show();
                 }else {
-                    customDialog.showDialog();
-                    Map<String, String> params = new HashMap<>();
-                    ApiConfig.RequestToVolley((result, response) -> {
-                        Log.d("SETTINGS_DATA",response);
-                        if (result) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                                    JSONArray setArray = jsonObject.getJSONArray(Constant.DATA);
-                                    if (setArray.getJSONObject(0).getString(Constant.CHAT_SUPPORT).equals("1")){
-                                        riseTicket();
-                                    }else {
-                                        Toast.makeText(RiseTicketActivity.this, "Please rise ticket only on Working hours Mon - Sat 10 AM to 6 PM", Toast.LENGTH_SHORT).show();
+                    if (session.getBoolean(Constant.RISE_TICKET_STATUS)){
+                        SimpleDateFormat df = new SimpleDateFormat("dd/M/yyyy hh:mm:ss", Locale.getDefault());
+                        Date c = Calendar.getInstance().getTime();
+                        String currentDate = df.format(c);
 
-                                    }
+                        if (!session.getBoolean(Constant.LAST_UPDATED_DATE_SETTINGS)){
+                            session.setData(Constant.LAST_UPDATED_SETTINGS_DATE,currentDate);
+                            session.setBoolean(Constant.LAST_UPDATED_DATE_SETTINGS,true);
 
+                        }
+                        Date date1 = null;
+                        try {
+                            date1 = df.parse(currentDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date date2 = null;
+                        try {
+                            date2 = df.parse(session.getData(Constant.LAST_UPDATED_SETTINGS_DATE));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        long different = date1.getTime() - date2.getTime();
+                        long secondsInMilli = 1000;
+                        long minutesInMilli = secondsInMilli * 60;
+                        long hoursInMilli = minutesInMilli * 60;
+                        long elapsedHours = different / hoursInMilli;
+                        long elapsedMinutue = different / minutesInMilli;
 
-                                }
+                        if (elapsedMinutue >= Long.parseLong("3")){
 
-                            } catch (JSONException e){
-                                e.printStackTrace();
-                            }
+                            session.setBoolean(Constant.LAST_UPDATED_DATE_SETTINGS,false);
+                            riseTicketCheck();
 
-
+                        }
+                        else {
+                            Toast.makeText(RiseTicketActivity.this, "Please rise ticket only on Working hours Mon - Sat 10 AM to 6 PM", Toast.LENGTH_SHORT).show();
 
                         }
 
-                        //pass url
-                    }, activity, Constant.SETTINGS_URL, params,false);
+                    }else {
+                        riseTicketCheck();
+
+                    }
+
 
 
                 }
             }
         });
+
+    }
+
+    private void riseTicketCheck() {
+        Map<String, String> params = new HashMap<>();
+        ApiConfig.RequestToVolley((result, response) -> {
+            Log.d("SETTINGS_DATA",response);
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        JSONArray setArray = jsonObject.getJSONArray(Constant.DATA);
+                        if (setArray.getJSONObject(0).getString(Constant.CHAT_SUPPORT).equals("1")){
+                            session.setBoolean(Constant.RISE_TICKET_STATUS,false);
+                            riseTicket();
+                        }else {
+                            session.setBoolean(Constant.RISE_TICKET_STATUS,true);
+                            Toast.makeText(RiseTicketActivity.this, "Please rise ticket only on Working hours Mon - Sat 10 AM to 6 PM", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }else {
+                        Toast.makeText(RiseTicketActivity.this, "Please try again later", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                    Toast.makeText(RiseTicketActivity.this, "Please try again later", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+
+            }
+
+            //pass url
+        }, activity, Constant.SETTINGS_URL, params,false);
 
     }
 
@@ -143,7 +200,6 @@ public class RiseTicketActivity extends AppCompatActivity {
                     sendTicket();
                 }
                 else {
-                    customDialog.closeDialog();
                     Toast.makeText(activity, "Your Ticket is Already in Pending Status,You Can't Send Another Ticket", Toast.LENGTH_LONG).show();
                 }
             }
@@ -224,8 +280,6 @@ public class RiseTicketActivity extends AppCompatActivity {
         hashMap.put(IConstants.ID, key);
         reference.child(REF_CHATS).child(strSender).child(key).setValue(hashMap);
         reference.child(REF_CHATS).child(strReceiver).child(key).setValue(hashMap);
-
-        customDialog.closeDialog();
         Toast.makeText(activity, "Ticket Sent Successfully", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(activity, MainActivity.class);
         startActivity(intent);

@@ -48,7 +48,7 @@ public class PincodeActivity extends AppCompatActivity {
         ArrayList<GenerateCodes> generateCodes = new ArrayList<GenerateCodes>();
         generateCodes = databaseHelper.getMissingCodes();
 
-        pincodeAdapter = new PincodeAdapter(activity,generateCodes);
+        //pincodeAdapter = new PincodeAdapter(activity,generateCodes);
         rvPincode.setAdapter(pincodeAdapter);
 
     }

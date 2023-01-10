@@ -54,6 +54,7 @@ public interface IConstants {
     String EXTRA_MESSAGE = "message";
     String EXTRA_TYPE = "type";
     String EXTRA_IMGPATH = "imgPath";
+    String REPLY = "reply";
     String EXTRA_ATTACH_TYPE = "attachmentType";
     String EXTRA_ATTACH_PATH = "attachmentPath";
     String EXTRA_ATTACH_NAME = "attachmentName";

@@ -6,6 +6,8 @@ import static com.app.abcdapp.helper.Constant.getHistoryDays;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,6 +30,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.abcdapp.activities.FindMissingActivity;
 import com.app.abcdapp.helper.ApiConfig;
 import com.app.abcdapp.helper.Constant;
 import com.app.abcdapp.helper.DatabaseHelper;
@@ -39,21 +43,27 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class HomeFragment extends Fragment {
 
     TextView tvName,tvPincode,tvCity, tvId,tvTodayCodes,tvTotalCodes,tvHistorydays;
     EditText edName,edPincode,edCity;
-    Button btnGenerate;
+    Button btnGenerate,btnsyncNow;
 
 
     EditText otp_textbox_one, otp_textbox_two, otp_textbox_three, otp_textbox_four,otp_textbox_five,otp_textbox_six,otp_textbox_seven,otp_textbox_eight,otp_textbox_nine,otp_textbox_ten;
@@ -68,10 +78,12 @@ public class HomeFragment extends Fragment {
     Handler handler;
     long code_generate_time = 0;
     public static Dialog dialog = null;
-    Button btnAutoFill;
+    Button btnFindMissing;
     TextView tvBalance;
     View root;
     private String AdId = "";
+    TextView tvCodes;
+    CircularProgressIndicator cbCodes;
 
 
 
@@ -126,7 +138,7 @@ public class HomeFragment extends Fragment {
         tvTotalCodes = root.findViewById(R.id.tvTotalCodes);
         tvHistorydays = root.findViewById(R.id.tvHistorydays);
         btnGenerate = root.findViewById(R.id.btnGenerate);
-        btnAutoFill = root.findViewById(R.id.btnAutoFill);
+        btnFindMissing = root.findViewById(R.id.btnFindMissing);
         frame = root.findViewById(R.id.frame);
 
         otp_textbox_one = root.findViewById(R.id.otp_edit_box1);
@@ -139,7 +151,22 @@ public class HomeFragment extends Fragment {
         otp_textbox_eight = root.findViewById(R.id.otp_edit_box8);
         otp_textbox_nine = root.findViewById(R.id.otp_edit_box9);
         otp_textbox_ten = root.findViewById(R.id.otp_edit_box10);
+        tvCodes = root.findViewById(R.id.tvCodes);
+        cbCodes = root.findViewById(R.id.cbCodes);
+        btnsyncNow = root.findViewById(R.id.btnsyncNow);
         setCodeValue();
+
+
+
+        btnsyncNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnsyncNow.setBackground(ContextCompat.getDrawable(activity, R.drawable.syncbg_disabled));
+                btnsyncNow.setEnabled(false);
+                walletApi();
+
+            }
+        });
 
 
         EditText[] edit = {otp_textbox_one, otp_textbox_two, otp_textbox_three, otp_textbox_four,otp_textbox_five,otp_textbox_six,otp_textbox_seven,otp_textbox_eight,otp_textbox_nine,otp_textbox_ten};
@@ -155,66 +182,77 @@ public class HomeFragment extends Fragment {
         otp_textbox_ten.addTextChangedListener(new GenericTextWatcher(otp_textbox_ten, edit));
         generateCodes = databaseHelper.getLimitCodes();
 
-        btnAutoFill.setOnClickListener(new View.OnClickListener() {
+
+
+        btnFindMissing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showRewardedVideoAd();
+                session.setData(Constant.WORK_ACTIVITY,"Find Missing");
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.Container, new FindMissingFragment()).commit();
             }
         });
 
         btnGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Idnumber = otp_textbox_one.getText().toString().trim() + otp_textbox_two.getText().toString().trim() +
-                        otp_textbox_three.getText().toString().trim() + otp_textbox_four.getText().toString().trim() + otp_textbox_five.getText().toString().trim() +
-                        otp_textbox_six.getText().toString().trim() + otp_textbox_seven.getText().toString().trim() + otp_textbox_eight.getText().toString().trim() +
-                        otp_textbox_nine.getText().toString().trim() + otp_textbox_ten.getText().toString().trim();
-                if (!tvName.getText().toString().trim().equals(edName.getText().toString().trim())){
+                if (btnsyncNow.isEnabled()){
+                    Toast.makeText(activity, "Please Sync Your Codes", Toast.LENGTH_SHORT).show();
 
-                   // Toast.makeText(getActivity(), "Name not match", Toast.LENGTH_SHORT).show();
-                    edName.setError("Name not match");
-                    edName.requestFocus();
-                    return;
+                }else {
+                    Idnumber = otp_textbox_one.getText().toString().trim() + otp_textbox_two.getText().toString().trim() +
+                            otp_textbox_three.getText().toString().trim() + otp_textbox_four.getText().toString().trim() + otp_textbox_five.getText().toString().trim() +
+                            otp_textbox_six.getText().toString().trim() + otp_textbox_seven.getText().toString().trim() + otp_textbox_eight.getText().toString().trim() +
+                            otp_textbox_nine.getText().toString().trim() + otp_textbox_ten.getText().toString().trim();
+                    if (!tvName.getText().toString().trim().equals(edName.getText().toString().trim())){
 
-                }
-                else if (!tvId.getText().toString().trim().equals(Idnumber.toString().trim())){
-
-
-                    // Toast.makeText(getActivity(), "Id number not match", Toast.LENGTH_SHORT).show();
-                    otp_textbox_ten.setError("Id number not match");
-                    otp_textbox_ten.requestFocus();
-                    return;
-                }
-                else if (!tvCity.getText().toString().trim().equals(edCity.getText().toString().trim())){
-
-                   // Toast.makeText(getActivity(), "City not match", Toast.LENGTH_SHORT).show();
-                    edCity.setError("City not match");
-                    edCity.requestFocus();
-                    return;
-                }
-                else if (!tvPincode.getText().toString().trim().equals(edPincode.getText().toString().trim())){
-
-                   // Toast.makeText(getActivity(), "Pin code not match", Toast.LENGTH_SHORT).show();
-                    edPincode.setError("Pin code not match");
-                    edPincode.requestFocus();
-                    return;
-                }
-                else {
-                    if (ApiConfig.isConnected(activity)){
-                        if (session.getData(Constant.CODE_GENERATE).equals("1")){
-                            session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
-                            FragmentManager fm = getActivity().getSupportFragmentManager();
-                            fm.beginTransaction().replace(R.id.Container, new GenrateQRFragment()).commit();
-
-                        }else {
-                            Toast.makeText(activity, "You are Restricted for Generating Code", Toast.LENGTH_SHORT).show();
-                        }
+                        // Toast.makeText(getActivity(), "Name not match", Toast.LENGTH_SHORT).show();
+                        edName.setError("Name not match");
+                        edName.requestFocus();
+                        return;
 
                     }
+                    else if (!tvId.getText().toString().trim().equals(Idnumber.toString().trim())){
+
+
+                        // Toast.makeText(getActivity(), "Id number not match", Toast.LENGTH_SHORT).show();
+                        otp_textbox_ten.setError("Id number not match");
+                        otp_textbox_ten.requestFocus();
+                        return;
+                    }
+                    else if (!tvCity.getText().toString().trim().equals(edCity.getText().toString().trim())){
+
+                        // Toast.makeText(getActivity(), "City not match", Toast.LENGTH_SHORT).show();
+                        edCity.setError("City not match");
+                        edCity.requestFocus();
+                        return;
+                    }
+                    else if (!tvPincode.getText().toString().trim().equals(edPincode.getText().toString().trim())){
+
+                        // Toast.makeText(getActivity(), "Pin code not match", Toast.LENGTH_SHORT).show();
+                        edPincode.setError("Pin code not match");
+                        edPincode.requestFocus();
+                        return;
+                    }
+                    else {
+                        if (ApiConfig.isConnected(activity)){
+                            if (session.getData(Constant.CODE_GENERATE).equals("1")){
+                                session.setInt(Constant.CODES,session.getInt(Constant.CODES) + 1);
+                                FragmentManager fm = getActivity().getSupportFragmentManager();
+                                fm.beginTransaction().replace(R.id.Container, new GenrateQRFragment()).commit();
+
+                            }else {
+                                Toast.makeText(activity, "You are Restricted for Generating Code", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
 
 
 
+                    }
                 }
+
+
 
             }
         });
@@ -223,6 +261,42 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+    public void walletApi() {
+        if (ApiConfig.isConnected(activity)) {
+            if (session.getInt(Constant.CODES) != 0) {
+                Map<String, String> params = new HashMap<>();
+                params.put(Constant.USER_ID, session.getData(Constant.USER_ID));
+                params.put(Constant.CODES, session.getInt(Constant.CODES) + "");
+                ApiConfig.RequestToVolley((result, response) -> {
+                    Log.d("WALLET_RES", response);
+                    if (result) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                                session.setInt(Constant.CODES, 0);
+                                session.setInt(Constant.TODAY_CODES, Integer.parseInt(jsonObject.getString(Constant.TODAY_CODES)));
+                                session.setInt(Constant.TOTAL_CODES, Integer.parseInt(jsonObject.getString(Constant.TOTAL_CODES)));
+                                session.setData(Constant.BALANCE, jsonObject.getString(Constant.BALANCE));
+                                session.setData(Constant.CODE_GENERATE, jsonObject.getString(Constant.CODE_GENERATE));
+                                session.setData(Constant.STATUS, jsonObject.getString(Constant.STATUS));
+                                setCodeValue();
+
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, activity, Constant.WALLET_URL, params, true);
+
+
+            }
+
+        }
+    }
+
     // creating RewardedVideoAd object
     private RewardedVideoAd AdMobrewardedVideoAd;
 
@@ -231,12 +305,9 @@ public class HomeFragment extends Fragment {
 
     void loadRewardedVideoAd()
     {
-        // initializing RewardedVideoAd Object
-        // RewardedVideoAd  Constructor Takes Context as its
-        // Argument
+
         AdMobrewardedVideoAd
                 = MobileAds.getRewardedVideoAdInstance(activity);
-        // Rewarded Video Ad Listener
         AdMobrewardedVideoAd.setRewardedVideoAdListener(
                 new RewardedVideoAdListener() {
                     @Override
@@ -303,12 +374,37 @@ public class HomeFragment extends Fragment {
     }
 
     private void setCodeValue() {
-        tvTodayCodes.setText((session.getInt(Constant.TODAY_CODES) + session.getInt(Constant.CODES))+ "");
-        tvTotalCodes.setText((session.getInt(Constant.TOTAL_CODES) + session.getInt(Constant.CODES))+ "");
-        double current_bal = (double) (session.getInt(Constant.CODES) * 0.17);
-        double orgval = (double) current_bal + Double.parseDouble(session.getData(Constant.BALANCE));
-        tvBalance.setText(String.format("%.2f", orgval)+"");
+        if (session.getInt(Constant.CODES) >= session.getInt(Constant.SYNC_CODES)){
+            btnsyncNow.setBackground(ContextCompat.getDrawable(activity, R.drawable.syncbg));
+            btnsyncNow.setEnabled(true);
+
+        }else {
+            btnsyncNow.setBackground(ContextCompat.getDrawable(activity, R.drawable.syncbg_disabled));
+            btnsyncNow.setEnabled(false);
+
+        }
+        tvCodes.setText(session.getInt(Constant.CODES)+"");
+        cbCodes.setProgress(session.getInt(Constant.CODES));
+        cbCodes.setMax(session.getInt(Constant.SYNC_CODES));
+        try {
+            tvTodayCodes.setText(session.getInt(Constant.TODAY_CODES) + " + " + session.getInt(Constant.CODES));
+            tvTotalCodes.setText(session.getInt(Constant.TOTAL_CODES) +  " + " + session.getInt(Constant.CODES));
+            double current_bal = (double) (session.getInt(Constant.CODES) * 0.17);
+            tvBalance.setText(session.getData(Constant.BALANCE) + " + "+String.format("%.2f", current_bal)+"");
+        }catch (Exception e){
+            int Todaycodes = Integer.parseInt(session.getData(Constant.TODAY_CODES));
+            int Totalcodes = Integer.parseInt(session.getData(Constant.TOTAL_CODES));
+            SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            SharedPreferences.Editor editor = spreferences.edit();
+            editor.remove(Constant.TODAY_CODES);
+            editor.remove(Constant.TOTAL_CODES);
+            editor.commit();
+            session.setInt(Constant.TODAY_CODES,Todaycodes);
+            session.setInt(Constant.TOTAL_CODES,Totalcodes);
+            setCodeValue();
+        }
         tvHistorydays.setText(getHistoryDays(session.getData(Constant.JOINED_DATE)));
+
     }
 
     @SuppressLint("ShowToast")

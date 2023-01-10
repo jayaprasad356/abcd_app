@@ -119,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<GenerateCodes> getMissingCodes() {
         final ArrayList<GenerateCodes> generateCodes = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CODES + " LIMIT 500", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CODES + " LIMIT 100", null);
         if (cursor.moveToFirst()) {
             do {
                 GenerateCodes generateCodes1 = new GenerateCodes(cursor.getString(cursor.getColumnIndexOrThrow(ID)),cursor.getString(cursor.getColumnIndexOrThrow(STUDENT_NAME))

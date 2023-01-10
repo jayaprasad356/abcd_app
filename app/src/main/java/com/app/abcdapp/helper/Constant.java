@@ -15,8 +15,9 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class Constant {
-    //public static final String MainBaseUrl = "https://demo.abcdapp.in/";
-    public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
+    //public static final String MainBaseUrl = "https://abcd.greymatterworks.in/";
+    public static final String MainBaseUrl = "https://demo.abcdapp.in/";
+    //public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
     //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
@@ -29,6 +30,8 @@ public class Constant {
     public static final String UPDATE_BANK_URL = BaseUrl + "updatebank.php";
     public static final String WITHDRAWAL_URL = BaseUrl + "withdrawal.php";
     public static final String WITHDRAWAL_LIST_URL = BaseUrl + "withdrawal_lists.php";
+    public static final String TRNSACTION_LIST_URL = BaseUrl + "transaction_lists.php";
+    public static final String BANK_DETAILS_URL = BaseUrl + "bank_details.php";
     public static final String NOTIFICATION_LIST_URL = BaseUrl + "notification_lists.php";
     public static final String CHANGE_DEVICE_LIST_URL = BaseUrl + "change_device.php";
     public static final String APPUPDATE_URL = BaseUrl + "appupdate.php";
@@ -60,7 +63,11 @@ public class Constant {
     public static final String WITHDRAWAL = "withdrawal";
     public static final String TOTAL_REFERRALS = "total_referrals";
     public static final String LAST_UPDATED_DATE = "last_updated_date";
+    public static final String LAST_UPDATED_SETTINGS_DATE = "last_updated_settings_date";
     public static final String LAST_UPDATED_DATE_STATUS = "last_updated_date_status";
+    public static final String LAST_UPDATED_DATE_SETTINGS = "last_updated_date_settings";
+    public static final String RISE_TICKET_STATUS = "rise_ticket_status";
+    public static final String WORK_ACTIVITY = "work_activity";
     public static final String LAST_UPDATED_DATE_AD = "last_updated_date";
     public static final String LAST_UPDATED_DATE_STATUS_AD = "last_updated_date_status";
     public static final String RUN_API = "run_api";
@@ -72,6 +79,7 @@ public class Constant {
     public static final String REFER_CODE = "refer_code";
     public static final String TODAY_CODES = "today_codes";
     public static final String TOTAL_CODES = "total_codes";
+    public static final String SYNC_CODES = "sync_codes";
 
     public static final String SUCCESS = "success";
     public static final String MESSAGE = "message";

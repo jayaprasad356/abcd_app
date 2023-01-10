@@ -111,7 +111,7 @@ public class WithdrawalActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(SUCCESS)) {
                         Toast.makeText(this, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
-                        session.setData(Constant.ACCOUNT_NUM,jsonObject.getString(Constant.BALANCE));
+                        session.setData(Constant.BALANCE,jsonObject.getString(Constant.BALANCE));
                         startActivity(new Intent(activity, MainActivity.class));
                         finish();
                     }else {

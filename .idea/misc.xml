@@ -7,14 +7,19 @@
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1135" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ad_btn.xml" value="0.1225" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/bg.xml" value="0.1" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/bg_left.xml" value="0.1225" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/box.xml" value="0.1225" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/custom_progress_dialog.xml" value="0.1135" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_error.xml" value="0.139" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_hide.xml" value="0.139" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1135" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/ic_pass.xml" value="0.139" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/syncbg.xml" value="0.1225" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/drawable/syncbg_disabled.xml" value="0.1225" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_chat.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_check_in.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_cities.xml" value="0.144017094017094" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_find_missing.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_genrate_qractivity.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_import_data.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
@@ -25,12 +30,17 @@
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_splash.xml" value="0.1421940928270042" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_update_bank.xml" value="0.22" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_update_profile.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_wallet.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/activity_withdrawal.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/ad_code_layout.xml" value="0.14316239316239315" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/cities_dialog_layout.xml" value="0.144017094017094" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/cities_list_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/customdia.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/customdia2.xml" value="0.4466666666666667" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/dailog_layout.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/dialog_no_internet.xml" value="0.22" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_find_missing.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_genrate_q_r.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
@@ -42,6 +52,8 @@
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/include_attachment_view.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/list_tickets.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/notification_item.xml" value="0.3333333333333333" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/pincode_dialog_layout.xml" value="0.144017094017094" />
+        <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/pincode_list_layout.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/redeem_list_layout.xml" value="0.22" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/risetoken_bottom_sheet_lyt.xml" value="0.144017094017094" />
         <entry key="..\:/Studio Projects/ABCD App/app/src/main/res/layout/wallet_dialog.xml" value="0.22" />

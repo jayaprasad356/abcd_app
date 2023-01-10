@@ -45,6 +45,7 @@ import static com.app.abcdapp.chat.constants.IConstants.REF_OTHERS;
 import static com.app.abcdapp.chat.constants.IConstants.REF_TOKENS;
 import static com.app.abcdapp.chat.constants.IConstants.REF_USERS;
 import static com.app.abcdapp.chat.constants.IConstants.REF_VIDEO_THUMBS;
+import static com.app.abcdapp.chat.constants.IConstants.REPLY;
 import static com.app.abcdapp.chat.constants.IConstants.REQUEST_CODE_CONTACT;
 import static com.app.abcdapp.chat.constants.IConstants.REQUEST_CODE_PLAY_SERVICES;
 import static com.app.abcdapp.chat.constants.IConstants.REQUEST_PERMISSION_RECORD;
@@ -237,7 +238,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
     private RelativeLayout rlChatView;
 
-    private String vCardData, displayName, phoneNumber,Name;
+    private String vCardData, displayName, phoneNumber,Name,TicketType;
     private File fileUri = null;
     private Uri imgUri;
     private TextView txtUsername;
@@ -261,6 +262,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         userId = "admin_1";
         ticketId = intent.getStringExtra(TICKET_ID);
         category = intent.getStringExtra(CATEGORY);
+        TicketType = intent.getStringExtra(TYPE);
         type = intent.getStringExtra(TYPE);
         description = intent.getStringExtra(DESCRIPTION);
         currentId = ticketId;
@@ -824,6 +826,16 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         hashMap.put(IConstants.ID, key);
         reference.child(REF_CHATS).child(strSender).child(key).setValue(hashMap);
         reference.child(REF_CHATS).child(strReceiver).child(key).setValue(hashMap);
+
+
+
+        if (TicketType.equals(OPENED_TICKET)){
+            HashMap<String, Object> hashMap2 = new HashMap<>();
+            hashMap2.put(REPLY, "true");
+            reference.child(OPENED_TICKET).child(ticketId).updateChildren(hashMap2);
+
+        }
+
         Utils.chatSendSound(getApplicationContext());
 
         try {
